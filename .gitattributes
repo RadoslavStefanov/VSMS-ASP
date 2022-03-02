@@ -3,6 +3,7 @@
 ###############################################################################
 * text=auto
 jquery.js linguist-vendored=false
+Linguist::FileBlob.new("VSMS-ASP/wwwroot/").vendored? => true
 
 ###############################################################################
 # Set default behavior for command prompt diff.
