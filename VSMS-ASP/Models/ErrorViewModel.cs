@@ -1,9 +1,14 @@
 namespace VSMS_ASP.Models
 {
-    public class ErrorViewModel
-    {
-        public string? RequestId { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+        public class ErrorViewModel
+        {
+            public string ErrorMessage { get; init; }
+
+            public ErrorViewModel(string message)
+            {
+                ErrorMessage = message;
+            }
+
+        }
 }
