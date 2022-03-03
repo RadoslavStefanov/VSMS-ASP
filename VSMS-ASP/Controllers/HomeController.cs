@@ -13,9 +13,15 @@ namespace VSMS_ASP.Controllers
             _logger = logger;
         }
 
+
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            { return View(); }
+            else
+            {
+                return Redirect("/Users/Login");
+            }
         }
 
         public IActionResult Privacy()
