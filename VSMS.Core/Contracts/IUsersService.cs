@@ -5,8 +5,8 @@ namespace VSMS.Core.Contracts
     public interface IUsersService
     {
         //bool CreateUser(RegisterViewModel model);
-        string Login(LoginViewModel model);
+        (string error, bool isLogged) LogIn(LoginViewModel model);
         string GetUsername(string userId);
-        (string userId, bool isCorrect) IsLoginCorrect(LoginViewModel model);
+        (string tempData, bool isCorrect) IsLoginCorrect(LoginViewModel model);
     }
 }

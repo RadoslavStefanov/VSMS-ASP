@@ -15,12 +15,14 @@ namespace VSMS.Core.Services
             throw new NotImplementedException();
         }
 
-        public (string userId, bool isCorrect) IsLoginCorrect(LoginViewModel model)
+        public (string tempData, bool isCorrect) IsLoginCorrect(LoginViewModel model)
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrEmpty(model.Password) || String.IsNullOrEmpty(model.UserName))
+            { return ("Името или паролата не съвпадат с базата!", false); }
+            else { return (null, true); }
         }
 
-        public string Login(LoginViewModel model)
+        public (string error, bool isLogged) LogIn(LoginViewModel model)
         {
             throw new NotImplementedException();
         }
