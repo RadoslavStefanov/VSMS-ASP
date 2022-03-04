@@ -7,6 +7,15 @@
     font-family: Raleway, sans-serif;
 }
 
+img 
+{
+    transform: rotate(-45deg);
+    margin-top: 45;
+    margin-left: 30%;
+    max-height: 30%;
+    max-width: 30%;
+}
+
 body {
     background: linear-gradient(90deg, #f2493d, #fadedc);
 }
