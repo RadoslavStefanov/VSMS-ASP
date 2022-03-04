@@ -20,7 +20,7 @@ namespace VSMS_ASP.Controllers
             (string tempData, bool isCorrect) = usersService.IsLoginCorrect(model);
             if (isCorrect)
             { 
-                usersService.Login(model); 
+                //usersService.Login(model); 
             }
             else
             {
