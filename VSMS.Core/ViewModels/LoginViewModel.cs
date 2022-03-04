@@ -1,4 +1,4 @@
-﻿namespace VSMS_ASP.Models
+﻿namespace VSMS.Core.ViewModels
 {
 	public class LoginViewModel
 	{

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VSMS_ASP.Models;
+using VSMS.Core.ViewModels;
 
 namespace VSMS_ASP.Controllers
 {
