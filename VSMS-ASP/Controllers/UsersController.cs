@@ -13,9 +13,12 @@ namespace VSMS_ASP.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
+            var name = model.UserName;
+            var pass = model.Password;
             if (String.IsNullOrEmpty(model.UserName))
             {
-                return View(new List<ErrorViewModel>() { new ErrorViewModel("Login incorrect") }, "/Users/Error");
+                TempData["msg"] = " Email or Password is wrong !";
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
