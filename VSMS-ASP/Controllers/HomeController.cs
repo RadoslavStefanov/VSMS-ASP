@@ -7,9 +7,7 @@ namespace VSMS_ASP.Controllers
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        {_logger = logger;}
 
 
         public IActionResult Index()
@@ -17,15 +15,11 @@ namespace VSMS_ASP.Controllers
             if (User.Identity.IsAuthenticated)
             { return View(); }
             else
-            {
-                return Redirect("/Users/Login");
-            }
+            {return Redirect("/Users/Login");}
         }
 
         public IActionResult Privacy()
-        {
-            return View();
-        }
+        {return View();}
 
     }
 }

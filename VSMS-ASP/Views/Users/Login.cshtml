@@ -42,7 +42,7 @@
         if (TempData["msg"] != null)
         {
             <script type="text/javascript">
-                toastr.error("", "Името или паролата е грешна!");
+                toastr.error("@TempData["msg"]");
                 window.location = '#2249506';
             </script>
         }

@@ -1,23 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VSMS.Core.Services;
 using VSMS.Core.ViewModels;
 
 namespace VSMS_ASP.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly UsersService usersService;
+        public UsersController(UsersService _usersService)
+        { usersService = _usersService; }
+
+
         public IActionResult Login()
-        {
-            return View();
-        }
+        { return View(); }
 
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            var name = model.UserName;
-            var pass = model.Password;
-            if (String.IsNullOrEmpty(model.UserName))
+            (string tempData, bool isCorrect) = usersService.IsLoginCorrect(model);
+            if (isCorrect)
+            { 
+                usersService.Login(model); 
+            }
+            else
             {
-                TempData["msg"] = " Email or Password is wrong !";
+                TempData["msg"] = tempData;
                 return RedirectToAction("Index", "Home");
             }
             return View();
