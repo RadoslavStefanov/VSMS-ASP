@@ -20,7 +20,8 @@ namespace VSMS_ASP.Controllers
             (string tempData, bool isCorrect) = usersService.IsLoginCorrect(model);
             if (isCorrect)
             { 
-                //usersService.Login(model); 
+                usersService.LogIn(model);
+                int power = usersService.getRolePower(model.UserName);
             }
             else
             {
