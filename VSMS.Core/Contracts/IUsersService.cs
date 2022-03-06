@@ -7,7 +7,7 @@ namespace VSMS.Core.Contracts
         //bool CreateUser(RegisterViewModel model);
         string LogIn(LoginViewModel model);
         string GetUsername(string userId);
-        (string tempData, bool isCorrect) IsLoginCorrect(LoginViewModel model);
+        (string? tempData, bool isCorrect) IsLoginCorrect(LoginViewModel model);
         int getRolePower(string Username);
     }
 }

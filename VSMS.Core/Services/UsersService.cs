@@ -16,14 +16,11 @@ namespace VSMS.Core.Services
     {
 
         private readonly Repository repo;
-
         public UsersService(Repository _repo)
         { repo = _repo; }
 
         public string GetUsername(string userId)
-        {
-            throw new NotImplementedException();
-        }
+        {throw new NotImplementedException();}
 
         public int getRolePower(string Username)
         {
@@ -35,16 +32,19 @@ namespace VSMS.Core.Services
            return power;
         }
 
-        public (string tempData, bool isCorrect) IsLoginCorrect(LoginViewModel model)
+        public (string? tempData, bool isCorrect) IsLoginCorrect(LoginViewModel model)
         {
-            if (String.IsNullOrEmpty(model.Password) || String.IsNullOrEmpty(model.UserName))
-            { return ("Името и паролата не трябва да са празни или по-малки от 6 символа!", false); }
+            if (String.IsNullOrEmpty(model.Password) 
+                || String.IsNullOrEmpty(model.UserName) 
+                || model.Password.Length<5 
+                || model.UserName.Length < 5)
+            { return ("Името и паролата не трябва да са празни или по-малки от 5 символа!", false); }
             else { return (null, true); }
         }
 
-        public string? LogIn(LoginViewModel model)
+        public string LogIn(LoginViewModel model)
         {
-            string passHash = CalculateHash(model.Password);
+            string gid = Guid.NewGuid().ToString();
 
             var user = repo.All<Users>()
                  .Where(u => u.Username == model.UserName)
