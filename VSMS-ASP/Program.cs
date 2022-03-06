@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using VSMS_ASP.Data;
 using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data;
@@ -33,7 +32,15 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404)
+    {
+        context.Request.Path = "/Error/Error404";
+        await next();
+    }
+});
 app.UseRouting();
 
 app.UseAuthentication();
@@ -43,5 +50,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-
 app.Run();
