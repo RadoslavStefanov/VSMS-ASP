@@ -7,6 +7,7 @@
     <UserSecretsId>aspnet-VSMS_ASP-600037C7-0C2D-4908-AE79-616A060D5C41</UserSecretsId>
     <RootNamespace>VSMS_ASP</RootNamespace>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	 <NoWarn>8618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

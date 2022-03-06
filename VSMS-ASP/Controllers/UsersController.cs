@@ -20,14 +20,23 @@ namespace VSMS_ASP.Controllers
             (string tempData, bool isCorrect) = usersService.IsLoginCorrect(model);
             if (isCorrect)
             { 
-                usersService.LogIn(model);
-                int power = usersService.getRolePower(model.UserName);
+                var isLoggedIn = usersService.LogIn(model);
+                if (isLoggedIn!=null)
+                {
+                    //Go to mainPage
+                }
+                else
+                {
+                    TempData["msg"] = "Потребителят или паролата не съвпадат с базата!";
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
                 TempData["msg"] = tempData;
                 return RedirectToAction("Index", "Home");
             }
+            //This will need to be delete later!
             return View();
         }
     }

@@ -38,11 +38,11 @@ namespace VSMS.Core.Services
         public (string tempData, bool isCorrect) IsLoginCorrect(LoginViewModel model)
         {
             if (String.IsNullOrEmpty(model.Password) || String.IsNullOrEmpty(model.UserName))
-            { return ("Името или паролата не съвпадат с базата!", false); }
+            { return ("Името и паролата не трябва да са празни или по-малки от 6 символа!", false); }
             else { return (null, true); }
         }
 
-        public string LogIn(LoginViewModel model)
+        public string? LogIn(LoginViewModel model)
         {
             string passHash = CalculateHash(model.Password);
 
