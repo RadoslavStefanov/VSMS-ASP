@@ -2,7 +2,6 @@
 @model LoginModel
 @{ViewData["Title"] = "Log in";}
 
-
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="~/lib/toast/content/toastr.css" rel="stylesheet" />
@@ -27,8 +26,9 @@
 					<button id="login-submit" type="submit" class="button login__submit">
 						<span class="button__text">Вход</span>
 						<i class="button__icon fa fa-chevron-right"></i>
-					</button>				
+					</button>									
 				</form>
+				<a id="forgot" href="/Help/ForgottenLogin">Забравен логин</a>
 				<div class="social-login">
 					<h3>VSMS</h3>
 			<h4>RS Solutions</h4>

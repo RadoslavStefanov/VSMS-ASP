@@ -8,9 +8,17 @@ html {
   }
 }
 
+#navbar_logo {
+    margin:0;
+    padding:0;
+    height:40px;
+    width:65px;
+}
+
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {

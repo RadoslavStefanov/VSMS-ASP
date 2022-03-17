@@ -7,6 +7,15 @@
     font-family: Raleway, sans-serif;
 }
 
+#forgot 
+{
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10%;
+    color: #c4180c;
+    cursor: pointer;
+}
+
 img 
 {
     transform: rotate(-45deg);
@@ -101,8 +110,10 @@ html, body {
 
 .login {
     width: 320px;
-    padding: 30px;
     padding-top: 156px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 5px;
 }
 
 .login__field {
