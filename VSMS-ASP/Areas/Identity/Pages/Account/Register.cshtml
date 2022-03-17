@@ -1,66 +1,62 @@
 ﻿@page
 @model RegisterModel
-@{
-    ViewData["Title"] = "Register";
-}
+@{ViewData["Title"] = "Register";}
 
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="~/lib/toast/content/toastr.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/passResetPageStyle.css" asp-append-version="true" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/toast/scripts/toastr.js"></script>
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.Password"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.ConfirmPassword"></label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
-</div>
+
+	<div class="container">
+		<div class="screen">			
+			<div class="screen__content">
+				<form  id="registerForm" style = "padding-top: 100px" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="login">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="login__field">
+						<i class="login__icon fa fa-user"></i>
+						<input asp-for="Input.Email" class="login__input" placeholder="Имейл:" autocomplete="username" aria-required="true" />
+						<span asp-validation-for="Input.Email" class="text-danger"></span>
+					</div>
+					<div class="login__field">
+						<i class="login__icon fa fa-lock"></i>
+						<input asp-for="Input.Password" class="login__input" autocomplete="new-password" aria-required="true" placeholder="Парола" />
+						<span asp-validation-for="Input.Password" class="text-danger"></span>
+					</div>
+					<div style="padding-bottom:0"class="login__field">
+						<i class="login__icon fa fa-lock"></i>
+						<input asp-for="Input.ConfirmPassword" class="login__input" autocomplete="new-password" aria-required="true" placeholder="Повтори Паролата" />
+						<span asp-validation-for="Input.Password" class="text-danger"></span>
+					</div>
+					<button style="margin-top:28px" id="registerSubmit" type="submit" class="button login__submit">
+						<span class="button__text">Създай</span>
+						<i class="button__icon fa fa-chevron-right"></i>
+					</button>									
+				</form>
+				<div class="social-login">
+					<h3>VSMS</h3>
+			<h4>RS Solutions</h4>
+				</div>
+			</div>
+			<div class="screen__background">
+				<span class="screen__background__shape screen__background__shape4"></span>
+				<span class="screen__background__shape screen__background__shape3"></span>		
+				<span class="screen__background__shape screen__background__shape2"></span>
+				<span class="screen__background__shape screen__background__shape1"><a id="reg_back" href="/Users/AdminView" class="next">&laquo; Назад</a></span>
+			</div>					
+		</div>		
+	</div>
+	@{
+        if (TempData["msg"] != null)
+        {
+            <script type="text/javascript">
+                toastr.error("@TempData["msg"]");
+                window.location = '#2249506';
+            </script>
+        }
+	}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

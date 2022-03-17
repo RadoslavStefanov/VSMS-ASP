@@ -16,10 +16,19 @@
     cursor: pointer;
 }
 
-img 
+img
 {
     transform: rotate(-45deg);
-    margin-top: 45;
+    margin-top: 45px;
+    margin-left: 30%;
+    max-height: 30%;
+    max-width: 30%;
+}
+
+#reg_back 
+{
+    transform: rotate(-45deg);
+    margin-top: 60px;
     margin-left: 30%;
     max-height: 30%;
     max-width: 30%;
