@@ -15,7 +15,7 @@ namespace VSMS_ASP.Controllers
             if (User.Identity.IsAuthenticated)
             { return View(); }
             else
-            {return Redirect("/Users/Login");}
+            {return Redirect("/Identity/Account/Login");}
         }
 
         public IActionResult Privacy()

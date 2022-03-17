@@ -3,13 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data;
+using VSMS_ASP.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("Server=.;Database=VSMS;Trusted_Connection=True;Integrated Security=True;");
-builder.Services.AddDbContext<VSMSDbContext>(options =>
-    options.UseSqlServer("Server=.;Database=VSMS;Trusted_Connection=True;Integrated Security=True;"));
+var connection = "Server =.; Database = VSMS; Trusted_Connection = True; Integrated Security = True; ";
+var connectionString = builder.Configuration.GetConnectionString(connection);
+builder.Services.AddDbContext<VSMS_ASPContext>(options =>
+    options.UseSqlServer(connection));builder.Services.AddDbContext<VSMSDbContext>(options =>
+    options.UseSqlServer(connection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
