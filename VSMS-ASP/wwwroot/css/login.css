@@ -38,6 +38,7 @@ html, body {
     height: 600px;
     width: 360px;
     box-shadow: 0px 0px 24px #c4180c;
+    border-radius: 5%;
 }
 
 .screen__content {
