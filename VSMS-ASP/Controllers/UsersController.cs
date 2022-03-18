@@ -39,5 +39,10 @@ namespace VSMS_ASP.Controllers
             //This will need to be delete later!
             return View();
         }
+
+        public IActionResult AdminPanel()
+        {
+            return View();
+        }
     }
 }
