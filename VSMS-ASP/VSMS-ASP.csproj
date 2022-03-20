@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\Virtus\" />
     <Folder Include="wwwroot\lib\aboutUsPageStyles\" />
   </ItemGroup>
 
