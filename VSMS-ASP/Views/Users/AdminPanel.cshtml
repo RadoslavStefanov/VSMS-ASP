@@ -3,10 +3,59 @@
 }
 
 <link rel="stylesheet" href="~/css/styles.css" />
+<link rel="stylesheet" href="~/lib/fa~/lib/fa/fontawesome.min.css" />
 
 <div class="sidenav">
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
+  <button id = "dropdownBTN" class="dropdown-btn">Потребители</button>
+  <div class="dropdown-container">
+    <a class="ddItem" href="#">Списък</a>
+    <a class="ddItem" href="#">Изтриване</a>
+    <a class="ddItem" href="/Identity/Account/Register">Създаване</a>
+  </div>
+  <button id = "dropdownBTN2" class="dropdown-btn">Продукти</button>
+  <div class="dropdown-container">
+    <a class="ddItem" href="#">Списък</a>
+    <a class="ddItem" href="#">Изтриване</a>
+    <a class="ddItem" href="#">Създаване</a>
+  </div>
+  <a href="/Products/List">Продукти</a>
+  <a href="/Reports">Отчети</a>
+  <a href="/Mail">Отзиви</a>
 </div>
+
+<div id = "workDesk">
+    <img src = "~/img/VSMSLG.png"/>  
+</div>
+
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i; var j;
+    var dropdownBTN = document.getElementById("dropdownBTN");
+    var dropdownBTN2 = document.getElementById("dropdownBTN2");
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() 
+  {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") 
+    {
+      dropdownContent.style.display = "none";
+    } else 
+    {
+      dropdownContent.style.display = "block";
+    }
+    if(this.classList.contains("active"))
+    {
+        dropdownBTN.style.marginBottom = "0px";
+        dropdownBTN2.style.marginBottom = "0px";dropdownBTN2.style.marginTop = "30px";
+        dditems = document.getElementsByClassName("ddItem");
+        for (i = 0; i < dditems.length; i++) 
+        {dditems[i].style.marginBottom = "0px";}
+    }
+    else
+    {dropdownBTN.style.marginBottom = "30px";
+    dropdownBTN2.style.marginBottom = "30px";}
+  });
+}
+</script>

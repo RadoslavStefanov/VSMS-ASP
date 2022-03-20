@@ -27,11 +27,6 @@ img
 
 #reg_back 
 {
-    transform: rotate(-45deg);
-    margin-top: 60px;
-    margin-left: 30%;
-    max-height: 30%;
-    max-width: 30%;
 }
 
 body {
