@@ -4,13 +4,10 @@
 
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="~/lib/toast/content/toastr.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/passResetPageStyle.css" asp-append-version="true" />
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/toast/scripts/toastr.js"></script>
-
-
 	<div class="container">
+		<a id="reg_back" href="/Users/AdminPanel" class="next">&laquo; Назад</a>
 		<div class="screen">			
 			<div class="screen__content">
 				<form  id="registerForm" style = "padding-top: 100px" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="login">
@@ -44,7 +41,7 @@
 				<span class="screen__background__shape screen__background__shape4"></span>
 				<span class="screen__background__shape screen__background__shape3"></span>		
 				<span class="screen__background__shape screen__background__shape2"></span>
-				<span class="screen__background__shape screen__background__shape1"><a id="reg_back" href="/Users/AdminView" class="next">&laquo; Назад</a></span>
+				<span class="screen__background__shape screen__background__shape1"></span>
 			</div>					
 		</div>		
 	</div>
