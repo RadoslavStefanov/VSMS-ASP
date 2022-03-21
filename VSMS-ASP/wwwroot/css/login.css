@@ -19,8 +19,8 @@
 img
 {
     transform: rotate(-45deg);
-    margin-top: 45px;
-    margin-left: 30%;
+    margin-top: 40px;
+    margin-left: 32%;
     max-height: 30%;
     max-width: 30%;
 }
@@ -110,6 +110,12 @@ html, body {
     top: 420px;
     right: 50px;
     border-radius: 60px;
+}
+
+.text-danger 
+{
+    font-size: 0.8rem;
+    display: block;
 }
 
 .login {
