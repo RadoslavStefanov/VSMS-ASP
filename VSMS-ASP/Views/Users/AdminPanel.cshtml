@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<AllUsersListViewModel>
+
+@{
 	Layout="_Layout";
 }
+
 
 <link rel="stylesheet" href="~/css/styles.css" />
 <link rel="stylesheet" href="~/lib/fa~/lib/fa/fontawesome.min.css" />
@@ -26,8 +29,24 @@
 <div id = "workDesk">
     @if (@ViewData["Argument"] == null)
     {<partial name="_MainImagePartial" />}
-    else
-    {<partial name="_UsersListPartial" />}
+    else if(Model != null)
+    {        
+        <table>
+          <tr>
+            <th>Потребител</th>
+            <th>Имейл</th>
+            <th>Дата на регистрация</th>
+          </tr>
+          @foreach(var user in Model)
+            {
+             <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+             </tr>
+            }
+        </table>
+    }
 </div>
 
 <script>

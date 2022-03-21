@@ -27,7 +27,6 @@
                 .HasKey(t => new { t.SaleId, t.ProductId });
         }
 
-        public DbSet<Users> Users { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Products> Products { get; set; }
