@@ -8,13 +8,13 @@
 <div class="sidenav">
   <button id = "dropdownBTN" class="dropdown-btn">Потребители</button>
   <div class="dropdown-container">
-    <a class="ddItem" href="#">Списък</a>
-    <a class="ddItem" href="#">Изтриване</a>
+    <a class="ddItem" href="/Users/ListUsers">Списък</a>
+    <a class="ddItem" href="/Users/Delete">Изтриване</a>
     <a class="ddItem" href="/Identity/Account/Register">Създаване</a>
   </div>
   <button id = "dropdownBTN2" class="dropdown-btn">Продукти</button>
   <div class="dropdown-container">
-    <a class="ddItem" href="#">Списък</a>
+    <a class="ddItem" href="ListProducts">Списък</a>
     <a class="ddItem" href="#">Изтриване</a>
     <a class="ddItem" href="#">Създаване</a>
   </div>
@@ -24,7 +24,10 @@
 </div>
 
 <div id = "workDesk">
-    <img src = "~/img/VSMSLG.png"/>  
+    @if (@ViewData["Argument"] == null)
+    {<partial name="_MainImagePartial" />}
+    else
+    {<partial name="_UsersListPartial" />}
 </div>
 
 <script>

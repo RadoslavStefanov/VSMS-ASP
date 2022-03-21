@@ -1,48 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VSMS.Core.Services;
 using VSMS.Core.ViewModels;
+using VSMS.Infrastructure.Data.Common;
+using VSMS.Infrastructure.Data.Models;
 
 namespace VSMS_ASP.Controllers
 {
     public class UsersController : Controller
     {
         private readonly UsersService usersService;
-        public UsersController(UsersService _usersService)
-        { usersService = _usersService; }
+        private readonly Repository repo;
+        public UsersController(UsersService _usersService,Repository _repo)
+        { usersService = _usersService; repo = _repo; }
 
-
-        public IActionResult Login()
-        { return View(); }
-
-        [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> AdminPanel(AdminPanelViewModel model)
         {
-            (string tempData, bool isCorrect) = usersService.IsLoginCorrect(model);
-            if (isCorrect)
-            { 
-                var isLoggedIn = usersService.LogIn(model);
-                if (isLoggedIn!=null)
-                {
-                    //Go to mainPage
-                }
-                else
-                {
-                    TempData["msg"] = "Потребителят или паролата не съвпадат с базата!";
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            else
+            ViewData["Argument"] = model.arg;
+            if (model.arg == "ListUsers")
             {
-                TempData["msg"] = tempData;
-                return RedirectToAction("Index", "Home");
+               var allUsers = repo.All<Users>().ToList();
             }
-            //This will need to be delete later!
-            return View();
+            return View(ViewData);
         }
 
-        public IActionResult AdminPanel()
+        public void ListUsers()
         {
-            return View();
+           Response.Redirect("/Users/AdminPanel?arg=ListUsers");
         }
     }
 }
