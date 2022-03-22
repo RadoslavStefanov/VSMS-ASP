@@ -27,7 +27,24 @@
     margin-bottom: 40px;
 }
 
+table 
+{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th 
+{
+    border: 1px solid #d4f3ff;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) 
+{
+    background-color: #d4f3ff;
+}
 
 .sidenav a, .dropdown-btn {
     padding: 6px 8px 6px 16px;

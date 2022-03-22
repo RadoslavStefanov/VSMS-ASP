@@ -6,19 +6,17 @@
 
 
 <link rel="stylesheet" href="~/css/styles.css" />
-<link rel="stylesheet" href="~/lib/fa~/lib/fa/fontawesome.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="sidenav">
   <button id = "dropdownBTN" class="dropdown-btn">Потребители</button>
   <div class="dropdown-container">
     <a class="ddItem" href="/Users/ListUsers">Списък</a>
-    <a class="ddItem" href="/Users/Delete">Изтриване</a>
     <a class="ddItem" href="/Identity/Account/Register">Създаване</a>
   </div>
   <button id = "dropdownBTN2" class="dropdown-btn">Продукти</button>
   <div class="dropdown-container">
     <a class="ddItem" href="ListProducts">Списък</a>
-    <a class="ddItem" href="#">Изтриване</a>
     <a class="ddItem" href="#">Създаване</a>
   </div>
   <a href="/Products/List">Продукти</a>
@@ -27,26 +25,10 @@
 </div>
 
 <div id = "workDesk">
-    @if (@ViewData["Argument"] == null)
+    @if (Model.FirstOrDefault() == null)
     {<partial name="_MainImagePartial" />}
-    else if(Model != null)
-    {        
-        <table>
-          <tr>
-            <th>Потребител</th>
-            <th>Имейл</th>
-            <th>Дата на регистрация</th>
-          </tr>
-          @foreach(var user in Model)
-            {
-             <tr>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>@user.Role</td>
-             </tr>
-            }
-        </table>
-    }
+    else
+    {<partial name="_UsersListPartial" model=Model />}
 </div>
 
 <script>

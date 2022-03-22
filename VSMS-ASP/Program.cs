@@ -15,7 +15,7 @@ builder.Services.AddDbContext<VSMS_ASPContext>(options =>
     options.UseSqlServer(connection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<VSMSDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<UsersService>();

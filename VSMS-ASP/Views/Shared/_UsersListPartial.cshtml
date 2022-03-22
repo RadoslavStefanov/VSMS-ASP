@@ -1,55 +1,73 @@
-﻿<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+﻿@model IEnumerable<AllUsersListViewModel>
+@{string email = "";}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/css/UserListTableStyle.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-td, th {
-  border: 1px solid #d4f3ff;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #d4f3ff;
-}
-</style>
 
 <table>
   <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
+    <th>Потребител</th>
+    <th>Имейл</th>
+    <th>Права</th>
+    <th>Управление</th>
   </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
-  </tr>
-  <tr>
-    <td>Ernst Handel</td>
-    <td>Roland Mendel</td>
-    <td>Austria</td>
-  </tr>
-  <tr>
-    <td>Island Trading</td>
-    <td>Helen Bennett</td>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <td>Laughing Bacchus Winecellars</td>
-    <td>Yoshi Tannamuri</td>
-    <td>Canada</td>
-  </tr>
-  <tr>
-    <td>Magazzini Alimentari Riuniti</td>
-    <td>Giovanni Rovelli</td>
-    <td>Italy</td>
-  </tr>
+  @foreach(var user in Model)
+  {
+      <tr>
+         <td>@user.UserName</td>
+         <td>@user.Email</td>
+         <td>@user.Role</td>
+         <td>
+            <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
+			<i class="fa fa-trash" aria-hidden="true"></i>
+			</a>
+			<a href="#myModal" class="trigger-btn" data-toggle="modal">
+			<i class="fa fa-pencil" aria-hidden="true"></i>
+			</a>
+         </td>
+      </tr>
+  }
+
+  <!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header flex-column">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
+				</div>						
+				<h4 class="modal-title w-100">Сигурни ли сте?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Наистина ли искате да изтриете този потребител? Този процес не е обратим!</p>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+				<button type="button" class="btn btn-danger"><a id="delete" href="#">Изтрий</a></button>
+			</div>
+		</div>
+	</div>
+</div>  
 </table>
+
+<script>
+	let delIcons = document.getElementsByClassName("delete-btn");
+	for(let i = 0;i<delIcons.length;i++)
+	{delIcons[i].addEventListener('click',addHref)}
+
+	function addHref(e)
+	{
+		let modalDelBTN = document.getElementById("delete");
+		console.log(modalDelBTN);
+		let userMail = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
+		console.log(userMail);
+		modalDelBTN.setAttribute("href", "/Users/Delete/?arg="+userMail);
+	}
+</script>

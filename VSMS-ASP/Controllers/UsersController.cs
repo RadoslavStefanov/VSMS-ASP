@@ -21,11 +21,10 @@ namespace VSMS_ASP.Controllers
 
         public async Task<IActionResult> AdminPanel(AdminPanelViewModel model)
         {
-            ViewData["Argument"] = model.arg;
+            List<AllUsersListViewModel> users = new List<AllUsersListViewModel>();
             if (model.arg == "ListUsers")
             {
-                //var users = context.Users.ToList();
-                var users = context.Users.Select(x => new AllUsersListViewModel
+                users = context.Users.Select(x => new AllUsersListViewModel
                 {
                     UserName = x.UserName,
                     Email = x.Email,
@@ -33,12 +32,21 @@ namespace VSMS_ASP.Controllers
                 }).ToList();
                 View(users);
             }
-            return View(ViewData);
+            return View(users);
         }
 
         public void ListUsers()
         {
            Response.Redirect("/Users/AdminPanel?arg=ListUsers");
+        }
+
+        public void Delete(string arg)
+        {
+            var user = context.Users.Where(x => x.Email == arg).First();
+            context.Users.Remove(user);
+            context.SaveChanges();
+            //service delete user (userMail)
+            Response.Redirect("/Users/AdminPanel?arg=ListUsers");
         }
     }
 }
