@@ -1,0 +1,39 @@
+﻿<link rel="stylesheet" href="~/css/EditUserStyle.css">
+
+<form method="post">
+    <div class="rendered-form">
+        <div class="">
+            <h1 access="false" >Редактиране на потребител:     @ViewData["UserMail"]</h1>
+        </div>
+            <br></br>
+        <div>
+            <label class="formbuilder-text-label">Стара Ел.Поща:</label>
+            <input type="email" name="OldEmail" class="form-control" value="@ViewData["UserMail"]">
+        </div>
+        <div>
+            <label class="formbuilder-text-label">Ел.Поща:</label>
+            <input type="email" name="EmailChange" placeholder="пр: niki@virtus.bg" class="form-control" access="false" maxlength="250">
+        </div>
+        <div class="formbuilder-select form-group">
+            <label for="select-1648058289291" class="formbuilder-select-label">Длъжност</label>
+            <select class="form-control" name="RoleChange">
+                <option value="Admin" selected="true" id="Admin">Админ</option>
+                <option value="Employee" id="Employee">Служител</option>
+                <option value="Guest" id="Guest">Гост</option>
+                <option value="Restricted" id="Restricted">Ограничен</option>
+            </select>
+        </div>
+        <div class="">
+            <label class="formbuilder-text-label">Смяна на парола:</label>
+            <input type="text" name="PasswordChange" placeholder="abc-A123" class="form-control" access="false" maxlength="25">
+        </div>
+        <div class="flex">
+            <div class="formbuilder-button form-group">
+                <button type="button"  class="btn btn-secondary" access="false"><a href="/AdminPanel/Show?arg=ListUsers">Отказ</a></button>
+            </div>
+            <div class="formbuilder-button form-group">
+                <button type="submit" class="btn btn-danger" access="false" style="danger">Запази</button>
+            </div>
+        </div>
+    </div>
+</form>

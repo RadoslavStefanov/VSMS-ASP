@@ -11,6 +11,7 @@ namespace VSMS_ASP.Controllers
         { context = _context; }
         public async Task<IActionResult> Show(AdminPanelViewModel model)
         {
+
             List<AllUsersListViewModel> users = new List<AllUsersListViewModel>();
             if (model.arg == "ListUsers")
             {
@@ -18,11 +19,19 @@ namespace VSMS_ASP.Controllers
                 {
                     UserName = x.UserName,
                     Email = x.Email,
-                    Role = "Not assigned!"
+                    Role = 
+                    context.Roles
+                    .Where(y => y.Id == context.UserRoles
+                    .Where(i => i.UserId == x.Id)
+                    .FirstOrDefault().RoleId)
+                    .FirstOrDefault().Name ?? "Not Configured/Limited"
                 }).ToList();
                 View(users);
             }
             return View(users);
         }
+
+        
+
     }
 }

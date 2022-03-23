@@ -27,7 +27,7 @@
             <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
 			<i class="fa fa-trash" aria-hidden="true"></i>
 			</a>
-			<a href="#myModal" class="trigger-btn" data-toggle="modal">
+			<a class="edit-btn" href="#">
 			<i class="fa fa-pencil" aria-hidden="true"></i>
 			</a>
          </td>
@@ -62,12 +62,21 @@
 	for(let i = 0;i<delIcons.length;i++)
 	{delIcons[i].addEventListener('click',addHref)}
 
+	let editIcons = document.getElementsByClassName("edit-btn");
+	for(let i = 0;i<editIcons.length;i++)
+	{editIcons[i].addEventListener('click',addEditRef)}
+
+	function addEditRef(e)
+	{
+		let modalDelBTN = document.getElementById("delete");
+		let userMail = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
+		window.location.replace("/Users/Edit/?arg="+userMail);
+	}
+
 	function addHref(e)
 	{
 		let modalDelBTN = document.getElementById("delete");
-		console.log(modalDelBTN);
 		let userMail = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
-		console.log(userMail);
 		modalDelBTN.setAttribute("href", "/Users/Delete/?arg="+userMail);
 	}
 </script>

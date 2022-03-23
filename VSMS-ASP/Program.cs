@@ -16,6 +16,7 @@ builder.Services.AddDbContext<VSMS_ASPContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<VSMSDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<Repository>();
