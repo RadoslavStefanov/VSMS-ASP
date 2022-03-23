@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,7 +23,7 @@ namespace VSMS.Infrastructure.Data.Models
 
         [Required]
         [ForeignKey(nameof(UserId))]
-        public Users User { get; set; }
+        public IdentityUser User { get; set; }
 
         public ICollection<SalesProducts> SalesProducts {get;set;}
         public Sales()

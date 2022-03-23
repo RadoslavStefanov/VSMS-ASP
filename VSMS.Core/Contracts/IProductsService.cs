@@ -9,6 +9,6 @@ namespace VSMS.Core.Contracts
     public interface IProductsService
     {
         public void Delete(string arg);
-        public void Create()
+        public void Create();
     }
 }

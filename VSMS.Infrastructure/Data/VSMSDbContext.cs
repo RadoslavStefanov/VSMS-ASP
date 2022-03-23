@@ -28,7 +28,6 @@
         }
 
         public DbSet<Sales> Sales { get; set; }
-        public DbSet<Roles> Roles { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<SalesProducts> SalesProducts { get; set; }

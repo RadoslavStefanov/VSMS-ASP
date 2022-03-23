@@ -16,10 +16,10 @@ namespace VSMS_ASP.Controllers
 
         public void Delete(string arg)
         {
-            var user = context.Users.Where(x => x.Email == arg).First();
+            /*var user = context.Users.Where(x => x.Email == arg).First();
             context.Users.Remove(user);
             context.SaveChanges();
-            Response.Redirect("/Users/AdminPanel?arg=ListUsers");
+            Response.Redirect("/Users/AdminPanel?arg=ListUsers");*/
         }
     }
 }
