@@ -18,7 +18,6 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<VSMSDbContext>();
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<UsersService>();
 builder.Services.AddTransient<Repository>();
 
 var app = builder.Build();

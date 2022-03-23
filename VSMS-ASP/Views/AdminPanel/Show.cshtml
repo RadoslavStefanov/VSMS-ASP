@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<AllUsersListViewModel>
-
-@{
-	Layout="_Layout";
-}
+@{Layout="_Layout";}
 
 
 <link rel="stylesheet" href="~/css/styles.css" />
@@ -16,10 +13,9 @@
   </div>
   <button id = "dropdownBTN2" class="dropdown-btn">Продукти</button>
   <div class="dropdown-container">
-    <a class="ddItem" href="ListProducts">Списък</a>
+    <a class="ddItem" href="/Products/ListProducts">Списък</a>
     <a class="ddItem" href="#">Създаване</a>
   </div>
-  <a href="/Products/List">Продукти</a>
   <a href="/Reports">Отчети</a>
   <a href="/Mail">Отзиви</a>
 </div>
@@ -37,29 +33,29 @@
     var dropdownBTN = document.getElementById("dropdownBTN");
     var dropdownBTN2 = document.getElementById("dropdownBTN2");
 
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() 
-  {
-    this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    if (dropdownContent.style.display === "block") 
-    {
-      dropdownContent.style.display = "none";
-    } else 
-    {
-      dropdownContent.style.display = "block";
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() 
+      {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") 
+        {
+          dropdownContent.style.display = "none";
+        } else 
+        {
+          dropdownContent.style.display = "block";
+        }
+        if(this.classList.contains("active"))
+        {
+            dropdownBTN.style.marginBottom = "0px";
+            dropdownBTN2.style.marginBottom = "0px";dropdownBTN2.style.marginTop = "30px";
+            dditems = document.getElementsByClassName("ddItem");
+            for (i = 0; i < dditems.length; i++) 
+            {dditems[i].style.marginBottom = "0px";}
+        }
+        else
+        {dropdownBTN.style.marginBottom = "30px";
+        dropdownBTN2.style.marginBottom = "30px";}
+      });
     }
-    if(this.classList.contains("active"))
-    {
-        dropdownBTN.style.marginBottom = "0px";
-        dropdownBTN2.style.marginBottom = "0px";dropdownBTN2.style.marginTop = "30px";
-        dditems = document.getElementsByClassName("ddItem");
-        for (i = 0; i < dditems.length; i++) 
-        {dditems[i].style.marginBottom = "0px";}
-    }
-    else
-    {dropdownBTN.style.marginBottom = "30px";
-    dropdownBTN2.style.marginBottom = "30px";}
-  });
-}
 </script>
