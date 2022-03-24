@@ -21,5 +21,8 @@ namespace VSMS_ASP.Controllers
             context.SaveChanges();
             Response.Redirect("/Users/AdminPanel?arg=ListUsers");*/
         }
+
+        public async Task<IActionResult> CreateProduct(string arg)
+        {return View();}
     }
 }

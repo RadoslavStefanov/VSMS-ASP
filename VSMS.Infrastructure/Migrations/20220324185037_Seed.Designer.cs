@@ -12,8 +12,8 @@ using VSMS.Infrastructure.Data;
 namespace VSMS.Infrastructure.Migrations
 {
     [DbContext(typeof(VSMSDbContext))]
-    [Migration("20220323165313_VSMS-Seed")]
-    partial class VSMSSeed
+    [Migration("20220324185037_Seed")]
+    partial class Seed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -255,10 +255,17 @@ namespace VSMS.Infrastructure.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("Kilograms")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

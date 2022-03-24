@@ -1,1 +1,120 @@
-﻿
+﻿<style>
+    .dropSelector
+    {
+        display: flex;
+        width: 100%;
+        border-color: #c9bebe;
+    }
+    .btn-primary
+    {
+        background-color:firebrick;
+        border-color:firebrick;
+    }
+    .avatar
+    {
+        width:100%;
+        height:100%;
+        max-width:305px;
+        max-height:240px;
+        min-width:305px;
+        min-height:240px;
+        margin-top:10px;
+        margin-bottom: 10px;
+        text-align:center;
+    }
+
+    .container
+    {
+        margin-top:5%;
+    }
+
+</style>
+
+<div class="container">      
+      <!-- edit form column -->
+      <div>
+        <h3 style="text-align: center;">Създаване на Продукт</h3>
+        
+        <form class="form-horizontal" role="form">
+            <div class="row">
+      <!-- left column -->
+      <div>
+        <div style="text-align: center;">
+          <img src="https://bitsofco.de/content/images/2018/12/broken-1.png" id = "avatar" class="avatar img-circle" onerror="this.src='https://bitsofco.de/content/images/2018/12/broken-1.png'">      
+        </div>
+      </div>
+          <div class="form-group">
+            <div>
+              <label class="col-lg-3 control-label">Снимка* :</label>
+              <input type="text" name="ImageUrl" id = "imageUrlField" placeholder="Попълни адрес към снимка..." class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Име* :</label>
+            <div >
+              <input class="form-control required" type="text" placeholder="Име на продукта" required>
+            </div>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-3 control-label">Категория* :</label>
+            <select name="Category" class="required dropSelector" required>
+	            <option value=""></option>
+	            <option value="Птици">Птици</option>
+                <option value="Кокошки">Кокошки</option>
+                <option value="Суровини">Суровини</option>
+                <option value="Патици">Патици</option>
+                <option value="Пуйки">Пуйки</option>
+                <option value="Бройлери">Бройлери</option>
+                <option value="Зайци">Зайци</option>
+                <option value="Телете">Телете</option>
+                <option value="Прасета">Прасета</option>
+                <option value="Преживни">Преживни</option>
+                <option value="Други">Други</option>
+                <option value="Специални">Специални</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Описание :</label>
+            <div>
+              <input class="form-control" type="text" placeholder="Кратко описание на продукта...">
+            </div>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-3 control-label">Килограми* :</label>
+            <select name="Category" class="required dropSelector" required>
+	            <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+                <option value="35">35</option>
+                <option value="40">40</option>
+                <option value="45">45</option>
+	        </select>
+          </div>
+          <div class="form-group">
+            <div style="margin-top:10px;text-align: center;">
+              <input type="reset" class="btn btn-secondary" value="Отказ">
+              <span></span>              
+              <input type="submit" class="btn btn-primary" value="Запази">
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+<hr>
+
+<script>
+    
+    let imgUrlField = document.getElementById("imageUrlField");
+    let imgField = document.getElementById("avatar");
+    imgUrlField.addEventListener('input',UpdateImage);
+
+    function UpdateImage()
+    {
+        if(imgUrlField.value.length>5)
+        {imgField.src = imgUrlField.value;}
+    }
+</script>

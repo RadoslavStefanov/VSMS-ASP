@@ -21,6 +21,12 @@ namespace VSMS.Infrastructure.Data.Models
         [Required]
         public int CategoryId { get; set; }
 
+        [Required]
+        public int Kilograms { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+
         [ForeignKey(nameof(CategoryId))]
         public Categories Category { get; set; }
 

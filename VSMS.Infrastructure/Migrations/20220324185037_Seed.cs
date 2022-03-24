@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VSMS.Infrastructure.Migrations
 {
-    public partial class VSMSSeed : Migration
+    public partial class Seed : Migration
     {
         const string Admin_User_Guid = "fe4153fa-e9eb-4d8c-97b9-23c22b2f1f93";
         const string Admin_Role_Guid = "537aa283-24e0-47b8-9ae8-a7f3d83a628d";
@@ -16,7 +16,6 @@ namespace VSMS.Infrastructure.Migrations
         const string Restricted_Role_Guid = "f2be90f5-1803-4e02-a828-eccea44e3de9";
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -202,6 +201,8 @@ namespace VSMS.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Kilograms = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
                 },
                 constraints: table =>
@@ -319,6 +320,7 @@ namespace VSMS.Infrastructure.Migrations
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Restricted_Role_Guid}','Restricted','RESTRICTED')");
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Guest_Role_Guid}','Guest','GUEST')");
             migrationBuilder.Sql($"INSERT INTO AspNetUserRoles (UserId, RoleId) VALUES ('{Admin_User_Guid}','{Admin_Role_Guid}')");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

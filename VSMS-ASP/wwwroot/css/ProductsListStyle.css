@@ -1,0 +1,32 @@
+﻿#workDesk 
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card 
+{
+    margin: 10px;
+    display: inline-block;
+    border: 2px solid #e7e7e7;
+    border-radius: 10px;
+    padding: .5rem;
+    box-shadow: -7px 10px 5px -2px #A1A1A1;
+}
+
+.btn-primary 
+{
+    background-color:firebrick;
+    border-color:firebrick;
+}
+
+.card-body 
+{
+    text-align:center;
+    justify-content:center;
+}
+
+.card-body btn 
+{
+    display:flex;
+}

@@ -51,7 +51,9 @@ namespace VSMS_ASP.Controllers
                         Id = item.Id,
                         Name = item.Name,
                         CategoryId = item.CategoryId,
-                        ImageUrl = item.ImageUrl
+                        ImageUrl = item.ImageUrl,
+                        Description = item.Description,
+                        Kilograms = item.Kilograms
                     });
                 }
                 myModel.Products = list;

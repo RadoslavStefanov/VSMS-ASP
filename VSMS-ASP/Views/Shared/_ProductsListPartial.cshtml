@@ -1,27 +1,101 @@
 ﻿@model IEnumerable<AllProductsListViewModel>
+<link rel="stylesheet" href="~/css/ProductsListStyle.css">
 
 
-<table>
-  <tr>
-    <th>Арт.Номер</th>
-    <th>Име</th>
-    <th>Категория</th>
-    <th>Управление</th>
-  </tr>
-    @foreach(var user in Model)
-  {
-      <tr>
-         <td>@user.Id</td>
-         <td>@user.Name</td>
-         <td>@user.CategoryId</td>
-         <td>
-            <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-			<i class="fa fa-trash" aria-hidden="true"></i>
-			</a>
-			<a class="edit-btn" href="#">
-			<i class="fa fa-pencil" aria-hidden="true"></i>
-			</a>
-         </td>
-      </tr>
-  }
-</table>
+@foreach(var p in Model){
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="@p.ImageUrl" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">@p.Name</h5>
+        <p class="card-text">@p.Description</p>
+        <a href="#" class="btn btn-primary">Редактирай</a>
+    </div>
+  </div>
+}
+
+
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div><div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="https://www.magicmurals.com/media/amasty/webp/catalog/product/cache/155d73b570b90ded8a140526fcb8f2da/m/g/mgl-ac-m001-30280_jpg.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
