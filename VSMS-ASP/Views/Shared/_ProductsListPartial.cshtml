@@ -1,0 +1,27 @@
+﻿@model IEnumerable<AllProductsListViewModel>
+
+
+<table>
+  <tr>
+    <th>Арт.Номер</th>
+    <th>Име</th>
+    <th>Категория</th>
+    <th>Управление</th>
+  </tr>
+    @foreach(var user in Model)
+  {
+      <tr>
+         <td>@user.Id</td>
+         <td>@user.Name</td>
+         <td>@user.CategoryId</td>
+         <td>
+            <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
+			<i class="fa fa-trash" aria-hidden="true"></i>
+			</a>
+			<a class="edit-btn" href="#">
+			<i class="fa fa-pencil" aria-hidden="true"></i>
+			</a>
+         </td>
+      </tr>
+  }
+</table>

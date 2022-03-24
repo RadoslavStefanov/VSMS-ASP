@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AllUsersListViewModel>
+﻿@model dynamic
 @{Layout="_Layout";}
 
 
@@ -21,10 +21,12 @@
 </div>
 
 <div id = "workDesk">
-    @if (Model.FirstOrDefault() == null)
+    @if (ViewData["View"]==null)
     {<partial name="_MainImagePartial" />}
-    else
-    {<partial name="_UsersListPartial" model=Model />}
+    else if (ViewData["View"]=="Users")
+    {<partial name="_UsersListPartial" model=Model.Users />}
+    else if (ViewData["View"]=="Products")
+    {<partial name="_ProductsListPartial" model=Model.Products />}
 </div>
 
 <script>

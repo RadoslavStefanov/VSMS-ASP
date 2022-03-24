@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VSMS.Core.Contracts;
+using VSMS.Infrastructure.Data.Common;
+using VSMS.Infrastructure.Data.Models;
 
 namespace VSMS.Core.Services
 {
     public class ProductsService : IProductsService
     {
+        private readonly Repository repo;
+        public ProductsService(Repository _repo)
+        { repo = _repo; }
+
         public void Create()
         {
             throw new NotImplementedException();
@@ -18,5 +24,8 @@ namespace VSMS.Core.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<Products> GetAllProducts()
+        {return repo.All<Products>().ToList();}
     }
 }

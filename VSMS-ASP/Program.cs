@@ -20,6 +20,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<VSMSDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<Repository>();
+builder.Services.AddTransient<ProductsService>();
 
 var app = builder.Build();
 

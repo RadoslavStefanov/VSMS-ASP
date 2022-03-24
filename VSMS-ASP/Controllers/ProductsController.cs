@@ -11,7 +11,7 @@ namespace VSMS_ASP.Controllers
 
         public void ListProducts()
         {
-            Response.Redirect("/Users/AdminPanel?arg=ListProducts");
+            Response.Redirect("/AdminPanel/Show?arg=ListProducts");
         }
 
         public void Delete(string arg)
