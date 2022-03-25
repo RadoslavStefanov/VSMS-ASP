@@ -7,8 +7,12 @@ namespace VSMS_ASP.Controllers
     public class ProductsController : Controller
     {
         private readonly ProductsService productsService;
-        public ProductsController(ProductsService _productsService)
-        { productsService = _productsService; }
+        private readonly CategoriesService categoriesService;
+        public ProductsController(ProductsService _productsService, CategoriesService _categoriesService)
+        { 
+            productsService = _productsService;
+            categoriesService = _categoriesService;
+        }
 
         public void ListProducts()
         {
@@ -23,8 +27,12 @@ namespace VSMS_ASP.Controllers
             Response.Redirect("/Users/AdminPanel?arg=ListUsers");*/
         }
 
-        public async Task<IActionResult> CreateProduct(string arg)
-        { return await Task.Run(() => View()); }
+        public async Task<IActionResult> CreateProduct()
+        { 
+            var list = categoriesService.GetAllCategories().ToList();
+            list.Remove(list[0]);
+            return await Task.Run(() => View(list)); 
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct(ProductsViewModel model)

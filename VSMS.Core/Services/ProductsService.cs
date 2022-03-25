@@ -18,10 +18,14 @@ namespace VSMS.Core.Services
 
         public void Create(ProductsViewModel model)
         {
+            int categoryId=0;
+            if (repo.All<Categories>().Where(c => c.Name == model.Category) != null )
+            { categoryId = repo.All<Categories>().Where(c => c.Name == "Unknown").FirstOrDefault().Id; }
+
             var newProduct = new Products
             {
                 Name = model.Name,
-                CategoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id,
+                CategoryId = categoryId,
                 Kilograms = int.Parse(model.Kilograms),
                 Description = model.Description,
                 ImageUrl = model.ImageUrl,

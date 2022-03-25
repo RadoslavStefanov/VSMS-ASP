@@ -70,9 +70,11 @@ namespace VSMS_ASP.Controllers
                 {
                     list.Add(new CategoryViewModel
                     {
+                        Id=item.Id,
                         Name = item.Name,
                     });
                 }
+                list.Remove(list[0]);
                 myModel.Categories = list;
                 return View(myModel);
             }

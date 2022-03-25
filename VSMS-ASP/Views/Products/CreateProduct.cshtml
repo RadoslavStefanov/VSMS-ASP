@@ -1,4 +1,6 @@
-﻿<style>
+﻿@using VSMS.Infrastructure.Data.Models
+@model List<Categories>
+<style>
     .dropSelector
     {
         display: flex;
@@ -64,19 +66,9 @@
           <div class="form-group">
               <label class="col-lg-3 control-label">Категория* :</label>
             <select name="Category" class="required dropSelector" required>
-	            <option value=""></option>
-	            <option value="Птици">Птици</option>
-                <option value="Кокошки">Кокошки</option>
-                <option value="Суровини">Суровини</option>
-                <option value="Патици">Патици</option>
-                <option value="Пуйки">Пуйки</option>
-                <option value="Бройлери">Бройлери</option>
-                <option value="Зайци">Зайци</option>
-                <option value="Телете">Телете</option>
-                <option value="Прасета">Прасета</option>
-                <option value="Преживни">Преживни</option>
-                <option value="Други">Други</option>
-                <option value="Специални">Специални</option>
+                <option value=""></option>
+                @foreach (var catg in Model)
+                {<option value="@catg.Name">@catg.Name</option>}
 	        </select>
           </div>
           <div class="form-group">
