@@ -34,6 +34,11 @@ namespace VSMS.Infrastructure.Data.Models
         [StringLength(250)]
         public string ImageUrl { get; set; }
 
+        [Required]
+        [Range(minimum:0,maximum:double.MaxValue)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
+
         public ICollection<SalesProducts> SalesProducts { get; set; }
         public Products()
         {

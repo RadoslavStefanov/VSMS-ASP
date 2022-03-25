@@ -12,7 +12,7 @@ using VSMS.Infrastructure.Data;
 namespace VSMS.Infrastructure.Migrations
 {
     [DbContext(typeof(VSMSDbContext))]
-    [Migration("20220324185037_Seed")]
+    [Migration("20220325073212_Seed")]
     partial class Seed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,6 +271,9 @@ namespace VSMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

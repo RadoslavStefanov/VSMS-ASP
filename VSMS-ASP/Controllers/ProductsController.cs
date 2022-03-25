@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VSMS.Core.Services;
+using VSMS.Core.ViewModels;
 
 namespace VSMS_ASP.Controllers
 {
@@ -23,6 +24,13 @@ namespace VSMS_ASP.Controllers
         }
 
         public async Task<IActionResult> CreateProduct(string arg)
-        {return View();}
+        { return await Task.Run(() => View()); }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(ProductsViewModel model)
+        {
+            await Task.Run(() => productsService.Create(model));
+            return await Task.Run(() => Redirect("/AdminPanel/Show?arg=ListProducts"));
+        }
     }
 }

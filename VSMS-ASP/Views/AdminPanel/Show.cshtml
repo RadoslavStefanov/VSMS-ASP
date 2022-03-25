@@ -15,6 +15,7 @@
   <div class="dropdown-container">
     <a class="ddItem" href="/Products/ListProducts">Списък</a>
     <a class="ddItem" href="/Products/CreateProduct">Създаване</a>
+    <a class="ddItem" href="/Categories/ListCategories">Категории</a>
   </div>
   <a href="/Reports">Отчети</a>
   <a href="/Mail">Отзиви</a>
@@ -27,6 +28,8 @@
     {<partial name="_UsersListPartial" model=Model.Users />}
     else if (ViewData["View"]=="Products")
     {<partial name="_ProductsListPartial" model=Model.Products />}
+    else if (ViewData["View"]=="Categories")
+    {<partial name="_CategoriesListPartial" model=Model.Categories />}
 </div>
 
 <script>

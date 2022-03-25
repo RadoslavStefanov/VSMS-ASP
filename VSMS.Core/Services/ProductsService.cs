@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VSMS.Core.Contracts;
+using VSMS.Core.ViewModels;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
 
@@ -15,9 +16,19 @@ namespace VSMS.Core.Services
         public ProductsService(Repository _repo)
         { repo = _repo; }
 
-        public void Create()
+        public void Create(ProductsViewModel model)
         {
-            throw new NotImplementedException();
+            var newProduct = new Products
+            {
+                Name = model.Name,
+                CategoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id,
+                Kilograms = int.Parse(model.Kilograms),
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                Price = decimal.Parse(model.Price)
+            };
+            repo.Add(newProduct);
+            repo.SaveChanges();
         }
 
         public void Delete(string arg)
@@ -27,5 +38,8 @@ namespace VSMS.Core.Services
 
         public List<Products> GetAllProducts()
         {return repo.All<Products>().ToList();}
+
+        public string GetCategoryById(int id)
+        { return repo.All<Categories>().Where(c => c.Id == id).FirstOrDefault().Name ?? "Category was not found in DB!"; }
     }
 }

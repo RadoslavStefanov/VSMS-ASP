@@ -10,10 +10,12 @@ namespace VSMS_ASP.Controllers
     {
         private VSMS_ASPContext context;
         private readonly ProductsService productsService;
-        public AdminPanelController(VSMS_ASPContext _context, ProductsService _productsService)
+        private readonly CategoriesService categoriesService;
+        public AdminPanelController(VSMS_ASPContext _context, ProductsService _productsService, CategoriesService _categoriesService)
         { 
             context = _context;
             productsService = _productsService;
+            categoriesService = _categoriesService;
         }
 
 
@@ -50,13 +52,28 @@ namespace VSMS_ASP.Controllers
                     {
                         Id = item.Id,
                         Name = item.Name,
-                        CategoryId = item.CategoryId,
+                        Category = productsService.GetCategoryById(item.CategoryId),
                         ImageUrl = item.ImageUrl,
                         Description = item.Description,
                         Kilograms = item.Kilograms
                     });
                 }
                 myModel.Products = list;
+                return View(myModel);
+            }
+            if (model.arg == "ListCategories")
+            {
+                ViewData["View"] = "Categories";
+                var categories = categoriesService.GetAllCategories();
+                var list = new List<CategoryViewModel>();
+                foreach (var item in categories)
+                {
+                    list.Add(new CategoryViewModel
+                    {
+                        Name = item.Name,
+                    });
+                }
+                myModel.Categories = list;
                 return View(myModel);
             }
             return View(null);

@@ -203,7 +203,8 @@ namespace VSMS.Infrastructure.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Kilograms = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                    ImageUrl = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -320,7 +321,6 @@ namespace VSMS.Infrastructure.Migrations
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Restricted_Role_Guid}','Restricted','RESTRICTED')");
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Guest_Role_Guid}','Guest','GUEST')");
             migrationBuilder.Sql($"INSERT INTO AspNetUserRoles (UserId, RoleId) VALUES ('{Admin_User_Guid}','{Admin_Role_Guid}')");
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

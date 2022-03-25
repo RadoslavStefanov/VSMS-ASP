@@ -30,3 +30,12 @@
 {
     display:flex;
 }
+
+.card-img-top 
+{
+    min-width:268px;
+    max-width:268px;
+
+    min-height:170px;
+    max-height:170px;
+}
