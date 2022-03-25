@@ -316,11 +316,13 @@ namespace VSMS.Infrastructure.Migrations
             sb.AppendLine(")");
 
             migrationBuilder.Sql(sb.ToString());
+            migrationBuilder.Sql($"INSERT INTO Categories (Name) VALUES ('Unknown')");
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Admin_Role_Guid}','Admin','ADMIN')");
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Employee_Role_Guid}','Employee','EMPLOYEE')");
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Restricted_Role_Guid}','Restricted','RESTRICTED')");
             migrationBuilder.Sql($"INSERT INTO AspNetRoles (Id, Name, NormalizedName) VALUES ('{Guest_Role_Guid}','Guest','GUEST')");
             migrationBuilder.Sql($"INSERT INTO AspNetUserRoles (UserId, RoleId) VALUES ('{Admin_User_Guid}','{Admin_Role_Guid}')");
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
