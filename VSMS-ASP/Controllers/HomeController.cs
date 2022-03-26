@@ -13,7 +13,10 @@ namespace VSMS_ASP.Controllers
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
-            { return View(); }
+            { 
+                
+                return View(); 
+            }
             else
             {return Redirect("/Identity/Account/Login");}
         }
