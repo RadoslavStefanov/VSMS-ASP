@@ -6,17 +6,17 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей @User.Identity?.Name!</a>
+        <a  class="nav-link text-dark">@User.Identity?.Name!<i class="fa fa-user fa-lg" style="color:firebrick; margin-left:5px;"aria-hidden="true"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" href="/AdminPanel/Show">Адм.Панел</a>
+        <a class="nav-link text-dark" href="/AdminPanel/Show"><i class="fa fa-id-card-o fa-lg" style="color:firebrick;" aria-hidden="true"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Work/Main">Каса</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Work/Main"><i class="fa fa-money fa-lg" style="color:firebrick;" aria-hidden="true"></i></a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Изход</button>
+            <button  type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-sign-out fa-lg" style="color:firebrick;" aria-hidden="true"></i></button>
         </form>
     </li>  
 }
