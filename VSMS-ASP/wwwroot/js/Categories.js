@@ -1,26 +1,16 @@
 ﻿let delIcons = document.getElementsByClassName("delete-btn");
 for (let i = 0; i < delIcons.length; i++) { delIcons[i].addEventListener('click', addHref) }
 
-let editIcons = document.getElementsByClassName("edit-btn");
-for (let i = 0; i < editIcons.length; i++) { editIcons[i].addEventListener('click', addEditRef) }
-
 let addNewBTN = document.getElementById("add-category-btn");
 let addNewCatName = document.getElementById("add-category-field");
 
 addNewBTN.addEventListener('click',addNewCategory)
 
-function addEditRef(e)
-{
-	let modalDelBTN = document.getElementById("delete");
-	let userMail = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
-	window.location.replace("/Users/Edit/?arg=" + userMail);
-}
-
 function addHref(e)
 {
 	let modalDelBTN = document.getElementById("delete");
-	let userMail = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
-	modalDelBTN.setAttribute("href", "/Categories/Delete/?arg=" + userMail);
+	let catgName = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
+	modalDelBTN.setAttribute("href", "/Categories/Delete/?arg=" + catgName);
 }
 
 function addNewCategory()
