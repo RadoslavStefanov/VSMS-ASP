@@ -1,39 +1,47 @@
-﻿<link rel="stylesheet" href="~/css/EditUserStyle.css">
+﻿<div class="register-box" style="margin: auto;padding-top: 10%;">
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="/Home/About" class="h1"><b>VSMS-</b>VIRTUS 4</a>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Редактиране на потребител: @ViewData["UserMail"]</p>
 
-<form method="post">
-    <div class="rendered-form">
-        <div class="">
-            <h1 access="false" >Редактиране на потребител:     @ViewData["UserMail"]</h1>
+            <form id="registerForm" method="post" class="login">
+                <input type="email" name="OldEmail" class="form-control" access="false" value = @ViewData["UserMail"] style="display:none;">
+                <div class="input-group mb-3">
+                    <input type="email" name="EmailChange" placeholder="Нова поща:" class="form-control" access="false" maxlength="250">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input class="form-control" name="PasswordChange"autocomplete="new-password" aria-required="true" placeholder="Нова парола"/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3" style="display:grid;">
+                    <label style="text-align:center; margin-top: 35px;">Нова длъжност</label>
+                    <select class="form-control" style="text-align:center; width: 100%;" name="RoleChange">
+                        <option value="NoChange" selected="true">Не се променя</option>
+                        <option value="Admin">Админ</option>
+                        <option value="Employee">Служител</option>
+                        <option value="Guest">Гост</option>
+                        <option value="Restricted">Ограничен</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3" style="display:none;" id="passAlert">
+                    <p>Паролите не съвпадат!</p>
+                </div>
+                <div class="col-4" style="max-width: 100%">
+                    <button type="submit" id="submitBTN" class="btn btn-primary btn-block">Приложи</button>
+                </div>
+            </form>
         </div>
-            <br></br>
-        <div>
-            <label class="formbuilder-text-label">Стара Ел.Поща:</label>
-            <input type="email" name="OldEmail" class="form-control" value="@ViewData["UserMail"]">
-        </div>
-        <div>
-            <label class="formbuilder-text-label">Ел.Поща:</label>
-            <input type="email" name="EmailChange" placeholder="пр: niki@virtus.bg" class="form-control" access="false" maxlength="250">
-        </div>
-        <div class="formbuilder-select form-group">
-            <label for="select-1648058289291" class="formbuilder-select-label">Длъжност</label>
-            <select class="form-control" name="RoleChange">
-                <option value="Admin" selected="true" id="Admin">Админ</option>
-                <option value="Employee" id="Employee">Служител</option>
-                <option value="Guest" id="Guest">Гост</option>
-                <option value="Restricted" id="Restricted">Ограничен</option>
-            </select>
-        </div>
-        <div class="">
-            <label class="formbuilder-text-label">Смяна на парола:</label>
-            <input type="text" name="PasswordChange" placeholder="abc-A123" class="form-control" access="false" maxlength="25">
-        </div>
-        <div class="flex">
-            <div class="formbuilder-button form-group">
-                <button type="button"  class="btn btn-secondary" access="false"><a href="/AdminPanel/Show?arg=ListUsers">Отказ</a></button>
-            </div>
-            <div class="formbuilder-button form-group">
-                <button type="submit" class="btn btn-danger" access="false" style="danger">Запази</button>
-            </div>
-        </div>
+        <a href="/Users/ListUsers" class="text-center" style="margin-bottom: 10px;">Отказ</a>
     </div>
-</form>
+</div>

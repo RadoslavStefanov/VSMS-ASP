@@ -1,56 +1,72 @@
 ﻿@page
 @model LoginModel
 @{ViewData["Title"] = "Log in";}
-
-<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="~/lib/toast/content/toastr.css" rel="stylesheet" />
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/toast/scripts/toastr.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VSMS Login</title>
 
-	<div class="container">
-		<div class="screen">
-			<div class="screen__content">
-				<form id="account" class="login" method="POST">
-					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-					<div class="login__field">
-						<i class="login__icon fa fa-user"></i>
-						<input asp-for="Input.Email" class="login__input" placeholder="Имейл:" autocomplete="username" aria-required="true" />
-						<span asp-validation-for="Input.Email" class="text-danger"></span>
-					</div>
-					<div class="login__field">
-						<i class="login__icon fa fa-lock"></i>
-						<input asp-for="Input.Password" class="login__input" autocomplete="current-password" aria-required="true" placeholder="Парола" />
-						<span asp-validation-for="Input.Password" class="text-danger"></span>
-					</div>
-					<button id="login-submit" type="submit" class="button login__submit">
-						<span class="button__text">Вход</span>
-						<i class="button__icon fa fa-chevron-right"></i>
-					</button>									
-				</form>
-				<a id="forgot" href="/Help/ForgottenLogin">Забравен логин</a>
-				<div class="social-login">
-					<h3>VSMS</h3>
-			<h4>RS Solutions</h4>
-				</div>
-			</div>
-			<div class="screen__background">
-				<span class="screen__background__shape screen__background__shape4"></span>
-				<span class="screen__background__shape screen__background__shape3"></span>		
-				<span class="screen__background__shape screen__background__shape2"></span>
-				<span class="screen__background__shape screen__background__shape1"><img src = "~/img/logo.png"/></span>
-			</div>		
-		</div>
-	</div>
-	@{
-        if (TempData["msg"] != null)
-        {
-            <script type="text/javascript">
-                toastr.error("@TempData["msg"]");
-                window.location = '#2249506';
-            </script>
-        }
-	}
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/adminLTE/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="~/adminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/adminLTE/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+      <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+          <a href="/Home/About" class="h1"><b>VSMS-</b>VIRTUS 4</a>
+        </div>
+        <div class="card-body">
+          <p class="login-box-msg">Влезте в профила си</p>
+
+          <form id="account" class="login" method="POST">
+          <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="input-group mb-3">
+              <input asp-for="Input.Email" type="email"  class="form-control" placeholder="Ел.Поща:" autocomplete="username" aria-required="true" />
+		      <span asp-validation-for="Input.Email" class="text-danger"></span>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Парола:" />
+		      <span asp-validation-for="Input.Password" class="text-danger"></span>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="justify-content: center;">
+              <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Влез</button>
+              </div>
+            </div>
+          </form>
+          <p class="mb-1" style="text-align: center; margin-top: 15px;">
+            <a href="/Help/ForgottenLogin">Забравена парола</a>
+          </p>
+        </div>
+      </div>
+    </div>
+</body>
+
+<!-- jQuery -->
+<script src="~/adminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/adminLTE/js/adminlte.min.js"></script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<AllUsersListViewModel>
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Списък Потребители</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Основна страница</a></li>
+                        <li class="breadcrumb-item active">Списък потребители</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Потребител</th>
+                                        <th>Ел.Поща</th>
+                                        <th>Права</th>
+                                        <th>Управление</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var user in Model)
+                                    {
+                                       <tr>
+                                         <td>@user.UserName</td>
+                                         <td>@user.Email</td>
+                                         <td>@user.Role</td>
+                                         <td>
+                                            <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
+			                                    <i class="fa fa-trash" aria-hidden="true"></i>
+			                                </a>
+			                                <a class="edit-btn" style="margin-left:10px;" href="#">
+			                                    <i class="fas fa-pencil-alt"></i>
+			                                </a>
+                                         </td>
+                                      </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+    </section>
+
+
+  <!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header flex-column">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
+				</div>						
+				<h4 class="modal-title w-100">Сигурни ли сте?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Наистина ли искате да изтриете този потребител? Този процес не е обратим!</p>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+				<button type="button" class="btn btn-danger"><a id="delete" href="#">Изтрий</a></button>
+			</div>
+		</div>
+	</div>
+</div>  
+
+<script>
+	let delIcons = document.getElementsByClassName("delete-btn");
+	for(let i = 0;i<delIcons.length;i++)
+	{delIcons[i].addEventListener('click',addHref)}
+
+	let editIcons = document.getElementsByClassName("edit-btn");
+	for(let i = 0;i<editIcons.length;i++)
+	{editIcons[i].addEventListener('click',addEditRef)}
+
+	function addEditRef(e)
+	{
+		let modalDelBTN = document.getElementById("delete");
+		let userMail = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
+		window.location.replace("/Users/Edit/?arg="+userMail);
+	}
+
+	function addHref(e)
+	{
+		let modalDelBTN = document.getElementById("delete");
+		let userMail = e.target.parentNode.parentNode.parentNode.querySelector("td:nth-of-type(2)").innerText;
+		modalDelBTN.setAttribute("href", "/Users/Delete/?arg="+userMail);
+	}
+</script>

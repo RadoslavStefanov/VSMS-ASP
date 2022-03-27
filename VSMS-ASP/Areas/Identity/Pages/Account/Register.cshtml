@@ -1,60 +1,72 @@
 ﻿@page
 @model RegisterModel
-@{ViewData["Title"] = "Register";}
 
-<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="~/css/passResetPageStyle.css" asp-append-version="true" />
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<div class="container">
-		<a id="reg_back" href="/AdminPanel/Show" class="next">&laquo; Назад</a>
-		<div class="screen">			
-			<div class="screen__content">
-				<form  id="registerForm" style = "padding-top: 100px" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="login">
-					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-					<div class="login__field">
-						<i class="login__icon fa fa-user"></i>
-						<input asp-for="Input.Email" class="login__input" placeholder="Имейл:" autocomplete="username" aria-required="true" />
-						<span asp-validation-for="Input.Email" class="text-danger"></span>
-					</div>
-					<div class="login__field">
-						<i class="login__icon fa fa-lock"></i>
-						<input asp-for="Input.Password" class="login__input" autocomplete="new-password" aria-required="true" placeholder="Парола" />
-						<span asp-validation-for="Input.Password" class="text-danger"></span>
-					</div>
-					<div style="padding-bottom:0"class="login__field">
-						<i class="login__icon fa fa-lock"></i>
-						<input asp-for="Input.ConfirmPassword" class="login__input" autocomplete="new-password" aria-required="true" placeholder="Повтори Паролата" />
-						<span asp-validation-for="Input.Password" class="text-danger"></span>
-					</div>
-					<button style="margin-top:28px" id="registerSubmit" type="submit" class="button login__submit">
-						<span class="button__text">Създай</span>
-						<i class="button__icon fa fa-chevron-right"></i>
-					</button>									
-				</form>
-				<div class="social-login">
-					<h3>VSMS</h3>
-			<h4>RS Solutions</h4>
-				</div>
-			</div>
-			<div class="screen__background">
-				<span class="screen__background__shape screen__background__shape4"></span>
-				<span class="screen__background__shape screen__background__shape3"></span>		
-				<span class="screen__background__shape screen__background__shape2"></span>
-				<span class="screen__background__shape screen__background__shape1"></span>
-			</div>					
-		</div>		
-	</div>
-	@{
-        if (TempData["msg"] != null)
-        {
-            <script type="text/javascript">
-                toastr.error("@TempData["msg"]");
-                window.location = '#2249506';
-            </script>
-        }
-	}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VSMS | Създаване на потребител</title>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/adminLTE/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="~/adminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="~/adminLTE/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a href="/Home/About" class="h1"><b>VSMS-</b>VIRTUS 4</a>
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Създаване на нов потребител</p>
+
+      <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="login">
+        <div class="input-group mb-3">
+          <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          <input asp-for="Input.Email" class="form-control" placeholder="Ел.Поща:" autocomplete="username" aria-required="true" required/>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input asp-for="Input.Password" class="form-control" id="Pass" autocomplete="new-password" aria-required="true" placeholder="Парола" required/>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input asp-for="Input.ConfirmPassword" class="form-control" id="confirmPass" autocomplete="new-password" aria-required="true" placeholder="Повторете Паролата" required/>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3" style="display:none;" id="passAlert">
+            <p >Паролите не съвпадат!</p>
+        </div>
+          <div class="col-4" style="max-width: 100%">
+            <button type="submit" id="submitBTN" class="btn btn-primary btn-block">Създай</button>
+          </div>
+           </form>
+        </div>     
+      <a href="/" class="text-center" style="margin-bottom: 10px;">Отказ</a>
+    </div>
+  </div>
+
+<script src="~/adminLTE/plugins/jquery/jquery.min.js"></script>
+<script src="~/adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/adminLTE/js/adminlte.min.js"></script>
+<script src="~/js/VerifyRegInput.js"></script>
+</body>
+</html>

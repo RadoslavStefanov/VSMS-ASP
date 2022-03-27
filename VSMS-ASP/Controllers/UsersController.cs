@@ -16,8 +16,23 @@ namespace VSMS_ASP.Controllers
         }
 
 
-        public void ListUsers()
-        {Response.Redirect("/AdminPanel/Show?arg=ListUsers");}
+        public IActionResult ListUsers()
+        {
+            List<AllUsersListViewModel> users = new List<AllUsersListViewModel>();
+            ViewData["View"] = "Users";
+            users = context.Users.Select(x => new AllUsersListViewModel
+            {
+                UserName = x.UserName,
+                Email = x.Email,
+                Role =
+                context.Roles
+                .Where(y => y.Id == context.UserRoles
+                .Where(i => i.UserId == x.Id)
+                .FirstOrDefault().RoleId)
+                .FirstOrDefault().Name ?? "Not Configured/Limited"
+            }).ToList();
+            return View(users);
+        }
 
         public async Task<IActionResult> Edit(string arg)
         {
@@ -25,16 +40,25 @@ namespace VSMS_ASP.Controllers
             return View();
         }
 
+        public async Task<IActionResult> EditV2(string arg)
+        {
+            ViewData["UserMail"] = arg;
+            return View();
+        }
+
+        
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
-            var user = await userManager.FindByNameAsync(model.OldEmail);
-            await userManager.RemoveFromRoleAsync(user, "Admin");
-            await userManager.RemoveFromRoleAsync(user, "Employee");
-            await userManager.RemoveFromRoleAsync(user, "Guest");
-            await userManager.RemoveFromRoleAsync(user, "Restricted");
-            var result = await userManager.AddToRoleAsync(user, model.RoleChange);
-             
+            var user = await userManager.FindByEmailAsync(model.OldEmail);
+            if (model.RoleChange != "NoChange")
+            {
+                var roles = await userManager.GetRolesAsync(user);
+                await userManager.RemoveFromRolesAsync(user, roles.ToArray());
+                await userManager.AddToRoleAsync(user, model.RoleChange);
+            }
+
+
             if (model.PasswordChange != null)
             {
                 var hasher = new PasswordHasher<IdentityUser>();
@@ -45,14 +69,10 @@ namespace VSMS_ASP.Controllers
 
             if (model.EmailChange != null)
             {
-                user.Email = model.EmailChange;
-                user.UserName = model.EmailChange;
-                user.NormalizedEmail = model.EmailChange.ToUpper();
-                user.NormalizedUserName = model.EmailChange.ToUpper();
-                context.SaveChanges();
+                await userManager.SetEmailAsync(user, model.EmailChange);
+                await userManager.SetUserNameAsync(user, model.EmailChange);
             }
-
-            return Redirect("/AdminPanel/Show?arg=ListUsers");
+            return Redirect("/Users/ListUsers");
         }
 
     }

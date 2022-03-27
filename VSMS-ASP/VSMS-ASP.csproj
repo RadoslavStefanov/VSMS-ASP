@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\adminLTE\" />
     <Folder Include="wwwroot\lib\aboutUsPageStyles\" />
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>
