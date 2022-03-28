@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Dynamic;
 using VSMS.Core.Services;
 using VSMS.Core.ViewModels;
 
@@ -14,9 +15,25 @@ namespace VSMS_ASP.Controllers
             categoriesService = _categoriesService;
         }
 
-        public void ListProducts()
+        public async Task<IActionResult> ListProducts()
         {
-            Response.Redirect("/AdminPanel/Show?arg=ListProducts");
+            dynamic myModel = new ExpandoObject();
+            ViewData["View"] = "Products";
+            var products = productsService.GetAllProducts();
+            var list = new List<AllProductsListViewModel>();
+            foreach (var item in products)
+            {
+                list.Add(new AllProductsListViewModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Category = productsService.GetCategoryById(item.CategoryId),
+                    ImageUrl = item.ImageUrl,
+                    Description = item.Description,
+                    Kilograms = item.Kilograms
+                });
+            }
+            return await Task.Run(() => View(list));
         }
 
         public void Delete(string arg)
@@ -38,7 +55,7 @@ namespace VSMS_ASP.Controllers
         public async Task<IActionResult> CreateProduct(ProductsViewModel model)
         {
             await Task.Run(() => productsService.Create(model));
-            return await Task.Run(() => Redirect("/AdminPanel/Show?arg=ListProducts"));
+            return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
     }
 }

@@ -69,7 +69,7 @@
           <img src="~/adminLTE/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a class="d-block">@userManager.GetUserName(User)</a>
+          <a class="d-block">@userManager.GetUserName(User).Split("@")[0]</a>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -115,13 +115,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/examples/invoice.html" class="nav-link">
+                <a href="/Products/ListProducts" class="nav-link">
                   <i class="fas fa-list-ol"></i>
                   <p>Списък</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/examples/invoice.html" class="nav-link">
+                <a href="/Products/CreateProduct" class="nav-link">
                   <i class="fas fa-plus"></i>
                   <p>Създай</p>
                 </a>

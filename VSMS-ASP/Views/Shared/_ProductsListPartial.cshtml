@@ -2,13 +2,31 @@
 <link rel="stylesheet" href="~/css/ProductsListStyle.css">
 
 
-@foreach(var p in Model){
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="@p.ImageUrl" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">@p.Name</h5>
-        <p class="card-text">@p.Description</p>
-        <a href="#" class="btn btn-primary">Редактирай</a>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Списък Продукти</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Основна страница</a></li>
+                    <li class="breadcrumb-item active">Списък продукти</li>
+                </ol>
+            </div>
+        </div>
     </div>
-  </div>
+</section>
+
+
+@foreach (var p in Model)
+{
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="@p.ImageUrl" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@p.Name</h5>
+            <p class="card-text">@p.Description</p>
+            <a href="#" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
 }
