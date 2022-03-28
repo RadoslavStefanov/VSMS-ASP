@@ -4,6 +4,7 @@ using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data;
 using VSMS_ASP.Data;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<Repository>();
 builder.Services.AddTransient<ProductsService>();
 builder.Services.AddTransient<CategoriesService>();
+builder.Services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 var app = builder.Build();
 

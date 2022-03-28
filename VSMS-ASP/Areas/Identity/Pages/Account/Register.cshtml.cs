@@ -140,8 +140,7 @@ namespace VSMS_ASP.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return LocalRedirect("/Users/ListUsers");
                     }
                 }
                 foreach (var error in result.Errors)

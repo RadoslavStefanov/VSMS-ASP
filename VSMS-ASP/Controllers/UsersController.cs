@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VSMS.Core.ViewModels;
 using VSMS_ASP.Data;
@@ -34,17 +35,13 @@ namespace VSMS_ASP.Controllers
             return View(users);
         }
 
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(string arg)
         {
             ViewData["UserMail"] = arg;
             return View();
         }
 
-        public async Task<IActionResult> EditV2(string arg)
-        {
-            ViewData["UserMail"] = arg;
-            return View();
-        }
 
         
         [HttpPost]
