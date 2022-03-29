@@ -14,7 +14,6 @@ namespace VSMS_ASP.Controllers
         {
             if (User.Identity.IsAuthenticated)
             { 
-                
                 return View(); 
             }
             else
