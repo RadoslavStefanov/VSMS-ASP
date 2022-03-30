@@ -8,8 +8,10 @@
         <div class="card-body">
             <h3 class="card-title" style="text-align:center;font-weight: bold;">@p.Name</h3>
             <p class="card-text" style="text-align:left;" >@p.Description.Substring(0,22)...</p>
-            <a href="#" class="btn btn-secondary">Изтрий</a>
-            <a href="#" class="btn btn-primary">Редактирай</a>
+            <a href="/Products/Delete?id=@p.Id" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=@p.Id" class="btn btn-primary">Редактирай</a>
         </div>
     </div>
 }
+
+

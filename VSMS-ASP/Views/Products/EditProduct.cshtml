@@ -1,4 +1,6 @@
-﻿<style>
+﻿@model ProductsViewModel
+
+<style>
     #avatar
     {
         max-width:350px;
@@ -14,12 +16,12 @@
             <a href="/Home/About" class="h1"><b>VSMS-</b>VIRTUS 4</a>
         </div>
         <div class="card-body">
-            <p class="login-box-msg">Създаване на продукт:</p>
+            <p class="login-box-msg">Редактиране на продукт:</p>
 
             <form id="registerForm" style="text-align: center;" method="post" class="login">
-                <img src="https://bitsofco.de/content/images/2018/12/broken-1.png" id="avatar" class="avatar img-circle" style="border-radius:0;padding-bottom:15px;" onerror="this.src='https://bitsofco.de/content/images/2018/12/broken-1.png'">
+                <img src="@Model.ImageUrl" id="avatar" class="avatar img-circle" style="border-radius:0;padding-bottom:15px;" onerror="this.src='https://bitsofco.de/content/images/2018/12/broken-1.png'">
                 <div class="input-group mb-3">
-                    <input type="text" name="ImageUrl" id="imageUrlField" placeholder="Попълни адрес към снимка..." class="form-control" required>
+                    <input type="text" name="ImageUrl" id="imageUrlField" value="@Model.ImageUrl" placeholder="Попълни адрес към снимка..." class="form-control" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-image"></span>
@@ -27,7 +29,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input class="form-control required" name="Name" type="text" placeholder="Име на продукта" required>
+                    <input class="form-control required" name="Name" type="text" placeholder="Име на продукта" value="@Model.Name" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-file-signature"></span>
@@ -35,7 +37,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                     <input class="form-control" name="Description" type="text" placeholder="Кратко описание на продукта...">
+                     <input class="form-control" name="Description" type="text" value = "@Model.Description" placeholder="Кратко описание на продукта...">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-file-medical-alt"></span>
@@ -45,38 +47,38 @@
                 <div clas
                 <div class="form-group">
                     <select name="Category" class="form-control" required>
-                        <option value="" selected="true">Категория</option>
-                        @foreach (var catg in Model)
-                        {<option value="@catg.Name">@catg.Name</option>}
+                        <option value="">Категория</option>
+                        @foreach (var catg in ViewBag.Categories)
+                        {
+                          @if (@catg.Name == Model.Category)
+                          {<option value="@catg.Name" selected="true">@catg.Name</option>}
+                          else
+                          {<option value="@catg.Name">@catg.Name</option>}
+                        }
                     </select>
                 </div>
                 <div class="form-group">
             <select name="Kilograms" class="form-control" required>
 	            <option value="" selected="true">Килограми</option>
-	            <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="30">30</option>
-                <option value="35">35</option>
-                <option value="40">40</option>
-                <option value="45">45</option>
+	            @foreach (var number in ViewBag.KilosList)
+                {
+                  @if (@number == int.Parse(Model.Kilograms))
+                  {<option value="@number" selected="true">@number</option>}
+                  else
+                  {<option value="@number">@number</option>}
+                }
 	        </select>
           </div>
           <div class="form-group">
             <div >
-              <input class="form-control required" name="Price" id="price" type="text" placeholder="Цена в лева за чувал/опаковка..." required>
+              <input class="form-control required" name="Price" value="@Model.Price" id="price" type="text" placeholder="Цена в лева за чувал/опаковка..." required>
             </div>
           </div>
-                <div class="input-group mb-3" style="display:none;" id="passAlert">
-                    <p>Паролите не съвпадат!</p>
-                </div>
                 <div class="col-4" style="max-width: 100%">
-                    <button type="submit" id="submit" class="btn btn-primary btn-block">Създай</button>
+                    <button type="submit" id="submit" class="btn btn-primary btn-block">Приложи</button>
                 </div>
             </form>
         </div>
         <a href="/Products/ListProducts" class="text-center" style="margin-bottom: 10px;">Отказ</a>
     </div>
-</div><script src="~/js/ProductsCreate.js"></script>
+</div><script src="~/js/ProductsEdit.js"></script>

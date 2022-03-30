@@ -19,6 +19,7 @@ namespace VSMS_ASP.Controllers
 
         public IActionResult ListUsers()
         {
+
             List<AllUsersListViewModel> users = new List<AllUsersListViewModel>();
             ViewData["View"] = "Users";
             users = context.Users.Select(x => new AllUsersListViewModel
@@ -41,7 +42,6 @@ namespace VSMS_ASP.Controllers
             ViewData["UserMail"] = arg;
             return View();
         }
-
 
         
         [HttpPost]
@@ -70,6 +70,15 @@ namespace VSMS_ASP.Controllers
                 await userManager.SetUserNameAsync(user, model.EmailChange);
             }
             return Redirect("/Users/ListUsers");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string arg)
+        {
+            var result = await userManager.DeleteAsync(await userManager.FindByEmailAsync(arg));
+            if (result.Succeeded)
+            { return await Task.Run(() => Redirect("/Users/ListUsers")); }
+            return await Task.Run(() => Redirect("/Error/CustomError?errorCode=102"));
         }
 
     }
