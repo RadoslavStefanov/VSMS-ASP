@@ -1,0 +1,212 @@
+﻿<style>
+    .content-wrapper
+    {
+        display:flex;
+        padding:5px;
+    }
+
+    .main-footer
+    {
+        display:none;
+    }
+
+    body
+    {
+        overflow: hidden;
+    }
+
+    .navbar-Products
+    {
+        padding:2px;
+        background-color:white;
+        display:flex;
+        border: 2px solid #D3D3D3;
+        border-radius:10px 0px 0px 0px;
+    }
+
+    .navbar-Sales 
+    {
+        padding:2px;
+        background-color:white;
+        display:flex;
+        border: 2px solid #D3D3D3;
+        border-radius:0px 10px 0px 0px;
+        height: 46px;
+    }
+    .navbar-Sales p
+    {
+        justify-content:center;
+        align-content:center;
+        margin-left:40%;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 150%;
+    }
+    .navbar-Products p
+    {
+        justify-content:center;
+        align-content:center;
+        margin-left:40%;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 150%;
+    }
+
+    .productsLister
+    {
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+        border: 2px solid #D3D3D3;
+        text-align: center;
+        height: 100%;
+        overflow:auto;
+    }
+
+    .salesLister
+    {
+        display: block;
+        width: 100%;
+        min-height: 100vh;
+        border: 2px solid #D3D3D3;
+    }
+
+</style>
+<link rel="stylesheet" href="~/css/ProductsListStyle.css">
+
+
+<div style="width: 80%; float:left;">
+   <div class="navbar-Products">
+       <a href="#" style="float:left;" class="btn btn-primary btn-default"><i class="fas fa-filter"></i></a>
+       <p style="float:right;">Продукти</p>
+   </div>
+   <div style="display:block;" class="productsLister">
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;height: 20rem;">
+        <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
+            <p class="card-text" style="text-align:left;" >Много готин продукт...</p>
+            <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
+            <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+        </div>
+    </div>
+   </div>
+</div>
+
+<div style="width: 20%; float:right;">
+   <div class="navbar-Sales">
+       <p>Сметка</p>
+   </div>
+   <div style="display:flex;"class="salesLister">
+
+   </div>
+</div>
+

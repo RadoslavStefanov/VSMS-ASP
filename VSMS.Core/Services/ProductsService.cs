@@ -53,14 +53,17 @@ namespace VSMS.Core.Services
             {return false;}
         }
 
-        public async void UpdateProduct(ProductsViewModel model)
+        public async Task UpdateProduct(ProductsViewModel model)
         {
             var product = repo.All<Products>().Where(p => p.Name == model.Name).FirstOrDefault();
-            product.Description = model.Description;
+            product.Description = model.Description??"";
             product.ImageUrl = model.ImageUrl;
             product.Price = decimal.Parse(model.Price);
             product.Name = model.Name;
-            product.CategoryId=model.
+            product.CategoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id;
+            product.Kilograms = int.Parse(model.Kilograms);
+            await Task.Run(() => repo.SaveChanges());
+            
         }
 
         public List<Products> GetAllProducts()

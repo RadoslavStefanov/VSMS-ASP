@@ -83,6 +83,8 @@ namespace VSMS_ASP.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductsViewModel model)
         {
+            var input = model;
+            await productsService.UpdateProduct(model);
             return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
     }
