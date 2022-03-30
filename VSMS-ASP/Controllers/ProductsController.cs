@@ -46,6 +46,7 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => Redirect("/Error/CustomError?errorCode=202"));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProduct()
         {
             var list = categoriesService.GetAllCategories().ToList();
