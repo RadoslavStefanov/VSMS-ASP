@@ -33,7 +33,7 @@
             <p>Сметка</p>
         </header>
         <div style="display:flex;" class="salesLister">
-            <form class="sales-form">
+            <form class="sales-form" method="post">
                 <div id="sales-table" class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
@@ -45,25 +45,17 @@
                             </tr>
                         </thead>
                         <tbody id="table">
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#cleanerModal" class="delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            <!--This where the JS fills the selected products...-->
                         </tbody>
                     </table>
                 </div>
 
                 <footer class="sales-total">
                     <label>Общо:</label>
-                    <input type="text" disabled />
+                    <input id="totalPrice" type="text" disabled />
                     <label>.лв</label>
                     <div>
+                        <input name="saleJSON" value="" style="display:none"/>
                         <a href="/Sales/CashRegister" class="btn btn-secondary">Изчисти</a>
                         <button type="submit" class="btn btn-primary">Продай</button>
                     </div>
@@ -103,7 +95,7 @@
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
-                <button type="button" id="sell" class="btn btn-success"><a  style="color:white;">Продай</a></button>
+                <button type="button" id="sell" data-dismiss="modal" class="btn btn-success"><a  style="color:white;">Продай</a></button>
             </div>
         </div>
     </div>

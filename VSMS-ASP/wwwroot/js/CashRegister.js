@@ -5,6 +5,7 @@ let saleModal = document.getElementById("saleModal");
 let amountInput = document.getElementById("amountInput");
 let sellButton = document.getElementById("sell");
 let receiptTable = document.getElementById("table");
+let totalPriceField = document.getElementById("totalPrice");
 
 let inputProduct =
 {
@@ -119,6 +120,7 @@ function sendToReceipt(e)
         td1.textContent = outputProduct.Name;
         td2.textContent = outputProduct.Amout+"бр.";
         td3.textContent = (parseFloat(outputProduct.Amout) * parseFloat(outputProduct.PricePP)).toFixed(2)+"лв";
+        td3.classList.add("tdPrice");
 
         i.classList.add("fa");
         i.classList.add("fa-trash");
@@ -137,15 +139,30 @@ function sendToReceipt(e)
 
         let table = document.getElementById("table");
         table.appendChild(tr);
+        updateTotal();
     }
+}
 
-    function deleteTableItem(e)
+
+function deleteTableItem(e)
+{
+
+}
+
+function updateTotal()
+{
+    let allPrices = document.getElementsByClassName("tdPrice");
+    console.log(allPrices);
+
+    totalPriceField.value = 0.00;
+    
+    for (let i = 0; i < allPrices.length; i++)
     {
-
-    }
-
-    function updateTotal
-    {
-
+        console.log("We are combining the following:")
+        console.log(totalPriceField.value);
+        console.log(allPrices[i].innerText.split('л')[0]);
+        let input = (allPrices[i].innerText.split('л')[0]);
+        console.log(input)
+        totalPriceField.value = (parseFloat(totalPriceField.value) + parseFloat(input)).toFixed(2);
     }
 }

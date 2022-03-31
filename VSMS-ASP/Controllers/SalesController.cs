@@ -35,5 +35,11 @@ namespace VSMS_ASP.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public void CashRegister(string saleJSON)
+        {
+            Console.WriteLine(saleJSON);
+        }
     }
 }
