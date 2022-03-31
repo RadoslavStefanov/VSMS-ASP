@@ -24,6 +24,9 @@ namespace VSMS.Infrastructure.Data.Models
         [Required]
         public int Kilograms { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Quantity { get; set; }
+
         [Required]
         public string Description { get; set; }
 
