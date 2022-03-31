@@ -7,7 +7,10 @@
         <img class="card-img-top" src="@p.ImageUrl" alt="Card image cap">
         <div class="card-body">
             <h3 class="card-title" style="text-align:center;font-weight: bold;">@p.Name</h3>
-            <p class="card-text" style="text-align:left;" >@p.Description.Substring(0,22)...</p>
+            @if (@p.Description.Length > 22)
+            {<p class="card-text" style="text-align:left;" >@p.Description.Substring(0,22)...</p>}
+            else
+            {<p class="card-text" style="text-align:left;" >@p.Description</p>}
             <a href="/Products/Delete?id=@p.Id" class="btn btn-secondary">Изтрий</a>
             <a href="/Products/EditProduct?id=@p.Id" class="btn btn-primary">Редактирай</a>
         </div>
