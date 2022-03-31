@@ -6,6 +6,8 @@ let amountInput = document.getElementById("amountInput");
 let sellButton = document.getElementById("sell");
 let receiptTable = document.getElementById("table");
 let totalPriceField = document.getElementById("totalPrice");
+let JSONoutput = document.getElementById("saleJSON");
+let filterApplyButton = document.getElementById("filterApply");
 
 let inputProduct =
 {
@@ -16,6 +18,7 @@ let inputProduct =
 
 amountInput.addEventListener('input', preventChar)
 sell.addEventListener('click', sendToReceipt)
+filterApplyButton.addEventListener('click', applyFilter)
 for (let i = 0; i < uploadButtons.length; i++)
 { uploadButtons[i].addEventListener('click', loadProduct2Modal) }
 
@@ -88,6 +91,12 @@ function removeAmount(e)
     
 }
 
+function deleteTableItem(e)
+{
+    e.target.parentNode.parentNode.parentNode.remove();
+    updateTotal();
+}
+
 function sendToReceipt(e)
 {
     
@@ -118,8 +127,11 @@ function sendToReceipt(e)
 
 
         td1.textContent = outputProduct.Name;
-        td2.textContent = outputProduct.Amout+"бр.";
-        td3.textContent = (parseFloat(outputProduct.Amout) * parseFloat(outputProduct.PricePP)).toFixed(2)+"лв";
+        td1.classList.add("Name");
+        td2.textContent = outputProduct.Amout + "бр.";
+        td2.classList.add("Amount");
+        td3.textContent = (parseFloat(outputProduct.Amout) * parseFloat(outputProduct.PricePP)).toFixed(2) + "лв";
+        td3.classList.add("Price");
         td3.classList.add("tdPrice");
 
         i.classList.add("fa");
@@ -127,8 +139,9 @@ function sendToReceipt(e)
         i.ariaHiddent = true;
 
         a.classList.add("delete-btn");
+        i.addEventListener('click', deleteTableItem)
         a.appendChild(i);
-        a.addEventListener('click',deleteTableItem)
+        
 
         td4.appendChild(a);
 
@@ -143,26 +156,36 @@ function sendToReceipt(e)
     }
 }
 
-
-function deleteTableItem(e)
-{
-
-}
-
 function updateTotal()
 {
     let allPrices = document.getElementsByClassName("tdPrice");
-    console.log(allPrices);
-
     totalPriceField.value = 0.00;
     
     for (let i = 0; i < allPrices.length; i++)
     {
-        console.log("We are combining the following:")
-        console.log(totalPriceField.value);
-        console.log(allPrices[i].innerText.split('л')[0]);
         let input = (allPrices[i].innerText.split('л')[0]);
-        console.log(input)
         totalPriceField.value = (parseFloat(totalPriceField.value) + parseFloat(input)).toFixed(2);
     }
+
+    updateJSON();
+}
+
+function updateJSON()
+{
+    let array = [];
+    let rows = receiptTable.querySelectorAll("tr")
+    for (let i = 0; i < rows.length; i++)
+    {
+        let tempObj = new Object();
+        tempObj.Name = rows[i].querySelector(".Name").innerText;
+        tempObj.Amount = rows[i].querySelector(".Amount").innerText.split('б')[0];
+        tempObj.TotalPrice = rows[i].querySelector(".Price").innerText.split('л')[0];
+        array.push(tempObj);
+    }
+    JSONoutput.value = JSON.stringify(array);
+}
+
+function applyFilter()
+{
+    console.log("Applying filter");
 }

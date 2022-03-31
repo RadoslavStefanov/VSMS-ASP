@@ -32,7 +32,7 @@ namespace VSMS_ASP.Controllers
                     Price = p.Price
                 });
             }
-
+            ViewBag.Categories = categoriesList;
             return View(model);
         }
 

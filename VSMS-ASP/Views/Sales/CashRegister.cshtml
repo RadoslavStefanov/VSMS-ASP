@@ -7,10 +7,9 @@
 <section class="productsList-wrapper">
     <article class="products-container">
         <nav class="navbar-Products">
-            <a href="#" class="btn btn-primary btn-default" style="background-color: #d3d3d3; border-color: #007bff;"><i class="fas fa-filter"></i></a>
+            <a href="#filterModal" class="trigger-btn btn btn-default" data-toggle="modal" style="background-color: #d3d3d3; border-color: #007bff;"><i class="fas fa-filter"></i></a>
             <p>Продукти</p>
         </nav>
-
         <div style="display:block;" class="productsLister">
             @foreach (var p in Model)
             {
@@ -19,9 +18,9 @@
                     <div class="card-body">
                         <h3 class="card-title" style="text-align:center;font-weight: bold;">@p.Name</h3>
                         <p class="card-text" style="text-align:left;">@p.Price лв</p>
-                        <a href="#saleModal"class="trigger-btn btn btn-primary saleBtn" data-toggle="modal">Продай</a>
-                        <p id="categoryName" style="display:none">@p.Category</p>
-                        <p id="Kilograms" style="display:none">@p.Kilograms</p>
+                        <a href="#saleModal" class="trigger-btn btn btn-primary saleBtn" data-toggle="modal">Продай</a>
+                        <p class="categoryName" style="display:none">@p.Category</p>
+                        <p class="Kilograms" style="display:none">@p.Kilograms</p>
                     </div>
                 </div>
             }
@@ -55,7 +54,7 @@
                     <input id="totalPrice" type="text" disabled />
                     <label>.лв</label>
                     <div>
-                        <input name="saleJSON" value="" style="display:none"/>
+                        <input name="saleJSON" id="saleJSON" value="" style="display:none" />
                         <a href="/Sales/CashRegister" class="btn btn-secondary">Изчисти</a>
                         <button type="submit" class="btn btn-primary">Продай</button>
                     </div>
@@ -85,38 +84,54 @@
                 <p style="text-align:center;">Изберете или въведете количество</p>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" value = "10" class="btn taker btn-danger">-10</button>
-                <button type="button" value = "5" class="btn taker btn-danger">-5</button>
-                <button type="button" value = "1" class="btn taker btn-danger">-1</button>
-                <input id = "amountInput"style="width:25%;" placeholder="Бр. опаковки"/>
-                <button type="button" value = "1" class="btn adder btn-success">+1</button>
-                <button type="button" value = "5" class="btn adder btn-success">+5</button>
-                <button type="button" value = "10" class="btn adder btn-success">+10</button>
+                <button type="button" value="10" class="btn taker btn-danger">-10</button>
+                <button type="button" value="5" class="btn taker btn-danger">-5</button>
+                <button type="button" value="1" class="btn taker btn-danger">-1</button>
+                <input id="amountInput" style="width:25%;" placeholder="Бр. опаковки" />
+                <button type="button" value="1" class="btn adder btn-success">+1</button>
+                <button type="button" value="5" class="btn adder btn-success">+5</button>
+                <button type="button" value="10" class="btn adder btn-success">+10</button>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
-                <button type="button" id="sell" data-dismiss="modal" class="btn btn-success"><a  style="color:white;">Продай</a></button>
+                <button type="button" id="sell" data-dismiss="modal" class="btn btn-success"><a style="color:white;">Продай</a></button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Clear Sales Ask Modal -->
-<div id="cleanerModal" class="modal fade">
+<div id="filterModal" class="modal fade">
     <div class="modal-dialog modal-confirm">
         <div class="modal-content">
             <div class="modal-header flex-column" style="text-align: center;align-items: center;">
-                <div class="icon-box">
-                    <i class="fas fa-trash-alt fa-5x"></i>
-                </div>
-                <h4 class="modal-title w-100">Сигурни ли сте?</h4>
+                <h4 class="modal-title w-100">Прилагане на филтър</h4>
+                <select name="Category" class="form-control" style="margin-bottom:10px;" required>
+                    <option value="" selected="true">Категория</option>
+                    @foreach (var catg in ViewBag.Categories)
+                    {
+                        <option value="@catg.Name">@catg.Name</option>
+                    }
+                </select>
+                <select name="Kilograms" class="form-control" required>
+                    <option value="" selected="true">Килограми</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                </select>
             </div>
             <div class="modal-body">
-                <p style="text-align:center;">Наистина ли искате да изтриете този потребител?<br />Този процес не е обратим!</p>
+                <p style="text-align:center;">Изберете критерии<br />по които да бъдат филтрирани продуктите!</p>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
-                <button type="button" class="btn btn-danger"><a id="delete" style="color:white;" href="#">Изтрий</a></button>
+                <button type="button" id="filterApply" class="btn btn-danger"><a style="color:white;">Прилагане</a></button>
             </div>
         </div>
     </div>
