@@ -1,0 +1,95 @@
+﻿.productsList-wrapper {
+    display: flex;
+    padding: 5px;
+    margin: 0;
+}
+
+.products-container {
+    width: 100%;
+    flex-grow: 3;
+}
+
+body {
+    overflow: hidden;
+}
+
+.navbar-Products {
+    padding: 2px;
+    background-color: white;
+    display: flex;
+    border: 2px solid #D3D3D3;
+    border-radius: 10px 0px 0px 0px;
+    width: 100%;
+}
+
+.navbar-Sales {
+    padding: 2px;
+    background-color: white;
+    display: flex;
+    border: 2px solid #D3D3D3;
+    border-radius: 0px 10px 0px 0px;
+    width: 100%;
+    height: 46px;
+}
+
+.navbar-Products p {
+    margin: 0 auto;
+    font-size: 150%;
+}
+
+.navbar-Sales p {
+    margin: 0 auto;
+    font-size: 150%;
+}
+
+.sales-container {
+    width: 30%;
+    flex-grow: 1;
+}
+
+.productsLister {
+    height: 800px;
+    overflow: auto;
+    border: 2px solid #D3D3D3;
+}
+
+.salesLister {
+    border: 2px solid #D3D3D3;
+    display: flex;
+}
+
+#sales-table {
+    height: 711px;
+    overflow: auto;
+}
+
+.sales-total {
+    padding: 5px;
+    border-top: 2px solid #D3D3D3;
+}
+
+.sales-form {
+    width: 100%;
+}
+
+@media only screen and (max-height: 720px) {
+    .productsLister {
+        height: 560px;
+        border: 2px solid #D3D3D3;
+    }
+
+    #sales-table {
+        height: 471px;
+    }
+}
+
+@media only screen and (min-height: 1080px) {
+    .productsLister {
+        height: 910px;
+        border: 2px solid #D3D3D3;
+    }
+
+    #sales-table {
+        height: 821px;
+    }
+}

@@ -1,380 +1,30 @@
-﻿<link rel="stylesheet" href="~/css/ProductsListStyle.css">
+﻿@model IEnumerable<AllProductsListViewModel>
+<link rel="stylesheet" href="~/css/ProductsListStyle.css">
+<link rel="stylesheet" href="~/css/CashRegister.css">
 
-<style>
-    .productsList-wrapper {
-        display: flex;
-        padding: 5px;
-        margin: 0;
-    }
 
-    .products-container {
-        width: 100%;
-        flex-grow: 3;
-    }
-
-    body {
-        overflow: hidden;
-    }
-
-    .navbar-Products {
-        padding: 2px;
-        background-color: white;
-        display: flex;
-        border: 2px solid #D3D3D3;
-        border-radius: 10px 0px 0px 0px;
-        width: 100%;
-    }
-
-    .navbar-Sales {
-        padding: 2px;
-        background-color: white;
-        display: flex;
-        border: 2px solid #D3D3D3;
-        border-radius: 0px 10px 0px 0px;
-        width: 100%;
-        height: 46px;
-    }
-
-    .navbar-Products p {
-        margin: 0 auto;
-        font-size: 150%;
-    }
-
-    .navbar-Sales p {
-        margin: 0 auto;
-        font-size: 150%;
-    }
-
-    .sales-container {
-        width: 30%;
-        flex-grow: 1;
-    }
-
-    .productsLister {
-        height: 800px;
-        overflow: auto;
-        border: 2px solid #D3D3D3;
-    }
-
-    .salesLister {
-        border: 2px solid #D3D3D3;
-        display: flex;
-    }
-
-    #sales-table {
-        height: 711px;
-        overflow: auto;
-    }
-
-    .sales-total {
-        padding: 5px;
-        border-top: 2px solid #D3D3D3;
-    }
-
-    .sales-form {
-        width: 100%;
-    }
-
-        @@media only screen and (max-height: 720px) 
-    {
-        .productsLister {
-            height: 560px;
-            border: 2px solid #D3D3D3;
-        }
-
-        #sales-table 
-        {height: 471px;}
-    }
-
-    @@media only screen and (min-height: 1080px) {
-        .productsLister {
-            height: 910px;
-            border: 2px solid #D3D3D3;
-        }
-        #sales-table 
-        {height: 821px;}
-    }
-
-</style>
 
 <section class="productsList-wrapper">
     <article class="products-container">
         <nav class="navbar-Products">
-            <a href="#" class="btn btn-primary btn-default"><i class="fas fa-filter"></i></a>
+            <a href="#" class="btn btn-primary btn-default" style="background-color: #d3d3d3; border-color: #007bff;"><i class="fas fa-filter"></i></a>
             <p>Продукти</p>
         </nav>
 
         <div style="display:block;" class="productsLister">
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
+            @foreach (var p in Model)
+            {
+                <div class="card" style="width: 18rem;height: 20rem;">
+                    <img class="card-img-top" style="border-radius:10px;" src="@p.ImageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="text-align:center;font-weight: bold;">@p.Name</h3>
+                        <p class="card-text" style="text-align:left;">@p.Price лв</p>
+                        <a href="#saleModal"class="trigger-btn btn btn-primary saleBtn" data-toggle="modal">Продай</a>
+                        <p id="categoryName" style="display:none">@p.Category</p>
+                        <p id="Kilograms" style="display:none">@p.Kilograms</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;height: 20rem;">
-                <img class="card-img-top" src="https://cdn1.media-and-learning.eu/files/2020/05/bigstock-Barcelona-General-View-Through-321403279-900x500.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title" style="text-align:center;font-weight: bold;">Готиния продукт</h3>
-                    <p class="card-text" style="text-align:left;">Много готин продукт...</p>
-                    <a href="/Products/Delete?id=1" class="btn btn-secondary">Изтрий</a>
-                    <a href="/Products/EditProduct?id=1" class="btn btn-primary">Редактирай</a>
-                </div>
-            </div>
+            }
         </div>
     </article>
 
@@ -394,163 +44,13 @@
                                 <th>Премахни</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             <tr>
                                 <td>Краставици</td>
                                 <td>2кг</td>
                                 <td>5.20лв</td>
                                 <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Краставици</td>
-                                <td>2кг</td>
-                                <td>5.20лв</td>
-                                <td>
-                                    <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
+                                    <a href="#cleanerModal" class="delete-btn" data-toggle="modal">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                 </td>
@@ -564,12 +64,72 @@
                     <input type="text" disabled />
                     <label>.лв</label>
                     <div>
-                        <a href="/Products/Delete?id=1" class="btn btn-secondary">Изчисти</a>
-                        <a href="/Products/EditProduct?id=1" class="btn btn-primary">Продай</a>
+                        <a href="/Sales/CashRegister" class="btn btn-secondary">Изчисти</a>
+                        <button type="submit" class="btn btn-primary">Продай</button>
                     </div>
-
                 </footer>
             </form>
         </div>
     </article>
 </section>
+
+<!-- Sale Modal -->
+<div id="saleModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column" style="text-align: center;align-items: center;">
+                <div class="card" style="width: 18rem;height: 20rem;">
+                    <img class="card-img-top" id="modalImage" style="border-radius:10px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiKoRcDgZaMdIgZhxgZa83h-u4VbFhAb0eLw&usqp=CAU" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="text-align:center;font-weight: bold;">Непознат</h3>
+                        <p class="card-text" style="text-align:left;">0 .лв</p>
+                        <p id="categoryName" style="display:none">Непозната</p>
+                        <p id="Kilograms" style="display:none">Непознати</p>
+                    </div>
+                </div>
+                <h6 class="modal-title w-100">Продажба на <p class="secondName">Непознат</p></h6>
+            </div>
+            <div class="modal-body">
+                <p style="text-align:center;">Изберете или въведете количество</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" value = "10" class="btn taker btn-danger">-10</button>
+                <button type="button" value = "5" class="btn taker btn-danger">-5</button>
+                <button type="button" value = "1" class="btn taker btn-danger">-1</button>
+                <input id = "amountInput"style="width:25%;" placeholder="Бр. опаковки"/>
+                <button type="button" value = "1" class="btn adder btn-success">+1</button>
+                <button type="button" value = "5" class="btn adder btn-success">+5</button>
+                <button type="button" value = "10" class="btn adder btn-success">+10</button>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+                <button type="button" id="sell" class="btn btn-success"><a  style="color:white;">Продай</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Clear Sales Ask Modal -->
+<div id="cleanerModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column" style="text-align: center;align-items: center;">
+                <div class="icon-box">
+                    <i class="fas fa-trash-alt fa-5x"></i>
+                </div>
+                <h4 class="modal-title w-100">Сигурни ли сте?</h4>
+            </div>
+            <div class="modal-body">
+                <p style="text-align:center;">Наистина ли искате да изтриете този потребител?<br />Този процес не е обратим!</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+                <button type="button" class="btn btn-danger"><a id="delete" style="color:white;" href="#">Изтрий</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/js/CashRegister.js"></script>
