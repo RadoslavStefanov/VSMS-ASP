@@ -25,6 +25,11 @@ namespace VSMS.Infrastructure.Data.Models
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; }
 
+        [Required]
+        [Range(minimum: 0, maximum: double.MaxValue)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Total { get; set; }
+
         public ICollection<SalesProducts> SalesProducts {get;set;}
         public Sales()
         {
