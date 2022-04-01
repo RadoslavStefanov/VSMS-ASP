@@ -93,3 +93,11 @@ body {
         height: 821px;
     }
 }
+
+#filterDiv {
+    display: none;
+    padding: 5px;
+    border: 2px solid firebrick;
+    border-radius: 10px;
+    background-color: #FFCFCF;
+}

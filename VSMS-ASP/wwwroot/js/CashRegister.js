@@ -8,6 +8,7 @@ let receiptTable = document.getElementById("table");
 let totalPriceField = document.getElementById("totalPrice");
 let JSONoutput = document.getElementById("saleJSON");
 let filterApplyButton = document.getElementById("filterApply");
+let filterRemover = document.getElementById("filterRemover");
 
 let inputProduct =
 {
@@ -18,6 +19,8 @@ let inputProduct =
 
 amountInput.addEventListener('input', preventChar)
 sell.addEventListener('click', sendToReceipt)
+filterRemover.addEventListener('click', removeFilter)
+
 filterApplyButton.addEventListener('click', applyFilter)
 for (let i = 0; i < uploadButtons.length; i++)
 { uploadButtons[i].addEventListener('click', loadProduct2Modal) }
@@ -185,7 +188,67 @@ function updateJSON()
     JSONoutput.value = JSON.stringify(array);
 }
 
+function removeFilter()
+{
+    let filerDiv = document.getElementById("filterDiv");
+    filerDiv.style.display = "none";
+    filerDiv.querySelector("p").innerText = "";
+    let productsLister = document.getElementById("productsLister");
+    let productsCards = productsLister.getElementsByClassName("card");
+    showAllCards(productsLister, productsCards);
+}
+
+function showAllCards(productsLister,productsCards)
+{
+    for (let i = 0; i < productsCards.length; i++)
+    {productsCards[i].style.display = "inline-block";}
+}
+
 function applyFilter()
 {
-    console.log("Applying filter");
+    let filterCatInput = document.getElementById("FilterCatSelector");
+    let filterKiloInput = document.getElementById("FilterKiloSelector");
+    let filerDiv = document.getElementById("filterDiv");
+    let productsLister = document.getElementById("productsLister");
+    let productsCards = productsLister.getElementsByClassName("card");
+
+    if (filterCatInput.value == "null" && filterKiloInput.value == "null")
+    {showAllCards(productsLister, productsCards);}
+
+    if (filterCatInput.value != "null" && filterKiloInput.value != "null")
+    {
+        showAllCards(productsLister, productsCards);
+        for (let i = 0; i < productsCards.length; i++)
+        {
+            if (productsCards[i].querySelector(".categoryName").innerText !== filterCatInput.value
+            || productsCards[i].querySelector(".Kilograms").innerText !== filterKiloInput.value)
+            { productsCards[i].style.display = "none"; }
+        }
+        filerDiv.style.display = "flow-root";
+        filerDiv.querySelector("p").innerText = "Филтър: " + filterCatInput.value + " / " + filterKiloInput.value + "кг."
+    }
+
+    if (filterCatInput.value != "null" && filterKiloInput.value == "null")
+    {
+        showAllCards(productsLister, productsCards);
+        for (let i = 0; i < productsCards.length; i++)
+        {
+            if (productsCards[i].querySelector(".categoryName").innerText !== filterCatInput.value)
+            { productsCards[i].style.display = "none"; }
+            filerDiv.style.display = "flow-root";
+            filerDiv.querySelector("p").innerText = "Филтър: " + filterCatInput.value
+        }
+    }
+
+    if (filterCatInput.value == "null" && filterKiloInput.value != "null")
+    {
+        showAllCards(productsLister, productsCards);
+        for (let i = 0; i < productsCards.length; i++)
+        {
+            if (productsCards[i].querySelector(".Kilograms").innerText !== filterKiloInput.value)
+            { productsCards[i].style.display = "none"; }
+            filerDiv.style.display = "flow-root";
+            filerDiv.querySelector("p").innerText = "Филтър: " + filterKiloInput.value + "кг."
+        }
+    }
 }
