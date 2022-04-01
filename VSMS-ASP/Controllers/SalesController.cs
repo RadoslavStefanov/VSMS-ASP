@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VSMS.Core.Services;
 using VSMS.Core.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace VSMS_ASP.Controllers
 {
@@ -8,10 +9,19 @@ namespace VSMS_ASP.Controllers
     {
         private readonly ProductsService productsService;
         private readonly CategoriesService categoriesService;
+        private readonly SalesService salesService;
+        private UserManager<IdentityUser> userManager;
 
-        public SalesController(ProductsService _productsService, CategoriesService _categoriesService)
-        {productsService = _productsService;
-        categoriesService = _categoriesService;}
+        public SalesController(ProductsService _productsService, 
+               CategoriesService _categoriesService, 
+               SalesService _salesService,
+               UserManager<IdentityUser> usermgr)
+        {
+            productsService = _productsService;
+            categoriesService = _categoriesService;
+            salesService = _salesService;
+            userManager = usermgr;
+        }
 
         public IActionResult CashRegister()
         {
@@ -37,9 +47,24 @@ namespace VSMS_ASP.Controllers
         }
 
         [HttpPost]
-        public void CashRegister(string saleJSON)
+        public IActionResult CashRegister(string saleJSON)
         {
-            Console.WriteLine(saleJSON);
+            if (saleJSON == null)
+            { return Redirect("/Sales/CashRegister"); }
+            if (saleJSON.Length <= 0)
+            { return Redirect("/Sales/CashRegister"); }
+
+            var un = userManager.GetUserId(User);
+            salesService.RegisterSale(saleJSON,un);
+            return Redirect("/Sales/CashRegister");
+        }
+
+        public IActionResult MySales()
+        {
+            var userId = userManager.GetUserId(User);
+            var mySales = salesService.GetUserSales(userId).OrderBy(p=>p.DateTime);
+            ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
+            return View(mySales);
         }
     }
 }

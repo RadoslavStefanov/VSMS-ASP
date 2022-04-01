@@ -9,6 +9,7 @@ let totalPriceField = document.getElementById("totalPrice");
 let JSONoutput = document.getElementById("saleJSON");
 let filterApplyButton = document.getElementById("filterApply");
 let filterRemover = document.getElementById("filterRemover");
+let body = document.querySelector("body");
 
 let inputProduct =
 {
@@ -16,6 +17,13 @@ let inputProduct =
     Name: null,
     Price: null
 }
+
+body.classList = "";
+body.classList.add("sidebar-mini")
+body.classList.add("layout-fixed")
+body.classList.add("sidebar-closed")
+body.classList.add("sidebar-collapse")
+
 
 amountInput.addEventListener('input', preventChar)
 sell.addEventListener('click', sendToReceipt)
@@ -102,7 +110,6 @@ function deleteTableItem(e)
 
 function sendToReceipt(e)
 {
-    
     let outputProduct =
     {
         Name:saleModal.querySelector(".card-title").innerText = inputProduct.Name,
@@ -110,53 +117,70 @@ function sendToReceipt(e)
         PricePP:saleModal.querySelector(".card-text").innerText = inputProduct.Price
     }
 
-    if (outputProduct.Name == null
-        || outputProduct.Amout == null
-        || outputProduct.Amout <= 0
-        || outputProduct.PricePP == null
-        || outputProduct.PricePP <= 0) {
-        alert("Входните данни не отговарят на изискванията");
-    }
-    else
+    let table = document.getElementById("table");
+    let curProducts = table.querySelectorAll("tr");
+    let combine = false;
+
+    for (let i = 0; i < curProducts.length; i++)
     {
-        let tr = document.createElement("tr");
-        let td1 = document.createElement("td");
-        let td2 = document.createElement("td");
-        let td3 = document.createElement("td");
-        let td4 = document.createElement("td");
+        if (curProducts[i].querySelector(".Name").innerText == outputProduct.Name)
+        {
+            let value = curProducts[i].querySelector(".Amount").innerText.split('б')[0];
+            value = parseInt(parseInt(value) + parseInt(outputProduct.Amout));
+            value = value + "бр."
+            curProducts[i].querySelector(".Amount").innerText = value
+            combine = true;
+        }
+    }
+
+    if (combine == false)
+    {
+        if (outputProduct.Name == null
+            || outputProduct.Amout == null
+            || outputProduct.Amout <= 0
+            || outputProduct.PricePP == null
+            || outputProduct.PricePP <= 0) {
+            alert("Входните данни не отговарят на изискванията");
+        }
+        else {
+            let tr = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
             let a = document.createElement("a");
             let i = document.createElement("i");
 
 
 
-        td1.textContent = outputProduct.Name;
-        td1.classList.add("Name");
-        td2.textContent = outputProduct.Amout + "бр.";
-        td2.classList.add("Amount");
-        td3.textContent = (parseFloat(outputProduct.Amout) * parseFloat(outputProduct.PricePP)).toFixed(2) + "лв";
-        td3.classList.add("Price");
-        td3.classList.add("tdPrice");
+            td1.textContent = outputProduct.Name;
+            td1.classList.add("Name");
+            td2.textContent = outputProduct.Amout + "бр.";
+            td2.classList.add("Amount");
+            td3.textContent = (parseFloat(outputProduct.Amout) * parseFloat(outputProduct.PricePP)).toFixed(2) + "лв";
+            td3.classList.add("Price");
+            td3.classList.add("tdPrice");
 
-        i.classList.add("fa");
-        i.classList.add("fa-trash");
-        i.ariaHiddent = true;
+            i.classList.add("fa");
+            i.classList.add("fa-trash");
+            i.ariaHiddent = true;
 
-        a.classList.add("delete-btn");
-        i.addEventListener('click', deleteTableItem)
-        a.appendChild(i);
-        
+            a.classList.add("delete-btn");
+            i.addEventListener('click', deleteTableItem)
+            a.appendChild(i);
 
-        td4.appendChild(a);
 
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
+            td4.appendChild(a);
 
-        let table = document.getElementById("table");
-        table.appendChild(tr);
-        updateTotal();
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+
+            table.appendChild(tr);
+        }
     }
+    updateTotal();
 }
 
 function updateTotal()
@@ -180,9 +204,9 @@ function updateJSON()
     for (let i = 0; i < rows.length; i++)
     {
         let tempObj = new Object();
-        tempObj.Name = rows[i].querySelector(".Name").innerText;
-        tempObj.Amount = rows[i].querySelector(".Amount").innerText.split('б')[0];
-        tempObj.TotalPrice = rows[i].querySelector(".Price").innerText.split('л')[0];
+        tempObj.soldProductName = rows[i].querySelector(".Name").innerText;
+        tempObj.soldProductAmout = parseInt(rows[i].querySelector(".Amount").innerText.split('б')[0]);
+        tempObj.soldProductTotalPrice = parseFloat(rows[i].querySelector(".Price").innerText.split('л')[0]);
         array.push(tempObj);
     }
     JSONoutput.value = JSON.stringify(array);
