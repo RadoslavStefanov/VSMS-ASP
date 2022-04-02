@@ -148,16 +148,21 @@ function sendToReceipt(e)
             let td2 = document.createElement("td");
             let td3 = document.createElement("td");
             let td4 = document.createElement("td");
+            let td5 = document.createElement("td");
             let a = document.createElement("a");
             let i = document.createElement("i");
 
+            td5.style.display = "none";
+            td5.textContent = outputProduct.PricePP;
+            td5.classList.add("AtPrice");
 
+            console.log(td5);
 
             td1.textContent = outputProduct.Name;
             td1.classList.add("Name");
             td2.textContent = outputProduct.Amout + "бр.";
             td2.classList.add("Amount");
-            td3.textContent = (parseFloat(outputProduct.Amout) * parseFloat(outputProduct.PricePP)).toFixed(2) + "лв";
+            td3.textContent = (parseFloat((outputProduct.Amout).replace(',', '.')) * parseFloat((outputProduct.PricePP).replace(',', '.'))).toFixed(2) + "лв";
             td3.classList.add("Price");
             td3.classList.add("tdPrice");
 
@@ -176,6 +181,7 @@ function sendToReceipt(e)
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
+            tr.appendChild(td5);
 
             table.appendChild(tr);
         }
@@ -191,7 +197,7 @@ function updateTotal()
     for (let i = 0; i < allPrices.length; i++)
     {
         let input = (allPrices[i].innerText.split('л')[0]);
-        totalPriceField.value = (parseFloat(totalPriceField.value) + parseFloat(input)).toFixed(2);
+        totalPriceField.value = (parseFloat((totalPriceField.value).replace(',', '.')) + parseFloat((input).replace(',', '.'))).toFixed(2);
     }
 
     updateJSON();
@@ -206,7 +212,8 @@ function updateJSON()
         let tempObj = new Object();
         tempObj.soldProductName = rows[i].querySelector(".Name").innerText;
         tempObj.soldProductAmout = parseInt(rows[i].querySelector(".Amount").innerText.split('б')[0]);
-        tempObj.soldProductTotalPrice = parseFloat(rows[i].querySelector(".Price").innerText.split('л')[0]);
+        tempObj.soldProductTotalPrice = parseFloat(((rows[i].querySelector(".Price").innerText.split('л')[0]).replace(',', '.')).replace(',', '.'));
+        tempObj.AtPrice = parseFloat(((rows[i].querySelector(".AtPrice").innerText.split('л')[0]).replace(',', '.')).replace(',', '.'));
         array.push(tempObj);
     }
     JSONoutput.value = JSON.stringify(array);
