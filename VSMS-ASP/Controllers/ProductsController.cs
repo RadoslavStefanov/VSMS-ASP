@@ -88,5 +88,10 @@ namespace VSMS_ASP.Controllers
             await productsService.UpdateProduct(model);
             return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
+
+        public async Task<IActionResult> CreateOrder()
+        {
+            return await Task.Run(() => View());
+        }
     }
 }
