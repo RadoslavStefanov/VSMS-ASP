@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VSMS.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using VSMS.Infrastructure.Data;
 namespace VSMS.Infrastructure.Migrations
 {
     [DbContext(typeof(VSMSDbContext))]
-    partial class VSMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220402194604_SalesDateAdjustment")]
+    partial class SalesDateAdjustment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

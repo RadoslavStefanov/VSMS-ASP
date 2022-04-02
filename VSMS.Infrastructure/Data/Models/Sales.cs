@@ -16,7 +16,7 @@ namespace VSMS.Infrastructure.Data.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
-        public DateTime DateTime { get; set; }
+        public string DateTime { get; set; }
 
         [Required]
         public string UserId { get; set; }
