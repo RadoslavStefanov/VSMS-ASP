@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<MySalesViewModel>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<style>
+    tr:hover
+    {
+        background-color:#f4f6f9;
+    }
+</style>
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Списък Потребители</h1>
+                <h1>Моите продажби</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -30,17 +37,21 @@
                         <thead>
                             <tr>
                                 <th>Дата</th>
+                                <th>Продавач</th>
                                 <th>Артикул</th>
                                 <th>Брой</th>
+                                <th>Ед цена</th>
                                 <th>Обща цена</th>
                             </tr>
                             @foreach (var sale in Model)
                             {
                                 <tr>
-                                    <td>@sale.DateTime</td>
+                                    <td class="date">@sale.DateTime</td>
+                                    <td class="date">@sale.Seller</td>
                                     <td>@sale.ProductName</td>
-                                    <td>@sale.Quantity</td>
-                                    <td>@sale.TotalPrice</td>
+                                    <td>@sale.Quantity .бр</td>
+                                    <td>@sale.AtPrice .лв</td>
+                                    <td>@sale.TotalPrice .лв</td>
                                 </tr>
                             }
                         </thead>
@@ -54,3 +65,5 @@
         </div>
     </div>
 </section>
+
+<script src = "~/js/SalesList.js"></script>

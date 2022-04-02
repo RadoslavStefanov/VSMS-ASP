@@ -62,9 +62,22 @@ namespace VSMS_ASP.Controllers
         public IActionResult MySales()
         {
             var userId = userManager.GetUserId(User);
-            var mySales = salesService.GetUserSales(userId).OrderBy(p=>p.DateTime);
+            var mySales = salesService.GetUserSales(userId,User.Identity.Name).OrderBy(p=>p.DateTime);
             ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
             return View(mySales);
+        }
+
+        public async Task<IActionResult> AllSales()
+        {
+            var sales = salesService.GetSales();
+            foreach (var item in sales)
+            {
+                var curUserId = item.Seller;
+                var user = await userManager.FindByIdAsync(curUserId);
+                item.Seller = user.Email;
+            }
+            ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
+            return View("MySales", sales);
         }
     }
 }
