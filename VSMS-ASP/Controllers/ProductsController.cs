@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using VSMS.Core.Services;
 using VSMS.Core.ViewModels;
 
@@ -89,9 +93,40 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
 
-        public async Task<IActionResult> CreateOrder()
+        public async Task<IActionResult> CreateOrder(string?whatever)
         {
             return await Task.Run(() => View());
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder()
+        {
+            string to = "*"; //To address    
+            string from = "*"; //From address    
+            MailMessage message = new MailMessage(from, to);
+
+            string mailbody = "Здравейте това е автоматизирано съобщение от Virtus-4 (VSMS). Тук ще бъдат получавани и изпращани бъдещи заявки.\n Приятен ден!";
+            message.Subject = "Пробна връзка от VSMS";
+            message.Body = mailbody;
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+            System.Net.NetworkCredential basicCredential1 = new
+            System.Net.NetworkCredential("*", "*");
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = basicCredential1;
+            try
+            {
+                client.Send(message);
+            }
+
+            catch (Exception ex)
+            {
+                return await Task.Run(() => Redirect("/Products/CreateOrder"));
+            }
+            return await Task.Run(() => Redirect("/Products/CreateOrder"));
         }
     }
 }
