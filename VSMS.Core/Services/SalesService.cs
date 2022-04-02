@@ -49,14 +49,25 @@ namespace VSMS.Core.Services
 
         public List<MySalesViewModel> GetUserSales(string userId)
         {
-            var userSales = repo.All<Sales>().Where(s => s.UserId == userId)
-                .Include("SalesProducts").ToList();
+            /*var userSales = repo.All<Sales>().Where(s => s.UserId == userId)
+                .Include("SalesProducts").ToList();*/
+            var userSales = repo.All<SalesProducts>().Where(s=>s.Sale.UserId == userId)
+                .ToList();
 
             var result = new List<MySalesViewModel>();
             
             foreach (var item in userSales)
             {
-                var productId = item.SalesProducts.Select(x => x.ProductId).FirstOrDefault();
+                var product = repo.All<Products>().Where(p => p.Id == item.ProductId).FirstOrDefault();
+                var sale = repo.All<Sales>().Where(s=>s.Id==item.SaleId).FirstOrDefault();
+                result.Add(new MySalesViewModel
+                {
+                    DateTime = sale.DateTime,
+                    ProductName = product.Name,
+                    Quantity = (int)item.Quantity,
+                    TotalPrice = item.Quantity * product.Price
+                });
+                /*var productId = item.SalesProducts.Select(x => x.ProductId).FirstOrDefault();
                 var product =repo.All<Products>().Where(p=>p.Id== productId).FirstOrDefault();
                 result.Add(new MySalesViewModel
                 {
@@ -64,7 +75,7 @@ namespace VSMS.Core.Services
                     ProductName = product.Name,
                     Quantity = (int)item.SalesProducts.Select(sp=>sp.Quantity).FirstOrDefault(),
                     TotalPrice = item.Total
-                });
+                });*/
             }
 
             return result;
