@@ -16,6 +16,7 @@ namespace VSMS.Core.Services
             public string? soldProductName { get; set; }
             public int soldProductAmout { get; set; }
             public decimal soldProductTotalPrice { get; set; }
+            public decimal AtPrice { get; set; }
         }
         public void RegisterSale(string JSONinput,string userId)
         {
@@ -24,7 +25,7 @@ namespace VSMS.Core.Services
 
             var tempSale = new Sales
             {
-                DateTime = DateTime.Now,
+                DateTime = DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss"),
                 UserId = $"{userId}",
                 Total = 0
             };
@@ -37,7 +38,8 @@ namespace VSMS.Core.Services
                 {
                     SaleId = tempSale.Id,
                     ProductId = repo.All<Products>().Where(p => p.Name == entry.soldProductName).FirstOrDefault().Id,
-                    Quantity = entry.soldProductAmout
+                    Quantity = entry.soldProductAmout,
+                    AtPrice = entry.AtPrice
                 });
 
                 tempSale.Total+=entry.soldProductTotalPrice;
@@ -47,10 +49,8 @@ namespace VSMS.Core.Services
             repo.SaveChanges();
         }
 
-        public List<MySalesViewModel> GetUserSales(string userId)
+        public List<MySalesViewModel> GetUserSales(string userId,string userName)
         {
-            /*var userSales = repo.All<Sales>().Where(s => s.UserId == userId)
-                .Include("SalesProducts").ToList();*/
             var userSales = repo.All<SalesProducts>().Where(s=>s.Sale.UserId == userId)
                 .ToList();
 
@@ -65,25 +65,35 @@ namespace VSMS.Core.Services
                     DateTime = sale.DateTime,
                     ProductName = product.Name,
                     Quantity = (int)item.Quantity,
-                    TotalPrice = item.Quantity * product.Price
+                    AtPrice= item.AtPrice,
+                    TotalPrice = decimal.Round((item.Quantity * product.Price), 2, MidpointRounding.AwayFromZero),
+                    Seller = userName
                 });
-                /*var productId = item.SalesProducts.Select(x => x.ProductId).FirstOrDefault();
-                var product =repo.All<Products>().Where(p=>p.Id== productId).FirstOrDefault();
-                result.Add(new MySalesViewModel
-                {
-                    DateTime=item.DateTime,
-                    ProductName = product.Name,
-                    Quantity = (int)item.SalesProducts.Select(sp=>sp.Quantity).FirstOrDefault(),
-                    TotalPrice = item.Total
-                });*/
             }
-
             return result;
         }
 
-        public void GetSales()
+        public List<MySalesViewModel> GetSales()
         {
+            var sales = repo.All<SalesProducts>().ToList();
 
+            var result = new List<MySalesViewModel>();
+
+            foreach (var item in sales)
+            {
+                var product = repo.All<Products>().Where(p => p.Id == item.ProductId).FirstOrDefault();
+                var sale = repo.All<Sales>().Where(s => s.Id == item.SaleId).FirstOrDefault();
+                result.Add(new MySalesViewModel
+                {
+                    DateTime = sale.DateTime,
+                    ProductName = product.Name,
+                    Quantity = (int)item.Quantity,
+                    AtPrice = item.AtPrice,
+                    TotalPrice = decimal.Round((item.Quantity * product.Price), 2, MidpointRounding.AwayFromZero),
+                    Seller = sale.UserId
+                });
+            }
+            return  result;
         }
     }
 }
