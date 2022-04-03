@@ -128,5 +128,11 @@ namespace VSMS_ASP.Controllers
             }
             return await Task.Run(() => Redirect("/Products/CreateOrder"));
         }
+
+        public async Task<IActionResult> Quantities()
+        {
+            ViewBag.Products = productsService.GetAllProducts();
+            return await Task.Run(() => View());
+        }
     }
 }
