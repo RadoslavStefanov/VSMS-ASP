@@ -41,7 +41,6 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => View(list));
         }
 
-
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -93,14 +92,11 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
 
-        public async Task<IActionResult> CreateOrder(string?whatever)
-        {
-            return await Task.Run(() => View());
-        }
-
+        public async Task<IActionResult> CreateOrder()
+        {return await Task.Run(() => View());}
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder()
+        public async Task<IActionResult> CreateOrder(string? whatever)
         {
             string to = "*"; //To address    
             string from = "*"; //From address    
@@ -133,6 +129,42 @@ namespace VSMS_ASP.Controllers
         {
             ViewBag.Products = productsService.GetAllProducts();
             return await Task.Run(() => View());
+        }
+
+        public async Task<IActionResult> Delivery()
+        {
+            var categoriesList = categoriesService.GetAllCategories();
+            var productsList = productsService.GetAllProducts();
+            var model = new List<AllProductsListViewModel>();
+
+            foreach (var p in productsList)
+            {
+                model.Add(new AllProductsListViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Category = categoriesList.Where(c => c.Id == p.CategoryId).FirstOrDefault().Name ?? "Unknown",
+                    ImageUrl = p.ImageUrl,
+                    Description = p.Description,
+                    Kilograms = p.Kilograms,
+                    Price = p.Price,
+                    Quantity = p.Quantity
+                });
+            }
+            ViewBag.Categories = categoriesList;
+            return await Task.Run(() => View(model));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delivery(string deliveryJSON)
+        {
+            if (deliveryJSON == null)
+            { return await Task.Run(() => Redirect("/Products/Delivery")); }
+            if (deliveryJSON.Length <= 0)
+            { return await Task.Run(() => Redirect("/Products/Delivery")); }
+
+            productsService.RegisterDelivery(deliveryJSON);
+            return await Task.Run(() => Redirect("/Products/Delivery"));
         }
     }
 }

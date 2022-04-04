@@ -1,0 +1,142 @@
+﻿@model IEnumerable<AllProductsListViewModel>
+<link rel="stylesheet" href="~/css/ProductsListStyle.css">
+<link rel="stylesheet" href="~/css/CashRegister.css">
+
+
+
+<section class="productsList-wrapper">
+    <article class="products-container">
+        <nav class="navbar-Products">
+            <a href="#filterModal" class="trigger-btn btn btn-default" data-toggle="modal" style="background-color: #d3d3d3; border-color: #007bff;"><i class="fas fa-filter"></i></a>
+            <p id="title">Продукти</p>
+        </nav>
+        <div style="display:block;" class="productsLister" id="productsLister">
+            <div id="filterDiv">
+                <p id="filterLabel" style="float:left; margin:0;"></p>
+                <a id="filterRemover"><i style="color:firebrick; cursor:pointer; float:right; font-size:24px;" class="far fa-times-circle"></i></a>
+            </div>
+            @foreach (var p in Model)
+            {
+                <div class="card" style="width: 18rem;height: 20rem; display:inline-block;">
+                    <img class="card-img-top" style="border-radius:10px;" src="@p.ImageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="text-align:center;font-weight: bold;">@p.Name</h3>
+                        <p class="Quantity card-text" style="text-align:left;">@p.Quantity бр.</p>
+                        <a href="#saleModal" class="trigger-btn btn btn-primary saleBtn" data-toggle="modal">Добави</a>
+                        <p class="categoryName" style="display:none">@p.Category</p>
+                        <p class="Kilograms" style="display:none">@p.Kilograms</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </article>
+
+    <article class="sales-container">
+        <header class="navbar-Sales">
+            <p>Доставка</p>
+        </header>
+        <div style="display:flex;" class="salesLister">
+            <form class="sales-form" method="post">
+                <div id="sales-table" class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>Име</th>
+                                <th>Доставено количество</th>
+                                <th>Премахни</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+                            <!--This where the JS fills the selected products...-->
+                        </tbody>
+                    </table>
+                </div>
+
+                <footer class="sales-total">
+                    <div>
+                        <input name="deliveryJSON" id="deliveryJSON" value="" style="display:none" />
+                        <a href="/Sales/CashRegister" class="btn btn-secondary">Изчисти</a>
+                        <button type="submit" class="btn btn-primary">Заведи</button>
+                    </div>
+                </footer>
+            </form>
+        </div>
+    </article>
+</section>
+
+<!-- Sale Modal -->
+<div id="saleModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column" style="text-align: center;align-items: center;">
+                <div class="card" style="width: 18rem;height: 20rem;">
+                    <img class="card-img-top" id="modalImage" style="border-radius:10px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiKoRcDgZaMdIgZhxgZa83h-u4VbFhAb0eLw&usqp=CAU" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title" style="text-align:center;font-weight: bold;">Непознат</h3>
+                        <p class="card-text" style="text-align:left;">0 .лв</p>
+                        <p id="categoryName" style="display:none">Непозната</p>
+                        <p id="Kilograms" style="display:none">Непознати</p>
+                    </div>
+                </div>
+                <h6 class="modal-title w-100">Доставка на <p class="secondName">Непознат</p></h6>
+            </div>
+            <div class="modal-body">
+                <p style="text-align:center;">Изберете или въведете количество</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" value="10" class="btn taker btn-danger">-10</button>
+                <button type="button" value="5" class="btn taker btn-danger">-5</button>
+                <button type="button" value="1" class="btn taker btn-danger">-1</button>
+                <input id="amountInput" style="width:25%;" placeholder="Бр. опаковки" />
+                <button type="button" value="1" class="btn adder btn-success">+1</button>
+                <button type="button" value="5" class="btn adder btn-success">+5</button>
+                <button type="button" value="10" class="btn adder btn-success">+10</button>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+                <button type="button" id="sell" data-dismiss="modal" class="btn btn-success"><a style="color:white;">Добави</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Modal -->
+<div id="filterModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column" style="text-align: center;align-items: center;">
+                <h4 class="modal-title w-100">Прилагане на филтър</h4>
+                <select id="FilterCatSelector" class="form-control" style="margin-bottom:10px;" required>
+                    <option value="null" selected="true">Категория</option>
+                    @foreach (var catg in ViewBag.Categories)
+                    {
+                        <option value="@catg.Name">@catg.Name</option>
+                    }
+                </select>
+                <select id="FilterKiloSelector" class="form-control" required>
+                    <option value="null" selected="true">Килограми</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                </select>
+            </div>
+            <div class="modal-body">
+                <p style="text-align:center;">Изберете критерии<br />по които да бъдат филтрирани продуктите!</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+                <button type="button" id="filterApply" class="btn btn-danger" data-dismiss="modal"><a style="color:white;">Прилагане</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/js/Delivery.js"></script>
