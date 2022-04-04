@@ -66,7 +66,7 @@ namespace VSMS.Core.Services
                     ProductName = product.Name,
                     Quantity = (int)item.Quantity,
                     AtPrice= item.AtPrice,
-                    TotalPrice = decimal.Round((item.Quantity * product.Price), 2, MidpointRounding.AwayFromZero),
+                    TotalPrice = decimal.Round((item.Quantity * item.AtPrice), 2, MidpointRounding.AwayFromZero),
                     Seller = userName
                 });
             }

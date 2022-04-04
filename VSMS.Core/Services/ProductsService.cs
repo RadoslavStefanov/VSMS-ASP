@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using VSMS.Core.Contracts;
 using VSMS.Core.ViewModels;
@@ -15,6 +16,12 @@ namespace VSMS.Core.Services
         private readonly Repository repo;
         public ProductsService(Repository _repo)
         { repo = _repo; }
+
+        private class QuantityAdder
+        {
+            public string? ProductName { get; set; }
+            public string AddedAmount { get; set; }
+        }
 
         public void Create(ProductsViewModel model)
         {
@@ -71,5 +78,16 @@ namespace VSMS.Core.Services
 
         public string GetCategoryById(int id)
         { return repo.All<Categories>().Where(c => c.Id == id).FirstOrDefault().Name ?? "Category was not found in DB!"; }
+
+        public void RegisterDelivery(string JSONinput)
+        {
+            var result = JsonSerializer.Deserialize<List<QuantityAdder>>(JSONinput);
+            foreach (var item in result)
+            {
+                var product = repo.All<Products>().Where(p => p.Name == item.ProductName).FirstOrDefault();
+                product.Quantity += decimal.Parse(item.AddedAmount);
+            }
+            repo.SaveChanges();
+        }
     }
 }
