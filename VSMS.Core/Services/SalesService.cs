@@ -45,6 +45,13 @@ namespace VSMS.Core.Services
                 tempSale.Total+=entry.soldProductTotalPrice;
             }
 
+            foreach (var item in tempSale.SalesProducts)
+            {
+                var product = repo.All<Products>().Where(p => p.Id == item.ProductId).FirstOrDefault();
+                product.Quantity-=item.Quantity;
+                repo.SaveChanges();
+            }
+
             repo.Add(tempSale);
             repo.SaveChanges();
         }

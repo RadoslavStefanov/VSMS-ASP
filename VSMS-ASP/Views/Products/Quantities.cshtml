@@ -33,11 +33,11 @@
                                 <tr>
                                     <td>@item.Name</td>
                                     @if (item.Quantity <= 10)
-                                    {<td style="background-color:#f01855;color:white;font-weight:200;">@item.Quantity</td> }
+                                    {<td style="background-color:#f01855;color:white;font-weight:200;">@item.Quantity .бр</td> }
                                     else if (item.Quantity <= 25)
-                                    {  <td style="background-color:#e6d51c">@item.Quantity</td> }
+                                    {  <td style="background-color:#e6d51c">@item.Quantity .бр</td> }
                                     else
-                                    { <td>@item.Quantity</td> }
+                                    { <td>@item.Quantity .бр</td> }
                                 </tr>
                             }
                         </tbody>

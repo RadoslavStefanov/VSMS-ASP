@@ -154,18 +154,6 @@ function sendToReceipt(e) {
             table.appendChild(tr);
         }
     }
-    updateTotal();
-}
-
-function updateTotal() {
-    let allPrices = document.getElementsByClassName("tdPrice");
-    totalPriceField.value = 0.00;
-
-    for (let i = 0; i < allPrices.length; i++) {
-        let input = (allPrices[i].innerText.split('л')[0]);
-        totalPriceField.value = (parseFloat((totalPriceField.value).replace(',', '.')) + parseFloat((input).replace(',', '.'))).toFixed(2);
-    }
-
     updateJSON();
 }
 
