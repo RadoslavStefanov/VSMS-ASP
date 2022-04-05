@@ -24,9 +24,9 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Забравили сте паролата си?<br>Тук може да заявите нова.</p>
-      <form action="recover-password.html" method="post">
+      <form method="post">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Ел.Поща">
+          <input type="email" name="userName" class="form-control" placeholder="Ел.Поща">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -57,3 +57,12 @@
 <script src="~/adminLTE/dist/js/adminlte.min.js"></script>
 </body>
 </html>
+
+<script>
+        window.addEventListener('load', (event) => 
+        {
+            if(@ViewBag!=null||ViewBag.MSG.length>0)
+            {alert(@ViewBag.MSG);}
+          
+        });
+</script>
