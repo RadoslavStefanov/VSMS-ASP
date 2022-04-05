@@ -25,6 +25,8 @@
                             <tr>
                                 <th>Продукт</th>
                                 <th>Наличност</th>
+                                @if (User.IsInRole("Admin"))
+                                {<th>Корекция</th>}
                             </tr>
                         </thead>
                         <tbody>
@@ -33,11 +35,19 @@
                                 <tr>
                                     <td>@item.Name</td>
                                     @if (item.Quantity <= 10)
-                                    {<td style="background-color:#f01855;color:white;font-weight:200;">@item.Quantity .бр</td> }
+                                    {<td style="background-color:#f01855;color:white;font-weight:200;border-radius:10px;">@item.Quantity .бр</td> }
                                     else if (item.Quantity <= 25)
-                                    {  <td style="background-color:#e6d51c">@item.Quantity .бр</td> }
+                                    {  <td style="background-color:#e6d51c; border-radius:10px;">@item.Quantity .бр</td> }
                                     else
                                     { <td>@item.Quantity .бр</td> }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td style="width:5%; text-align:center;">
+                                            <a href="#myModal" class="trigger-btn delete-btn" data-toggle="modal">
+			                                    <i class="fas fa-pencil-alt"></i>
+			                                </a>
+                                        </td>
+                                    }
                                 </tr>
                             }
                         </tbody>
@@ -49,3 +59,24 @@
         </div>
     </div>
 </section>
+
+  <!-- Edit quantity Modal -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header flex-column" style="text-align: center;align-items: center;"> 
+				<div class="icon-box">
+                    <i class="far fa-edit fa-5x"></i>
+				</div>						
+				<h4 class="modal-title w-100">Редактиране на наличност?</h4>
+			</div>
+			<div class="modal-body">
+				<p style="text-align:center;">Тази опция прилага въведената от Вас стойност, независимо от предходната история на продукта!<br/>Този процес не е обратим!</p>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+				<button type="button" class="btn btn-danger" ><a id="delete" style="color:white;" href="#">Приложи</a></button>
+			</div>
+		</div>
+	</div>
+</div> 
