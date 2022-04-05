@@ -61,8 +61,11 @@
 <script>
         window.addEventListener('load', (event) => 
         {
-            if(@ViewBag!=null||ViewBag.MSG.length>0)
-            {alert(@ViewBag.MSG);}
+            if("@ViewBag.Error"==""){}
+            else if("@ViewBag.Error"=="True")
+            {alert("Неуспешно създадена заявка. Ако веднъж сте пуснали заявка, за всеки следващ опит ще виждате тази грешка!");}
+            else
+            {alert("Успешно създадохте заявка за подновяване на паролата.");}
           
         });
 </script>
