@@ -17,7 +17,7 @@ function validatePrice() {
     if (priceField.value.length > 1) {
         var isInputCorrect = false;
         if (priceField.value !== null) {
-            if (!isNaN(priceField.value)) {
+            if (!isNaN(priceField.value.replace(',', '.'))) {
                 isInputCorrect = true;
                 submitBTN.disabled = null
             }

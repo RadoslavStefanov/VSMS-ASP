@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -65,7 +66,7 @@ namespace VSMS.Core.Services
             var product = repo.All<Products>().Where(p => p.Name == model.Name).FirstOrDefault();
             product.Description = model.Description??" ";
             product.ImageUrl = model.ImageUrl;
-            product.Price = decimal.Parse(model.Price);
+            product.Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
             product.Name = model.Name;
             product.CategoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id;
             product.Kilograms = int.Parse(model.Kilograms);
