@@ -59,15 +59,18 @@ namespace VSMS_ASP.Controllers
             if (model.PasswordChange != null)
             {
                 var hasher = new PasswordHasher<IdentityUser>();
-                var hashedPass = hasher.HashPassword(null, model.PasswordChange);
-                user.PasswordHash = hashedPass;
-                context.SaveChanges();
+                var passHash = hasher.HashPassword(null, model.PasswordChange);
+
+                await userManager.RemovePasswordAsync(user);
+                user.PasswordHash = passHash;
+                await userManager.UpdateAsync(user);
             }
 
             if (model.EmailChange != null)
             {
                 await userManager.SetEmailAsync(user, model.EmailChange);
                 await userManager.SetUserNameAsync(user, model.EmailChange);
+
             }
             return Redirect("/Users/ListUsers");
         }
