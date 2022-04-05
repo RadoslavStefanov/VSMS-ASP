@@ -22,6 +22,12 @@ namespace VSMS_ASP.Controllers
                 var userName = userManager.GetUserName(User);
                 var roles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userName));
 
+                if (roles.Count == 0)
+                {
+                    ViewBag.IsRestricted = true;
+                    return await Task.Run(() => View());
+                }
+
                 if (roles[0] == "Admin")
                 {
                     var isDefault = await userManager.CheckPasswordAsync(await userManager.FindByEmailAsync(userName), "123123");
