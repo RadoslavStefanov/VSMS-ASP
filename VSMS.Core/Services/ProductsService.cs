@@ -27,14 +27,14 @@ namespace VSMS.Core.Services
         {
             int categoryId=0;
             if (repo.All<Categories>().Where(c => c.Name == model.Category) != null )
-            { categoryId = repo.All<Categories>().Where(c => c.Name == "Unknown").FirstOrDefault().Id; }
+            { categoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id; }
 
             var newProduct = new Products
             {
                 Name = model.Name,
                 CategoryId = categoryId,
                 Kilograms = int.Parse(model.Kilograms),
-                Description = model.Description,
+                Description = model.Description??" ",
                 ImageUrl = model.ImageUrl,
                 Price = decimal.Parse(model.Price)
             };
@@ -63,7 +63,7 @@ namespace VSMS.Core.Services
         public async Task UpdateProduct(ProductsViewModel model)
         {
             var product = repo.All<Products>().Where(p => p.Name == model.Name).FirstOrDefault();
-            product.Description = model.Description??"";
+            product.Description = model.Description??" ";
             product.ImageUrl = model.ImageUrl;
             product.Price = decimal.Parse(model.Price);
             product.Name = model.Name;
