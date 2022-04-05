@@ -20,6 +20,8 @@ namespace VSMS_ASP.Controllers
             categoriesService = _categoriesService;
         }
 
+
+        [Authorize(Roles = "Admin,Employee,Guest")]
         public async Task<IActionResult> ListProducts()
         {
             dynamic myModel = new ExpandoObject();
@@ -41,6 +43,7 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => View(list));
         }
 
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -48,6 +51,7 @@ namespace VSMS_ASP.Controllers
             { return await Task.Run(() => Redirect("/Products/ListProducts")); }
             return await Task.Run(() => Redirect("/Error/CustomError?errorCode=202"));
         }
+
 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProduct()
@@ -57,13 +61,17 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => View(list));
         }
 
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProduct(ProductsViewModel model)
         {
             await Task.Run(() => productsService.Create(model));
             return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
 
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(int id)
         {
             var product = productsService.GetAllProducts().Where(p=>p.Id==id).FirstOrDefault();
@@ -85,6 +93,7 @@ namespace VSMS_ASP.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(ProductsViewModel model)
         {
             var input = model;
@@ -92,10 +101,14 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
 
+
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CreateOrder()
         {return await Task.Run(() => View());}
 
+
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CreateOrder(string? whatever)
         {
             string to = "*"; //To address    
@@ -125,12 +138,16 @@ namespace VSMS_ASP.Controllers
             return await Task.Run(() => Redirect("/Products/CreateOrder"));
         }
 
+
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Quantities()
         {
             ViewBag.Products = productsService.GetAllProducts();
             return await Task.Run(() => View());
         }
 
+
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delivery()
         {
             var categoriesList = categoriesService.GetAllCategories();
@@ -156,6 +173,7 @@ namespace VSMS_ASP.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delivery(string deliveryJSON)
         {
             if (deliveryJSON == null)

@@ -2,6 +2,7 @@
 using VSMS.Core.Services;
 using VSMS.Core.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VSMS_ASP.Controllers
 {
@@ -23,6 +24,8 @@ namespace VSMS_ASP.Controllers
             userManager = usermgr;
         }
 
+
+        [Authorize(Roles = "Admin,Employee,Guest")]
         public IActionResult CashRegister()
         {
             var categoriesList = categoriesService.GetAllCategories();
@@ -47,6 +50,7 @@ namespace VSMS_ASP.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public IActionResult CashRegister(string saleJSON)
         {
             if (saleJSON == null)
@@ -59,6 +63,7 @@ namespace VSMS_ASP.Controllers
             return Redirect("/Sales/CashRegister");
         }
 
+        [Authorize(Roles = "Admin,Employee,Guest")]
         public IActionResult MySales()
         {
             var userId = userManager.GetUserId(User);
@@ -67,6 +72,7 @@ namespace VSMS_ASP.Controllers
             return View(mySales);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AllSales()
         {
             var sales = salesService.GetSales();

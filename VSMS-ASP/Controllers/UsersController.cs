@@ -16,10 +16,9 @@ namespace VSMS_ASP.Controllers
             userManager = usermgr;
         }
 
-
+        [Authorize(Roles = "Admin,Employee,Guest")]
         public IActionResult ListUsers()
         {
-
             List<AllUsersListViewModel> users = new List<AllUsersListViewModel>();
             ViewData["View"] = "Users";
             users = context.Users.Select(x => new AllUsersListViewModel
@@ -45,6 +44,7 @@ namespace VSMS_ASP.Controllers
 
         
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             var user = await userManager.FindByEmailAsync(model.OldEmail);
