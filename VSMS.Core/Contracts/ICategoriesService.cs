@@ -9,6 +9,5 @@ namespace VSMS.Core.Contracts
 {
     public interface ICategoriesService
     {
-        public List<Categories> GetAllCategories();
     }
 }
