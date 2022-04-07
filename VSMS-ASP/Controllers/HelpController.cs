@@ -27,7 +27,7 @@ namespace VSMS_ASP.Controllers
                 {ViewBag.Error = "True"; }
                 else
                 {
-                    var result = helpService.CreateResetRequest(user.UserName);
+                    var result = await helpService.CreateResetRequest(user.UserName);
                     if (result != null && result == true)
                     {ViewBag.Error = "False"; }
                     else

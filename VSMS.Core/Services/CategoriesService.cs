@@ -11,21 +11,21 @@ namespace VSMS.Core.Services
         { repo = _repo; }
 
 
-        public List<Categories> GetAllCategories()
+        public async Task<List<Categories>> GetAllCategories()
         {return repo.All<Categories>().ToList();}
 
-        public void Create(string name)
+        public async Task Create(string name)
         {
             var catg = new Categories{ Name = name };
-            repo.Add(catg);
-            repo.SaveChanges();
+            await repo.AddAsync(catg);
+            await repo.SaveChangesAsync();
         }
 
-        public void Delete(string name)
+        public async Task Delete(string name)
         {
             var catg = repo.All<Categories>().Where(c => c.Name == name).FirstOrDefault();
-            repo.Remove(catg);
-            repo.SaveChanges();
+            await repo.DeleteAsync<Categories>(catg.Id);
+            await repo.SaveChangesAsync();
         }
     }
 }

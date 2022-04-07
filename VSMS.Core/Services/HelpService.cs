@@ -10,7 +10,7 @@ namespace VSMS.Core.Services
         { repo = _repo; }
 
 
-        public bool CreateResetRequest(string userName)
+        public async Task<bool> CreateResetRequest(string userName)
         {
             if (repo.All<ResetRequests>().Any(r => r.Username == userName))
             { return false; }
@@ -21,10 +21,10 @@ namespace VSMS.Core.Services
                 Username = userName
             };
 
-            repo.Add(request);
+            await repo.AddAsync(request);
             try
             {
-                repo.SaveChanges();
+                await repo.SaveChangesAsync();
                 return true;
             }
             catch (Exception)

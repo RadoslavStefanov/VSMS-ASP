@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+﻿using System.Globalization;
 using System.Text.Json;
-using System.Threading.Tasks;
 using VSMS.Core.Contracts;
 using VSMS.Core.ViewModels;
 using VSMS.Infrastructure.Data.Common;
@@ -21,10 +16,10 @@ namespace VSMS.Core.Services
         private class QuantityAdder
         {
             public string? ProductName { get; set; }
-            public string AddedAmount { get; set; }
+            public string? AddedAmount { get; set; }
         }
 
-        public void Create(ProductsViewModel model)
+        public async Task Create(ProductsViewModel model)
         {
             int categoryId=0;
             if (repo.All<Categories>().Where(c => c.Name == model.Category) != null )
@@ -39,22 +34,17 @@ namespace VSMS.Core.Services
                 ImageUrl = model.ImageUrl,
                 Price = decimal.Parse(model.Price)
             };
-            repo.Add(newProduct);
-            repo.SaveChanges();
+            await repo.AddAsync(newProduct);
+            await repo.SaveChangesAsync();
         }
 
-        public void Delete(string arg)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteById(int id)
+        public async Task<bool> DeleteById(int id)
         {
             try
             {
                 var p = repo.All<Products>().Where(p => p.Id == id).FirstOrDefault();
-                repo.Remove(p);
-                repo.SaveChanges();
+                await repo.DeleteAsync<Products>(p.Id);
+                await repo.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -74,13 +64,13 @@ namespace VSMS.Core.Services
             
         }
 
-        public List<Products> GetAllProducts()
+        public async Task<List<Products>> GetAllProducts()
         {return repo.All<Products>().ToList();}
 
-        public string GetCategoryById(int id)
+        public async Task<string> GetCategoryById(int id)
         { return repo.All<Categories>().Where(c => c.Id == id).FirstOrDefault().Name ?? "Category was not found in DB!"; }
 
-        public void RegisterDelivery(string JSONinput)
+        public async Task RegisterDelivery(string JSONinput)
         {
             var result = JsonSerializer.Deserialize<List<QuantityAdder>>(JSONinput);
             foreach (var item in result)
@@ -88,7 +78,7 @@ namespace VSMS.Core.Services
                 var product = repo.All<Products>().Where(p => p.Name == item.ProductName).FirstOrDefault();
                 product.Quantity += decimal.Parse(item.AddedAmount);
             }
-            repo.SaveChanges();
+            await repo.SaveChangesAsync();
         }
     }
 }

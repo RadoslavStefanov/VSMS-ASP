@@ -13,10 +13,10 @@ namespace VSMS_ASP.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public IActionResult ListCategories()
+        public async Task<IActionResult> ListCategories()
         {
             ViewData["View"] = "Categories";
-            var categories = categoriesService.GetAllCategories();
+            var categories = await categoriesService.GetAllCategories();
             var list = new List<CategoryViewModel>();
             foreach (var item in categories)
             {
@@ -31,17 +31,17 @@ namespace VSMS_ASP.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public void Create(string arg)
+        public async Task Create(string arg)
         { 
-            categoriesService.Create(arg);
+            await categoriesService.Create(arg);
             Response.Redirect("/Categories/ListCategories");
         }
 
 
         [Authorize(Roles = "Admin")]
-        public void Delete(string arg)
+        public async Task Delete(string arg)
         {
-            categoriesService.Delete(arg);
+            await categoriesService.Delete(arg);
             Response.Redirect("/Categories/ListCategories");
         }
     }

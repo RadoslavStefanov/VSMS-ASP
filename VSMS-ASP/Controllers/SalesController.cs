@@ -26,10 +26,10 @@ namespace VSMS_ASP.Controllers
 
 
         [Authorize(Roles = "Admin,Employee,Guest")]
-        public IActionResult CashRegister()
+        public async Task<IActionResult> CashRegister()
         {
-            var categoriesList = categoriesService.GetAllCategories();
-            var productsList = productsService.GetAllProducts();
+            var categoriesList = await categoriesService.GetAllCategories();
+            var productsList = await productsService.GetAllProducts();
             var model = new List<AllProductsListViewModel>();
 
             foreach (var p in productsList)
@@ -51,7 +51,7 @@ namespace VSMS_ASP.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin,Employee")]
-        public IActionResult CashRegister(string saleJSON)
+        public async Task<IActionResult> CashRegister(string saleJSON)
         {
             if (saleJSON == null)
             { return Redirect("/Sales/CashRegister"); }
@@ -64,10 +64,10 @@ namespace VSMS_ASP.Controllers
         }
 
         [Authorize(Roles = "Admin,Employee,Guest")]
-        public IActionResult MySales()
+        public async Task<IActionResult> MySales()
         {
             var userId = userManager.GetUserId(User);
-            var mySales = salesService.GetUserSales(userId,User.Identity.Name).OrderBy(p=>p.DateTime);
+            var mySales = (await salesService.GetUserSales(userId,User.Identity.Name)).OrderBy(p=>p.DateTime);
             ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
             return View(mySales);
         }
@@ -75,7 +75,7 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AllSales()
         {
-            var sales = salesService.GetSales();
+            var sales = await salesService.GetSales();
             foreach (var item in sales)
             {
                 var curUserId = item.Seller;

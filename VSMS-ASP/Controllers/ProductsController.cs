@@ -26,7 +26,7 @@ namespace VSMS_ASP.Controllers
         {
             dynamic myModel = new ExpandoObject();
             ViewData["View"] = "Products";
-            var products = productsService.GetAllProducts();
+            var products = await productsService.GetAllProducts();
             var list = new List<AllProductsListViewModel>();
             foreach (var item in products)
             {
@@ -34,7 +34,7 @@ namespace VSMS_ASP.Controllers
                 {
                     Id = item.Id,
                     Name = item.Name,
-                    Category = productsService.GetCategoryById(item.CategoryId),
+                    Category = await productsService.GetCategoryById(item.CategoryId),
                     ImageUrl = item.ImageUrl,
                     Description = item.Description,
                     Kilograms = item.Kilograms
@@ -47,7 +47,7 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            if (productsService.DeleteById(id))
+            if (await productsService.DeleteById(id))
             { return await Task.Run(() => Redirect("/Products/ListProducts")); }
             return await Task.Run(() => Redirect("/Error/CustomError?errorCode=202"));
         }
@@ -56,7 +56,7 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProduct()
         {
-            var list = categoriesService.GetAllCategories().ToList();
+            var list = (await categoriesService.GetAllCategories()).ToList();
             list.Remove(list[0]);
             return await Task.Run(() => View(list));
         }
@@ -74,20 +74,20 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(int id)
         {
-            var product = productsService.GetAllProducts().Where(p=>p.Id==id).FirstOrDefault();
+            var product = (await productsService.GetAllProducts()).Where(p=>p.Id==id).FirstOrDefault();
             if (product == null)
             {return await Task.Run(() => Redirect("/Error/CustomError?errorCode=500"));}
 
             var model = new ProductsViewModel()
             {
                 Name = product.Name,
-                Category = categoriesService.GetAllCategories().Where(c=>c.Id==product.CategoryId).FirstOrDefault().Name??"Unknown",
+                Category = (await categoriesService.GetAllCategories()).Where(c=>c.Id==product.CategoryId).FirstOrDefault().Name??"Unknown",
                 ImageUrl = product.ImageUrl,
                 Description = product.Description,
                 Kilograms = $"{product.Kilograms}",
                 Price = $"{product.Price}"
             };
-            ViewBag.Categories = categoriesService.GetAllCategories().ToList();
+            ViewBag.Categories = (await categoriesService.GetAllCategories()).ToList();
             ViewBag.KilosList = new List<int>() { 5, 10, 15, 20, 25, 30, 35, 40, 45 };
             return await Task.Run(() => View(model));
         }
@@ -142,7 +142,7 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Quantities()
         {
-            ViewBag.Products = productsService.GetAllProducts();
+            ViewBag.Products = await productsService.GetAllProducts();
             return await Task.Run(() => View());
         }
 
@@ -150,8 +150,8 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delivery()
         {
-            var categoriesList = categoriesService.GetAllCategories();
-            var productsList = productsService.GetAllProducts();
+            var categoriesList = await categoriesService.GetAllCategories();
+            var productsList = await productsService.GetAllProducts();
             var model = new List<AllProductsListViewModel>();
 
             foreach (var p in productsList)

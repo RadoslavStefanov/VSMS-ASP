@@ -6,13 +6,10 @@ namespace VSMS_ASP.Controllers
     public class HomeController : Controller
     {
         private UserManager<IdentityUser> userManager;
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> usermgr)
-        {
-            userManager = usermgr;
-            _logger = logger;
-        }
+        public HomeController(ILogger<HomeController> logger,
+               UserManager<IdentityUser> usermgr)
+        {userManager = usermgr;}
 
 
         public async Task<IActionResult> Index()
@@ -39,10 +36,8 @@ namespace VSMS_ASP.Controllers
 
                 return await Task.Run(() => View());
             }
-            else
-            {
-                return await Task.Run(() => Redirect("/Identity/Account/Login"));
-            }
+            
+            return await Task.Run(() => Redirect("/Identity/Account/Login"));
         }
 
     }

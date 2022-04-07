@@ -18,7 +18,7 @@ namespace VSMS.Core.Services
             public decimal soldProductTotalPrice { get; set; }
             public decimal AtPrice { get; set; }
         }
-        public void RegisterSale(string JSONinput,string userId)
+        public async Task RegisterSale(string JSONinput,string userId)
         {
             
             var result = JsonSerializer.Deserialize<List<PrimitiveSale>>(JSONinput);
@@ -49,14 +49,13 @@ namespace VSMS.Core.Services
             {
                 var product = repo.All<Products>().Where(p => p.Id == item.ProductId).FirstOrDefault();
                 product.Quantity-=item.Quantity;
-                repo.SaveChanges();
             }
 
-            repo.Add(tempSale);
-            repo.SaveChanges();
+            await repo.AddAsync(tempSale);
+            await repo.SaveChangesAsync();
         }
 
-        public List<MySalesViewModel> GetUserSales(string userId,string userName)
+        public async Task<List<MySalesViewModel>> GetUserSales(string userId,string userName)
         {
             var userSales = repo.All<SalesProducts>().Where(s=>s.Sale.UserId == userId)
                 .ToList();
@@ -80,7 +79,7 @@ namespace VSMS.Core.Services
             return result;
         }
 
-        public List<MySalesViewModel> GetSales()
+        public async Task<List<MySalesViewModel>> GetSales()
         {
             var sales = repo.All<SalesProducts>().ToList();
 
