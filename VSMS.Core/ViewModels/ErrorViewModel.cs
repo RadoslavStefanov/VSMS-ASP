@@ -1,14 +1,14 @@
 namespace VSMS.Core.ViewModels
 {
 
-        public class ErrorViewModel
+    public class ErrorViewModel
+    {
+        public string ErrorMessage { get; init; }
+
+        public ErrorViewModel(string message)
         {
-            public string ErrorMessage { get; init; }
-
-            public ErrorViewModel(string message)
-            {
-                ErrorMessage = message;
-            }
-
+            ErrorMessage = message;
         }
+
+    }
 }

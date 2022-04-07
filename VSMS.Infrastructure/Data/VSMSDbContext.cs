@@ -8,23 +8,19 @@
     {
 
         public VSMSDbContext(DbContextOptions<VSMSDbContext> options)
-                : base(options)
-        {
-        }
+        : base(options){}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.;Database=VSMS;Trusted_Connection=True;Integrated Security=True;");
-            }
+            {optionsBuilder.UseSqlServer("Server=.;Database=VSMS;Trusted_Connection=True;Integrated Security=True;");}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<SalesProducts>()
-                .HasKey(t => new { t.SaleId, t.ProductId });
+             .HasKey(t => new { t.SaleId, t.ProductId });
         }
 
         public DbSet<Sales> Sales { get; set; }

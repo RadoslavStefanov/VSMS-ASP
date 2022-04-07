@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
-using System.IO;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using VSMS.Core.Services;

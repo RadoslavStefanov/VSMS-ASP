@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
+﻿using System.Text.Json;
 using VSMS.Core.ViewModels;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
