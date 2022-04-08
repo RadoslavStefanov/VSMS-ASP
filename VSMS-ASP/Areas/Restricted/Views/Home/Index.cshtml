@@ -1,0 +1,272 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
+@{Layout = "_Layout";}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Magazee HTML5 Template Mo</title>
+    <!--
+    Magazee Template
+    http://www.templatemo.com/tm-514-magazee
+    -->
+    <!-- load CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">    <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">                                        <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="~/css/templatemo-style.css">
+    <!-- Templatemo style -->
+
+    <script>
+        var renderPage = true;
+
+        if(navigator.userAgent.indexOf('MSIE')!==-1
+          || navigator.appVersion.indexOf('Trident/') > 0){
+            /* Microsoft Internet Explorer detected in. */
+            alert("Please view this in a modern browser such as Chrome or Microsoft Edge.");
+            renderPage = false;
+        }
+    </script>
+
+</head>
+
+<style>
+    .p0 > * {padding: 0;}
+
+    .tm-pricing-body .btn-secondary :hover 
+    { background-color: #e13640}
+
+    #logout 
+    {
+        background-position: top;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        float: right;
+        margin: 10px;
+    }
+
+    aside {display:none;}
+
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header 
+    {margin-left:0;}
+
+    nav ul:first-of-type {display:none;}
+
+    .form-inline .btn {padding:0;}
+
+    .form-inline .nav-link {padding:0;}
+
+</style>
+
+<body>
+    <!-- Loader -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- 1st section -->
+        <section class="row p0 tm-section">
+
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+                <div class="tm-flex-center p-5 tm-bg-color-primary tm-section-min-h">
+                    <h1 class="tm-text-color-white tm-site-name">VSMS</h1>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div style="display:grid;text-align:center;" class="tm-flex-center p-5">
+                    <q class="tm-quote tm-text-color-gray">Задължителната складова програма за всеки малък/среден бизнес!</q>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2nd section -->
+        <section class="row p0 tm-section tm-col-md-reverse">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="tm-flex-center p-5">
+                    <div class="tm-md-flex-center">
+                        <h2 class="tm-text-color-primary mb-4">Лесна за ползване</h2>
+                        <p class="mb-4">Складовата програма VSMS няма нужда от инсталация,кофигурация или посещения от техници. Всичко от което имате нужда се достъпва само с бърза регистрация!</p>
+                        <a href="#read2" class="btn btn-primary">Прочети още</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0">
+                <div class="tm-flex-center p-5 tm-bg-color-primary">
+                    <div class="tm-max-w-400 tm-flex-center tm-flex-col">
+                        <img src="~/img/image-04.jpg" alt="Image" class="rounded-circle mb-4">
+                        <p class="tm-text-color-white small tm-font-thin mb-0">VSMS отговаря на "Virtus Store Management Software", което в превод е "Софтуер за управление на магазини Виртус".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3rd Section -->
+        <section id="read2" class="row p0 tm-section tm-mb-30">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 p-0 text-center">
+                <img src="~/img/image-01.jpg" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="tm-flex-center p-5">
+                    <div class="tm-flex-center tm-flex-col">
+                        <h2 class="tm-align-left">История на проекта</h2>
+                        <p>VSMS започна своето начало през 2019 година. В периода от 3 години е преминала през 3 различни технологии и много версии, докато достигне до Вас в най-добрата си, до момента, форма!</p>
+                        <a href="#ourAim" class="btn btn-primary">Прочети още</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4th Section -->
+        <section id="ourAim" class="row tm-section tm-mb-30">
+            <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                <div class="tm-flex-center pl-5 pr-5 pt-5 pb-5">
+                    <div class="tm-md-flex-center">
+                        <h2 class="mb-4 tm-text-color-primary">Каква е нашата цел?</h2>
+                        <p>VSMS бе подтикната от нуждата на малкия и среден бизнес от гъвкава и достъпна складова програма.</p>
+                        <p class="mb-4">За да ползвате системата е необходимо само за пуснете заявка за регистрация на Вашата фирма. След като получите своите данни за влизане ще бъдете с активиран "Стартов" пакет.</p>
+                        <p class="mb-4">Този пакет ще Ви даде достъп до 200 бр. артикули и 2-ма служителя. В случай че бизнесът Ви е по-развит, можете да заплатите ъпгрейд до "Pro" или "Exclusive" пакет.</p>
+                        <a href="#pricing" class="btn btn-primary">Пакети</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 text-xl-right text-md-center text-center mt-5 mt-lg-0 pr-lg-0">
+                <img src="~/img/image-02.jpg" alt="Image" class="img-fluid">
+            </div>
+        </section>
+
+        <!-- 5th Section -->
+        <section class="row tm-section tm-mb-30">
+            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 p-md-0 text-md-center text-center mb-4 mb-lg-0">
+                <img src="~/img/image-03.jpg" alt="Image" class="img-fluid">
+            </div>
+            <div id="pricing" class="col-sm-12 col-md-6 col-lg-4 col-xl-4 pl-lg-4 pr-xl-0 mb-4 mb-lg-0">
+                <div class="tm-flex-center">
+                    <div style="border: 1px solid #6c0209;" class="tm-pricing-table">
+                        <div style="background-color:#8b151c;" class="tm-bg-color-secondary tm-text-color-white text-center tm-font-thin tm-pricing-header">
+                            <p class="mb-0 tm-pricing-header-title">Професионален план</p>
+                            <p class="mb-0 tm-pricing-header-subtitle">(25лв на месец)</p>
+                        </div>
+                        <div class="tm-pricing-body">
+                            <ul class="tm-feature-list">
+                                <li>Тази опция Ви дава</li>
+                                <li>- до 3500 бр. артикули</li>
+                                <li>- до 10+1 служителя</li>
+                                <li>- 24ч поддръжка</li>
+                                <li>- теглими продукти</li>
+                                <li>- връзка с везни</li>
+                            </ul>
+                            <a href="#form" style="background:#8b151c; border-color:#6c0209;" class="btn btn-secondary">ЗАЯВИ СЕГА</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 pl-xl-0 mb-4 mb-lg-0">
+                <div class="tm-flex-center">
+                    <div style="border: 1px solid #6c0209;" class="tm-pricing-table">
+                        <div style="background-color:#8b151c;" class="tm-bg-color-secondary tm-text-color-white text-center tm-font-thin tm-pricing-header">
+                            <p class="mb-0 tm-pricing-header-title">Ексклузивен план</p>
+                            <p class="mb-0 tm-pricing-header-subtitle">(90лв на месец)</p>
+                        </div>
+                        <div class="tm-pricing-body">
+                            <ul class="tm-feature-list">
+                                <li>Тази опция Ви дава</li>
+                                <li>- до 15000 .бр артикули</li>
+                                <li>- до 30+1 служителя</li>
+                                <li>- 24ч тех. поддръжка</li>
+                                <li>- етикитиращи принтери</li>
+                                <li>- справки с 3г. история</li>
+                            </ul>
+                            <a href="#form" style="background:#8b151c; border-color:#6c0209;" class="btn btn-secondary">ЗАЯВИ СЕГА</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6th Section -->
+        <section class="row">
+            <div class="col-lg-12 tm-form-header pl-5 pr-5">
+                <h2 class="tm-container-inner tm-text-color-white">Заявка за регистрация</h2>
+            </div>
+            <div class="col-lg-12 pl-2 pl-sm-3 pl-md-5 pr-2 pr-sm-3 pr-md-5">
+                <form method="post" id="form" asp-areа="Restricted" asp-action="RegisterRequest" asp-controller="Home" class="row tm-container-inner tm-contact-form">
+                    <div style="width: 100%;" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group">
+                            <input type="text" id="contact_name" name="CompanyName" class="form-control" placeholder="Име на фирмата" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="contact_email" name="CompanyName" class="form-control" placeholder="Фирменна поща" required />
+                        </div>
+                        <div style="width: 100%; max-width:100%;padding-left:0;padding-right:0;class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <textarea id="contact_message" name="AdditionalInfo" class="form-control" rows="6" placeholder="Допълнителна информация" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 mt-4 tm-center">
+                            <button type="submit" class="btn btn-primary">Изпрати</button>
+                        </div>
+                </form>
+            </div>
+            <div class="col-lg-12 tm-bg-color-gray tm-text-color-white tm-font-thin tm-form-footer">
+                <div class="row tm-container-inner">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="tm-footer-info-box">
+                            <h4>"Виртус4" ООД</h4>
+                            <address>
+                                ул.Партизанска 26<br>
+                                с.Радиево<br>
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="tm-footer-info-box">
+                            <p>
+                                При възникнали въпроси<br>
+                                ни потърсете на следния<br>
+                                телефонен номер:<br>
+                                +359 6521 5652 5
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="text-center small tm-copyright-text mb-0">Copyright &copy; <span class="tm-current-year">2018</span> Virtus4.ltd | Designed by <a href="http://templatemo.com" class="tm-text-color-gray" target="_parent">Template Mo</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- load JS -->
+    <script src="~/js/jquery-3.2.1.slim.min.js"></script>         <!-- https://jquery.com/ -->
+    <script>
+
+        /* DOM is ready
+        ------------------------------------------------*/
+        $(function(){
+
+          if(renderPage) {
+            $('body').addClass('loaded');
+          }
+
+          $('.tm-current-year').text(new Date().getFullYear());  // Update year in copyright
+        });
+
+        alert("Достъпвате тази страница поради една или няколко от следните причини:\n- Не сте влезли в акаунта си.\n- Акаунтът, който ползвате не е обвързан с фирма.\n- Просрочили сте фактурата си.");
+
+    </script>
+
+</body>
+</html>
+
+

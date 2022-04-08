@@ -22,7 +22,13 @@ namespace VSMS_ASP.Controllers
                 if (roles.Count == 0)
                 {
                     ViewBag.IsRestricted = true;
-                    return await Task.Run(() => View());
+                    return await Task.Run(() => Redirect("/Restricted/"));
+                }
+
+                if (roles[0] == "Guest")
+                {
+                    ViewBag.IsRestricted = true;
+                    return await Task.Run(() => Redirect("/Restricted/"));
                 }
 
                 if (roles[0] == "Admin")
