@@ -13,7 +13,7 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {optionsBuilder.UseSqlServer("Server=.;Database=VSMS;Trusted_Connection=True;Integrated Security=True;");}
+            {optionsBuilder.UseSqlServer("DefaultConnection");}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
