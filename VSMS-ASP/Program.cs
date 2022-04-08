@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connection = "DefaultConnection";
+var connection = "Server =.; Database = VSMS; Trusted_Connection = True; Integrated Security = True; ";
 var connectionString = builder.Configuration.GetConnectionString(connection);
 builder.Services.AddDbContext<VSMS_ASPContext>(options =>
     options.UseSqlServer(connection));builder.Services.AddDbContext<VSMSDbContext>(options =>
