@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using VSMS_ASP.Areas.Restricted.Models;
 
 namespace VSMS_ASP.Areas.Restricted.Controllers
 {
@@ -13,11 +12,5 @@ namespace VSMS_ASP.Areas.Restricted.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Restricted,Guest,Admin")]
-        [HttpPost]
-        public async Task<IActionResult> Index(PurchaseRequestViewModel model)
-        {
-            return await Task.Run(() => Redirect("/Restricted/"));
-        }
     }
 }

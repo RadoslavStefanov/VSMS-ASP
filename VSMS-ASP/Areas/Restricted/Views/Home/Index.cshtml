@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject UserManager<IdentityUser> userManager
 @{Layout = "_Layout";}
 
@@ -193,26 +194,7 @@
         <!-- 6th Section -->
         <section class="row">
             <div class="col-lg-12 tm-form-header pl-5 pr-5">
-                <h2 class="tm-container-inner tm-text-color-white">Заявка за регистрация</h2>
-            </div>
-            <div class="col-lg-12 pl-2 pl-sm-3 pl-md-5 pr-2 pr-sm-3 pr-md-5">
-                <form method="post" id="form" asp-areа="Restricted" asp-action="RegisterRequest" asp-controller="Home" class="row tm-container-inner tm-contact-form">
-                    <div style="width: 100%;" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                        <div class="form-group">
-                            <input type="text" id="contact_name" name="CompanyName" class="form-control" placeholder="Име на фирмата" required />
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="contact_email" name="CompanyName" class="form-control" placeholder="Фирменна поща" required />
-                        </div>
-                        <div style="width: 100%; max-width:100%;padding-left:0;padding-right:0;class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group">
-                                <textarea id="contact_message" name="AdditionalInfo" class="form-control" rows="6" placeholder="Допълнителна информация" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 mt-4 tm-center">
-                            <button type="submit" class="btn btn-primary">Изпрати</button>
-                        </div>
-                </form>
+                <h2 style="text-align:center" class="tm-container-inner tm-text-color-white">За регистрация се обадете на: +359 6521 5652 5 </h2>
             </div>
             <div class="col-lg-12 tm-bg-color-gray tm-text-color-white tm-font-thin tm-form-footer">
                 <div class="row tm-container-inner">
