@@ -9,5 +9,10 @@ namespace VSMS.Core.Contracts
 {
     public interface ICategoriesService
     {
+        public Task<List<Categories>> GetAllCategories();
+
+        public Task Create(string name);
+
+        public  Task Delete(string name)
     }
 }
