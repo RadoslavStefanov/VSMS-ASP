@@ -2,13 +2,21 @@
 
 let tableRows = document.querySelector(".table").querySelectorAll("tr");
 let dateInput = document.getElementById("start");
+let TotalDisplay = document.getElementById("TotalDisplay");
+let tempTotal = 0;
 
 dateInput.addEventListener("change", applyFilter);
 
 function showAll()
 {
-    for (let i = 0; i < tableRows.length; i++)
-    {tableRows[i].style.display = "table-row";}
+    tempTotal = 0;
+    for (let i = 1; i < tableRows.length; i++)
+    {
+        tableRows[i].style.display = "table-row";
+        console.log(tableRows[i]);
+        tempTotal = parseFloat(tempTotal) + parseFloat(tableRows[i].querySelector(".total").innerText);
+    }
+    TotalDisplay.innerText = "Оборот: " + tempTotal + " лв.";
 }
 
 
@@ -26,6 +34,10 @@ function applyFilter()
     {
         let date = tableRows[i].querySelector(".date").innerText.split(" ")[0];
         if (date != argument)
-        {tableRows[i].style.display = "none";}
+        {
+            tableRows[i].style.display = "none";
+            tempTotal = parseFloat(tempTotal) - parseFloat(tableRows[i].querySelector(".total").innerText);
+        }
     }
+    TotalDisplay.innerText = "Оборот: " + tempTotal + " лв.";
 }

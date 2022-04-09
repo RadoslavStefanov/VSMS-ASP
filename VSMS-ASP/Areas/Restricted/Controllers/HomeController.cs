@@ -11,6 +11,5 @@ namespace VSMS_ASP.Areas.Restricted.Controllers
         {
             return View();
         }
-
     }
 }

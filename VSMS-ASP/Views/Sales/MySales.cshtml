@@ -31,6 +31,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body table-responsive p-0">
+                    <p style="margin:5px;" id="TotalDisplay">Оборот: 0 лв.</p>
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
@@ -45,11 +46,11 @@
                             {
                                 <tr>
                                     <td class="date">@sale.DateTime</td>
-                                    <td class="date">@sale.Seller</td>
+                                    <td>@sale.Seller</td>
                                     <td>@sale.ProductName</td>
                                     <td>@sale.Quantity .бр</td>
                                     <td>@sale.AtPrice .лв</td>
-                                    <td>@sale.TotalPrice .лв</td>
+                                    <td class="total">@sale.TotalPrice .лв</td>
                                 </tr>
                             }
                         </thead>

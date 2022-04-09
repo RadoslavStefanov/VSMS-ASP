@@ -69,6 +69,10 @@ namespace VSMS_ASP.Controllers
             var userId = userManager.GetUserId(User);
             var mySales = (await salesService.GetUserSales(userId,User.Identity.Name)).OrderBy(p=>p.DateTime);
             ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
+
+            ViewBag.Total = 0;
+            foreach (var item in mySales)
+            {ViewBag.Total += item.TotalPrice;}
             return View(mySales);
         }
 

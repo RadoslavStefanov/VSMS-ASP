@@ -58,7 +58,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
       name: "areas",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-app.MapAreaControllerRoute("Restricted", "Restricted", "{area=Restricted}/{controlle=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
