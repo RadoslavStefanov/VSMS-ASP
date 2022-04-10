@@ -22,7 +22,7 @@
     <div class="login-box">
       <div class="card card-outline card-primary">
         <div class="card-header text-center">
-          <a href="/Home/About" class="h1"><b>VSMS-</b>VIRTUS 4</a>
+          <a class="h1"><b>VSMS-</b>VIRTUS 4</a>
         </div>
         <div class="card-body">
           <p class="login-box-msg">Влезте в профила си</p>
@@ -39,7 +39,7 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Парола:" />
+              <input asp-for="Input.Password" id="password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Парола:"/>              
 		      <span asp-validation-for="Input.Password" class="text-danger"></span>
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -47,8 +47,9 @@
                 </div>
               </div>
             </div>
+            <a style="display:block; cursor:pointer; text-align: center; color:blue;" id="passwordControl">Покажи паролата</a>
             <div class="row" style="justify-content: center;">
-              <div class="col-4">
+              <div style="margin-top:10px;"class="col-4">
                 <button type="submit" class="btn btn-primary btn-block">Влез</button>
               </div>
             </div>
@@ -67,6 +68,7 @@
 <script src="~/adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="~/adminLTE/js/adminlte.min.js"></script>
+<script src="~/js/ShowHidePassword.js"></script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
