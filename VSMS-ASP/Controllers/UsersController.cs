@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using VSMS.Core.Services;
 using VSMS.Core.ViewModels;
 using VSMS_ASP.Data;
 
@@ -10,10 +11,12 @@ namespace VSMS_ASP.Controllers
     {
         private UserManager<IdentityUser> userManager;
         private VSMS_ASPContext context;
-        public UsersController(VSMS_ASPContext _context, UserManager<IdentityUser> usermgr)
+        private readonly ResetRequestsService resetRequestsService;
+        public UsersController(VSMS_ASPContext _context, UserManager<IdentityUser> usermgr, ResetRequestsService _resetRequestsService)
         {
             context = _context;
             userManager = usermgr;
+            resetRequestsService = _resetRequestsService;
         }
 
         [Authorize(Roles = "Admin,Employee,Guest")]
@@ -82,6 +85,14 @@ namespace VSMS_ASP.Controllers
             if (result.Succeeded)
             { return await Task.Run(() => Redirect("/Users/ListUsers")); }
             return await Task.Run(() => Redirect("/Error/CustomError?errorCode=102"));
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ResetRequests()
+        {
+            var result = resetRequestsService.GetAllRequests();
+            return await Task.Run(() => View(result));
         }
 
     }

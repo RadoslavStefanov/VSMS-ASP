@@ -145,7 +145,7 @@ namespace VSMS_ASP.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Employee")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delivery()
         {
             var categoriesList = await categoriesService.GetAllCategories();
@@ -171,7 +171,7 @@ namespace VSMS_ASP.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Employee")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delivery(string deliveryJSON)
         {
             if (deliveryJSON == null)

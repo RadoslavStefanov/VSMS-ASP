@@ -13,6 +13,6 @@ namespace VSMS.Core.Contracts
 
         public Task Create(string name);
 
-        public  Task Delete(string name)
+        public Task Delete(string name);
     }
 }

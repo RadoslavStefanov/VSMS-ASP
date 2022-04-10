@@ -17,7 +17,7 @@ namespace VSMS.Core.Services
 
             var request = new ResetRequests()
             {
-                Date = DateTime.Today.ToString(),
+                Date = DateTime.Now.ToString(),
                 Username = userName
             };
 

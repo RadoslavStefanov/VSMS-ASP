@@ -19,12 +19,14 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<VSMSDbContext>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<Repository>();
 builder.Services.AddTransient<ProductsService>();
 builder.Services.AddTransient<CategoriesService>();
 builder.Services.AddTransient<SalesService>();
 builder.Services.AddTransient<HelpService>();
+builder.Services.AddTransient<ResetRequestsService>();
 builder.Services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 var app = builder.Build();
