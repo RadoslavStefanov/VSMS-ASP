@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSMS-ASP", "VSMS-ASP\VSMS-ASP.csproj", "{F98A6C3D-9921-40CE-AA0B-87C64E1D724E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSMS.Core", "VSMS.Core\VSMS.Core.csproj", "{CF300DE2-0D19-4E7D-8AD7-57731F4D1E7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSMS.Core", "VSMS.Core\VSMS.Core.csproj", "{CF300DE2-0D19-4E7D-8AD7-57731F4D1E7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSMS.Infrastructure", "VSMS.Infrastructure\VSMS.Infrastructure.csproj", "{5CD31E52-0077-4BF1-AD7C-278F5DCAAC60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSMS.Infrastructure", "VSMS.Infrastructure\VSMS.Infrastructure.csproj", "{5CD31E52-0077-4BF1-AD7C-278F5DCAAC60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSMS.Test", "VSMS.Test\VSMS.Test.csproj", "{743F9BB6-6E3B-49B4-813A-D81D521AE853}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5CD31E52-0077-4BF1-AD7C-278F5DCAAC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CD31E52-0077-4BF1-AD7C-278F5DCAAC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CD31E52-0077-4BF1-AD7C-278F5DCAAC60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{743F9BB6-6E3B-49B4-813A-D81D521AE853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{743F9BB6-6E3B-49B4-813A-D81D521AE853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{743F9BB6-6E3B-49B4-813A-D81D521AE853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{743F9BB6-6E3B-49B4-813A-D81D521AE853}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
