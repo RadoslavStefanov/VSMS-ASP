@@ -16,16 +16,28 @@ namespace VSMS.Core.Services
 
         public async Task Create(string name)
         {
-            var catg = new Categories{ Name = name };
-            await repo.AddAsync(catg);
+            Categories? catg = null;
+
+            try { catg = new Categories { Name = name }; await repo.AddAsync(catg); }
+            catch (Exception) { throw new ArgumentException("The category has not been created"); }
+            
             await repo.SaveChangesAsync();
         }
 
         public async Task Delete(string name)
         {
-            var catg = repo.All<Categories>().Where(c => c.Name == name).FirstOrDefault();
-            await repo.DeleteAsync<Categories>(catg.Id);
-            await repo.SaveChangesAsync();
+            Categories? catg = null;
+
+            try 
+            {
+                catg = repo.All<Categories>().Where(c => c.Name == name).FirstOrDefault();
+                if (catg == null) { throw new Exception(); }
+                await repo.DeleteAsync<Categories>(catg.Id);
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception) { throw new ArgumentException("The category has not been deleted"); }
+
+           
         }
     }
 }
