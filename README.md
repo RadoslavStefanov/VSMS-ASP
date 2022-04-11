@@ -1,5 +1,6 @@
 # VSMS-ASP
-VSMS(Virtus Store Management Software) is a web based store management app. Design for the needs Virtus4.LTD. VSMS takes care of product creation and quantity distribution, sales and stock reports.
+VSMS(Virtus Store Management Software) is a working web based store management app. Design for the needs Virtus4.LTD. VSMS takes care of product creation and quantity distribution, sales and stock reports.
+Its used by the company in their animal food store.
 
 ![image](https://user-images.githubusercontent.com/72268734/161801827-0e6f582e-36b1-4f4f-8799-f742c09463ca.png)
 
@@ -17,4 +18,8 @@ VSMS(Virtus Store Management Software) is a web based store management app. Desi
 ![image](https://user-images.githubusercontent.com/72268734/161801224-51728d95-199b-4b7c-a4e2-d72a098e9eeb.png)
 ![image](https://user-images.githubusercontent.com/72268734/161801337-2e6f9cca-7fd6-4523-942e-e22e594fea10.png)
 ![image](https://user-images.githubusercontent.com/72268734/161801367-f7cc9217-8472-4921-b309-654e4ab1487b.png)
+![image](https://user-images.githubusercontent.com/72268734/162805313-e3fec785-1d1e-41e5-9447-cc03b9f13a02.png)
+![image](https://user-images.githubusercontent.com/72268734/162805350-77b4dd8b-8fba-44f2-adca-c1bd7f710987.png)
+![image](https://user-images.githubusercontent.com/72268734/162805374-3ffa0daf-6eac-4d43-8c0d-36bd17c34191.png)
+![image](https://user-images.githubusercontent.com/72268734/162805424-f7cc2781-220d-4d7f-a4d1-d76deb0c82e3.png)
 
