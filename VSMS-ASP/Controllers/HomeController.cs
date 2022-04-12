@@ -9,7 +9,7 @@ namespace VSMS_ASP.Controllers
 
         public HomeController(ILogger<HomeController> logger,
                UserManager<IdentityUser> usermgr)
-        {userManager = usermgr;}
+        { userManager = usermgr; }
 
 
         public async Task<IActionResult> Index()
@@ -31,18 +31,12 @@ namespace VSMS_ASP.Controllers
                     return await Task.Run(() => Redirect("/Restricted/"));
                 }
 
-                if (roles[0] == "Admin")
-                {
-                    var isDefault = await userManager.CheckPasswordAsync(await userManager.FindByEmailAsync(userName), "123123");
-                    ViewBag.IsDefault = true; ;
-                }
-
                 if (roles.Count == 0 || roles[0] == null || roles[0] == "Restricted")
                 { ViewBag.IsRestricted = true; }
 
                 return await Task.Run(() => View());
             }
-            
+
             return await Task.Run(() => Redirect("/Identity/Account/Login"));
         }
 
