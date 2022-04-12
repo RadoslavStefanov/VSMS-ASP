@@ -26,7 +26,6 @@ namespace VSMS.Test
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<Repository>();
-            await repo.SaveChangesAsync();
         }
 
         [Test]
@@ -68,6 +67,7 @@ namespace VSMS.Test
             Assert.True(result.Count>=1);
         }
 
+        [TearDown]
         public void TearDown()
         { dbContext.Dispose(); }
     }

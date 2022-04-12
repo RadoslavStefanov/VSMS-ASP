@@ -82,6 +82,7 @@ namespace VSMS.Test
             Assert.CatchAsync<Exception>(async () => await service.Create(null));
         }
 
+        [TearDown]
         public void TearDown()
         {dbContext.Dispose();}
     }
