@@ -72,18 +72,19 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(int id)
         {
-            var product = (await productsService.GetAllProducts()).Where(p=>p.Id==id).FirstOrDefault();
+            var product = (await productsService.GetAllProducts()).Where(p => p.Id == id).FirstOrDefault();
             if (product == null)
-            {return await Task.Run(() => Redirect("/Error/CustomError?errorCode=500"));}
+            { return await Task.Run(() => Redirect("/Error/CustomError?errorCode=500")); }
 
             var model = new ProductsViewModel()
             {
                 Name = product.Name,
-                Category = (await categoriesService.GetAllCategories()).Where(c=>c.Id==product.CategoryId).FirstOrDefault().Name??"Unknown",
+                Category = (await categoriesService.GetAllCategories()).Where(c => c.Id == product.CategoryId).FirstOrDefault().Name ?? "Unknown",
                 ImageUrl = product.ImageUrl,
                 Description = product.Description,
                 Kilograms = $"{product.Kilograms}",
-                Price = $"{product.Price}"
+                Price = $"{product.Price}",
+                Id = product.Id,
             };
             ViewBag.Categories = (await categoriesService.GetAllCategories()).ToList();
             ViewBag.KilosList = new List<int>() { 5, 10, 15, 20, 25, 30, 35, 40, 45 };
@@ -94,7 +95,6 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(ProductsViewModel model)
         {
-            var input = model;
             await productsService.UpdateProduct(model);
             return await Task.Run(() => Redirect("/Products/ListProducts"));
         }
@@ -102,7 +102,7 @@ namespace VSMS_ASP.Controllers
 
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CreateOrder()
-        {return await Task.Run(() => View());}
+        { return await Task.Run(() => View()); }
 
 
         [HttpPost]

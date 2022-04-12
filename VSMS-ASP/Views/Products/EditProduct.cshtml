@@ -1,12 +1,11 @@
 ﻿@model ProductsViewModel
 
 <style>
-    #avatar
-    {
-        max-width:350px;
-        min-width:350px;
-        max-height:290px;
-        min-height:290px;
+    #avatar {
+        max-width: 350px;
+        min-width: 350px;
+        max-height: 290px;
+        min-height: 290px;
     }
 </style>
 
@@ -37,46 +36,54 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                     <input class="form-control" name="Description" type="text" value = "@Model.Description" placeholder="Кратко описание на продукта...">
+                    <input class="form-control" name="Description" type="text" value="@Model.Description" placeholder="Кратко описание на продукта...">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-file-medical-alt"></span>
                         </div>
                     </div>
                 </div>
-                <div clas
                 <div class="form-group">
                     <select name="Category" class="form-control" required>
                         <option value="">Категория</option>
                         @foreach (var catg in ViewBag.Categories)
                         {
-                          @if (@catg.Name == Model.Category)
-                          {<option value="@catg.Name" selected="true">@catg.Name</option>}
-                          else
-                          {<option value="@catg.Name">@catg.Name</option>}
+                            @if (@catg.Name == Model.Category)
+                            {
+                                <option value="@catg.Name" selected="true">@catg.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@catg.Name">@catg.Name</option>
+                            }
                         }
                     </select>
                 </div>
                 <div class="form-group">
-            <select name="Kilograms" class="form-control" required>
-	            <option value="" selected="true">Килограми</option>
-	            @foreach (var number in ViewBag.KilosList)
-                {
-                  @if (@number == int.Parse(Model.Kilograms))
-                  {<option value="@number" selected="true">@number</option>}
-                  else
-                  {<option value="@number">@number</option>}
-                }
-	        </select>
-          </div>
-          <div class="form-group">
-            <div >
-              <input class="form-control required" name="Price" value="@Model.Price" id="price" type="text" placeholder="Цена в лева за чувал/опаковка..." required>
-            </div>
-          </div>
+                    <select name="Kilograms" class="form-control" required>
+                        <option value="" selected="true">Килограми</option>
+                        @foreach (var number in ViewBag.KilosList)
+                        {
+                            @if (@number == int.Parse(Model.Kilograms))
+                            {
+                                <option value="@number" selected="true">@number</option>
+                            }
+                            else
+                            {
+                                <option value="@number">@number</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <input class="form-control required" name="Price" value="@Model.Price" id="price" type="text" placeholder="Цена в лева за чувал/опаковка..." required>
+                    </div>
+                </div>
                 <div class="col-4" style="max-width: 100%">
                     <button type="submit" id="submit" class="btn btn-primary btn-block">Приложи</button>
                 </div>
+                <input style="display:none" name="Id" value="@Model.Id"/>
             </form>
         </div>
         <a href="/Products/ListProducts" class="text-center" style="margin-bottom: 10px;">Отказ</a>

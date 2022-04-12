@@ -21,8 +21,8 @@ namespace VSMS.Core.Services
 
         public async Task Create(ProductsViewModel model)
         {
-            int categoryId=0;
-            if (repo.All<Categories>().Where(c => c.Name == model.Category) != null )
+            int categoryId = 0;
+            if (repo.All<Categories>().Where(c => c.Name == model.Category) != null)
             { categoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id; }
 
             var newProduct = new Products
@@ -30,9 +30,10 @@ namespace VSMS.Core.Services
                 Name = model.Name,
                 CategoryId = categoryId,
                 Kilograms = int.Parse(model.Kilograms),
-                Description = model.Description??" ",
+                Description = model.Description ?? " ",
                 ImageUrl = model.ImageUrl,
-                Price = decimal.Parse(model.Price)
+                Price = decimal.Parse(model.Price),
+                Id = model.Id
             };
             await repo.AddAsync(newProduct);
             await repo.SaveChangesAsync();
@@ -48,24 +49,25 @@ namespace VSMS.Core.Services
                 return true;
             }
             catch (Exception)
-            {return false;}
+            { return false; }
         }
 
         public async Task UpdateProduct(ProductsViewModel model)
         {
-            var product = repo.All<Products>().Where(p => p.Name == model.Name).FirstOrDefault();
-            product.Description = model.Description??" ";
+            var product = repo.All<Products>().Where(p => p.Id == model.Id).FirstOrDefault();
+            if (model.Description == null) { product.Description = ""; }
+            else { product.Description = model.Description; }
             product.ImageUrl = model.ImageUrl;
             product.Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
             product.Name = model.Name;
             product.CategoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id;
             product.Kilograms = int.Parse(model.Kilograms);
             await Task.Run(() => repo.SaveChanges());
-            
+
         }
 
         public async Task<List<Products>> GetAllProducts()
-        {return repo.All<Products>().ToList();}
+        { return repo.All<Products>().ToList(); }
 
         public async Task<string> GetCategoryById(int id)
         { return repo.All<Categories>().Where(c => c.Id == id).FirstOrDefault().Name ?? "Category was not found in DB!"; }

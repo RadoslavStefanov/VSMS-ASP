@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
@@ -46,13 +47,23 @@ namespace VSMS.Test
             Assert.DoesNotThrowAsync(async () => await service.Delete("Прасета"));
         }
 
-        /*[Test]
+        [Test]
+        public async Task GetAllShouldReturnAll()
+        {
+            var service = serviceProvider.GetService<CategoriesService>();
+            var result = await service.GetAllCategories();
+            Assert.True(result.Count==1);
+        }
+
+        [Test]
         public async Task KnownCategoryShouldBeDeleted()
         {
             var service = serviceProvider.GetService<CategoriesService>();
             await service.Delete("Прасета");
-            Assert.AreEqual()
-        }*/
+            var result = await service.GetAllCategories();
+            var expected = new List<Categories>();
+            Assert.AreEqual(expected, result);
+        }
 
         public void TearDown()
         {dbContext.Dispose();}
