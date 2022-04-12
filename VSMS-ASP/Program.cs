@@ -26,7 +26,6 @@ builder.Services.AddTransient<ProductsService>();
 builder.Services.AddTransient<CategoriesService>();
 builder.Services.AddTransient<SalesService>();
 builder.Services.AddTransient<HelpService>();
-builder.Services.AddTransient<ResetRequestsService>();
 builder.Services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 var app = builder.Build();
