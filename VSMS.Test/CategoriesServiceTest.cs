@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
-using VSMS.Core.Contracts;
 using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
@@ -46,6 +45,14 @@ namespace VSMS.Test
             var service = serviceProvider.GetService<CategoriesService>();
             Assert.DoesNotThrowAsync(async () => await service.Delete("Прасета"));
         }
+
+        /*[Test]
+        public async Task KnownCategoryShouldBeDeleted()
+        {
+            var service = serviceProvider.GetService<CategoriesService>();
+            await service.Delete("Прасета");
+            Assert.AreEqual()
+        }*/
 
         public void TearDown()
         {dbContext.Dispose();}
