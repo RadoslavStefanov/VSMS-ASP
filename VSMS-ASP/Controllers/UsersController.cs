@@ -11,12 +11,12 @@ namespace VSMS_ASP.Controllers
     {
         private UserManager<IdentityUser> userManager;
         private VSMS_ASPContext context;
-        private readonly ResetRequestsService resetRequestsService;
-        public UsersController(VSMS_ASPContext _context, UserManager<IdentityUser> usermgr, ResetRequestsService _resetRequestsService)
+        private readonly HelpService helpService;
+        public UsersController(VSMS_ASPContext _context, UserManager<IdentityUser> usermgr, HelpService _helpService)
         {
             context = _context;
             userManager = usermgr;
-            resetRequestsService = _resetRequestsService;
+            helpService = _helpService;
         }
 
         [Authorize(Roles = "Admin,Employee,Guest")]
@@ -91,7 +91,7 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ResetRequests()
         {
-            var result = resetRequestsService.GetAllRequests();
+            var result = helpService.GetAllRequests();
             return await Task.Run(() => View(result));
         }
 

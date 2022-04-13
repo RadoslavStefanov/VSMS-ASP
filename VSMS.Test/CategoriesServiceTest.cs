@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
@@ -65,6 +66,23 @@ namespace VSMS.Test
             Assert.AreEqual(expected, result);
         }
 
+        [Test]
+        public async Task ShouldCreateCategoryWhenValid()
+        {
+            var service = serviceProvider.GetService<CategoriesService>();
+            await service.Create("Test");
+            var result = (await service.GetAllCategories()).Where(c=>c.Name=="Test").FirstOrDefault();
+            Assert.NotNull(result);
+        }
+
+        [Test]
+        public async Task ShouldThrowCategoryWhenNotValid()
+        {
+            var service = serviceProvider.GetService<CategoriesService>();
+            Assert.CatchAsync<Exception>(async () => await service.Create(null));
+        }
+
+        [TearDown]
         public void TearDown()
         {dbContext.Dispose();}
     }
