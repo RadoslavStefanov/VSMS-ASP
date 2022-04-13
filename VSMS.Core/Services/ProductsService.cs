@@ -44,6 +44,8 @@ namespace VSMS.Core.Services
             try
             {
                 var p = repo.All<Products>().Where(p => p.Id == id).FirstOrDefault();
+                if (p == null) { return true; }
+
                 await repo.DeleteAsync<Products>(p.Id);
                 await repo.SaveChangesAsync();
                 return true;

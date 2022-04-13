@@ -38,7 +38,7 @@ namespace VSMS_ASP.Controllers
                     Kilograms = item.Kilograms
                 });
             }
-            return await Task.Run(() => View(list));
+            return await Task.Run(() => View(list.OrderBy(x => x.Category)));
         }
 
 
@@ -87,7 +87,7 @@ namespace VSMS_ASP.Controllers
                 Id = product.Id,
             };
             ViewBag.Categories = (await categoriesService.GetAllCategories()).ToList();
-            ViewBag.KilosList = new List<int>() { 5, 10, 15, 20, 25, 30, 35, 40, 45 };
+            ViewBag.KilosList = new List<int>() { 1,2,3,4,5, 10, 15, 20, 25, 30, 35, 40, 45 };
             return await Task.Run(() => View(model));
         }
 

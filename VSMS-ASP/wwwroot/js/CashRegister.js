@@ -30,32 +30,25 @@ sell.addEventListener('click', sendToReceipt)
 filterRemover.addEventListener('click', removeFilter)
 
 filterApplyButton.addEventListener('click', applyFilter)
-for (let i = 0; i < uploadButtons.length; i++)
-{ uploadButtons[i].addEventListener('click', loadProduct2Modal) }
+for (let i = 0; i < uploadButtons.length; i++) { uploadButtons[i].addEventListener('click', loadProduct2Modal) }
 
-for (let i = 0; i < minusButtons.length; i++)
-{ minusButtons[i].addEventListener('click', removeAmount) }
+for (let i = 0; i < minusButtons.length; i++) { minusButtons[i].addEventListener('click', removeAmount) }
 
-for (let i = 0; i < plusButtons.length; i++)
-{ plusButtons[i].addEventListener('click', addAmount) }
+for (let i = 0; i < plusButtons.length; i++) { plusButtons[i].addEventListener('click', addAmount) }
 
 
-function preventChar()
-{
-    if (isNaN(amountInput.value))
-    {
+function preventChar() {
+    if (isNaN(amountInput.value)) {
         alert("В това поле могат да се записват само числа!");
         amountImput.value = null;
     }
-    else if (amountInput.value < 0)
-    {
+    else if (amountInput.value < 0) {
         alert("Броя не може да бъде по-малък от 0");
         amountImput.value = null;
     }
 }
 
-function loadProduct2Modal(e)
-{
+function loadProduct2Modal(e) {
     let card = e.target.parentNode.parentNode;
 
     inputProduct =
@@ -72,69 +65,64 @@ function loadProduct2Modal(e)
     amountInput.value = null;
 }
 
-function addAmount(e)
-{
+function addAmount(e) {
     let curNumber = amountInput.value
-    if (isNaN(curNumber) || curNumber==null || curNumber.length==0)
-    {
+    if (isNaN(curNumber) || curNumber == null || curNumber.length == 0) {
         curNumber = 0;
-        curNumber =  parseInt(e.target.value)
+        curNumber = parseInt(e.target.value)
         amountInput.value = curNumber;
     }
-    else
-    {
+    else {
         curNumber = parseInt(amountInput.value)
-        curNumber = parseInt(curNumber)+ parseInt(e.target.value)
+        curNumber = parseInt(curNumber) + parseInt(e.target.value)
         amountInput.value = curNumber;
     }
 }
 
-function removeAmount(e)
-{
+function removeAmount(e) {
     let curNumber = amountInput.value - e.target.value
     if (curNumber < 0) {
         alert("Броя не може да бъде по-малък от 0");
     }
-    else
-    {
+    else {
         amountInput.value = curNumber;
     }
-    
+
 }
 
-function deleteTableItem(e)
-{
+function deleteTableItem(e) {
     e.target.parentNode.parentNode.parentNode.remove();
     updateTotal();
 }
 
-function sendToReceipt(e)
-{
+function sendToReceipt(e) {
     let outputProduct =
     {
-        Name:saleModal.querySelector(".card-title").innerText = inputProduct.Name,
+        Name: saleModal.querySelector(".card-title").innerText = inputProduct.Name,
         Amout: amountInput.value,
-        PricePP:saleModal.querySelector(".card-text").innerText = inputProduct.Price
+        PricePP: saleModal.querySelector(".card-text").innerText = inputProduct.Price
     }
 
     let table = document.getElementById("table");
     let curProducts = table.querySelectorAll("tr");
     let combine = false;
 
-    for (let i = 0; i < curProducts.length; i++)
-    {
-        if (curProducts[i].querySelector(".Name").innerText == outputProduct.Name)
-        {
+    for (let i = 0; i < curProducts.length; i++) {
+        if (curProducts[i].querySelector(".Name").innerText == outputProduct.Name) {
             let value = curProducts[i].querySelector(".Amount").innerText.split('б')[0];
+            let price = parseFloat(curProducts[i].querySelector(".Price").innerText.split('л')[0]);
+
             value = parseInt(parseInt(value) + parseInt(outputProduct.Amout));
             value = value + "бр."
             curProducts[i].querySelector(".Amount").innerText = value
+
+            price = parseFloat(price) + parseFloat(parseInt(outputProduct.Amout) * parseFloat(outputProduct.PricePP))
+            curProducts[i].querySelector(".Price").innerText = price + "лв"
             combine = true;
         }
     }
 
-    if (combine == false)
-    {
+    if (combine == false) {
         if (outputProduct.Name == null
             || outputProduct.Amout == null
             || outputProduct.Amout <= 0
@@ -189,13 +177,11 @@ function sendToReceipt(e)
     updateTotal();
 }
 
-function updateTotal()
-{
+function updateTotal() {
     let allPrices = document.getElementsByClassName("tdPrice");
     totalPriceField.value = 0.00;
-    
-    for (let i = 0; i < allPrices.length; i++)
-    {
+
+    for (let i = 0; i < allPrices.length; i++) {
         let input = (allPrices[i].innerText.split('л')[0]);
         totalPriceField.value = (parseFloat((totalPriceField.value).replace(',', '.')) + parseFloat((input).replace(',', '.'))).toFixed(2);
     }
@@ -203,12 +189,10 @@ function updateTotal()
     updateJSON();
 }
 
-function updateJSON()
-{
+function updateJSON() {
     let array = [];
     let rows = receiptTable.querySelectorAll("tr")
-    for (let i = 0; i < rows.length; i++)
-    {
+    for (let i = 0; i < rows.length; i++) {
         let tempObj = new Object();
         tempObj.soldProductName = rows[i].querySelector(".Name").innerText;
         tempObj.soldProductAmout = parseInt(rows[i].querySelector(".Amount").innerText.split('б')[0]);
@@ -219,8 +203,7 @@ function updateJSON()
     JSONoutput.value = JSON.stringify(array);
 }
 
-function removeFilter()
-{
+function removeFilter() {
     let filerDiv = document.getElementById("filterDiv");
     filerDiv.style.display = "none";
     filerDiv.querySelector("p").innerText = "";
@@ -229,55 +212,42 @@ function removeFilter()
     showAllCards(productsLister, productsCards);
 }
 
-function showAllCards(productsLister,productsCards)
-{
-    for (let i = 0; i < productsCards.length; i++)
-    {productsCards[i].style.display = "inline-block";}
+function showAllCards(productsLister, productsCards) {
+    for (let i = 0; i < productsCards.length; i++) { productsCards[i].style.display = "inline-block"; }
 }
 
-function applyFilter()
-{
+function applyFilter() {
     let filterCatInput = document.getElementById("FilterCatSelector");
     let filterKiloInput = document.getElementById("FilterKiloSelector");
     let filerDiv = document.getElementById("filterDiv");
     let productsLister = document.getElementById("productsLister");
     let productsCards = productsLister.getElementsByClassName("card");
 
-    if (filterCatInput.value == "null" && filterKiloInput.value == "null")
-    {showAllCards(productsLister, productsCards);}
+    if (filterCatInput.value == "null" && filterKiloInput.value == "null") { showAllCards(productsLister, productsCards); }
 
-    if (filterCatInput.value != "null" && filterKiloInput.value != "null")
-    {
+    if (filterCatInput.value != "null" && filterKiloInput.value != "null") {
         showAllCards(productsLister, productsCards);
-        for (let i = 0; i < productsCards.length; i++)
-        {
+        for (let i = 0; i < productsCards.length; i++) {
             if (productsCards[i].querySelector(".categoryName").innerText !== filterCatInput.value
-            || productsCards[i].querySelector(".Kilograms").innerText !== filterKiloInput.value)
-            { productsCards[i].style.display = "none"; }
+                || productsCards[i].querySelector(".Kilograms").innerText !== filterKiloInput.value) { productsCards[i].style.display = "none"; }
         }
         filerDiv.style.display = "flow-root";
         filerDiv.querySelector("p").innerText = "Филтър: " + filterCatInput.value + " / " + filterKiloInput.value + "кг."
     }
 
-    if (filterCatInput.value != "null" && filterKiloInput.value == "null")
-    {
+    if (filterCatInput.value != "null" && filterKiloInput.value == "null") {
         showAllCards(productsLister, productsCards);
-        for (let i = 0; i < productsCards.length; i++)
-        {
-            if (productsCards[i].querySelector(".categoryName").innerText !== filterCatInput.value)
-            { productsCards[i].style.display = "none"; }
+        for (let i = 0; i < productsCards.length; i++) {
+            if (productsCards[i].querySelector(".categoryName").innerText !== filterCatInput.value) { productsCards[i].style.display = "none"; }
             filerDiv.style.display = "flow-root";
             filerDiv.querySelector("p").innerText = "Филтър: " + filterCatInput.value
         }
     }
 
-    if (filterCatInput.value == "null" && filterKiloInput.value != "null")
-    {
+    if (filterCatInput.value == "null" && filterKiloInput.value != "null") {
         showAllCards(productsLister, productsCards);
-        for (let i = 0; i < productsCards.length; i++)
-        {
-            if (productsCards[i].querySelector(".Kilograms").innerText !== filterKiloInput.value)
-            { productsCards[i].style.display = "none"; }
+        for (let i = 0; i < productsCards.length; i++) {
+            if (productsCards[i].querySelector(".Kilograms").innerText !== filterKiloInput.value) { productsCards[i].style.display = "none"; }
             filerDiv.style.display = "flow-root";
             filerDiv.querySelector("p").innerText = "Филтър: " + filterKiloInput.value + "кг."
         }

@@ -13,8 +13,8 @@ namespace VSMS_ASP.Controllers
         private readonly SalesService salesService;
         private UserManager<IdentityUser> userManager;
 
-        public SalesController(ProductsService _productsService, 
-               CategoriesService _categoriesService, 
+        public SalesController(ProductsService _productsService,
+               CategoriesService _categoriesService,
                SalesService _salesService,
                UserManager<IdentityUser> usermgr)
         {
@@ -46,7 +46,7 @@ namespace VSMS_ASP.Controllers
                 });
             }
             ViewBag.Categories = categoriesList;
-            return View(model);
+            return View(model.OrderByDescending(p => p.Category));
         }
 
         [HttpPost]
@@ -59,7 +59,7 @@ namespace VSMS_ASP.Controllers
             { return Redirect("/Sales/CashRegister"); }
 
             var un = userManager.GetUserId(User);
-            salesService.RegisterSale(saleJSON,un);
+            salesService.RegisterSale(saleJSON, un);
             return Redirect("/Sales/CashRegister");
         }
 
@@ -67,12 +67,12 @@ namespace VSMS_ASP.Controllers
         public async Task<IActionResult> MySales()
         {
             var userId = userManager.GetUserId(User);
-            var mySales = (await salesService.GetUserSales(userId,User.Identity.Name)).OrderBy(p=>p.DateTime);
+            var mySales = (await salesService.GetUserSales(userId, User.Identity.Name)).OrderBy(p => p.DateTime);
             ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
 
             ViewBag.Total = 0;
             foreach (var item in mySales)
-            {ViewBag.Total += item.TotalPrice;}
+            { ViewBag.Total += item.TotalPrice; }
             return View(mySales);
         }
 

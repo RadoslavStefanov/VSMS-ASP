@@ -17,14 +17,14 @@ namespace VSMS.Core.Services
             public decimal soldProductTotalPrice { get; set; }
             public decimal AtPrice { get; set; }
         }
-        public async Task RegisterSale(string JSONinput,string userId)
+        public async Task RegisterSale(string JSONinput, string userId)
         {
-            
+
             var result = JsonSerializer.Deserialize<List<PrimitiveSale>>(JSONinput);
 
             var tempSale = new Sales
             {
-                DateTime = DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss"),
+                DateTime = DateTime.UtcNow.ToString("M/dd/yyyy h:mm:ss") + " UTC",
                 UserId = $"{userId}",
                 Total = 0
             };
@@ -41,36 +41,36 @@ namespace VSMS.Core.Services
                     AtPrice = entry.AtPrice
                 });
 
-                tempSale.Total+=entry.soldProductTotalPrice;
+                tempSale.Total += entry.soldProductTotalPrice;
             }
 
             foreach (var item in tempSale.SalesProducts)
             {
                 var product = repo.All<Products>().Where(p => p.Id == item.ProductId).FirstOrDefault();
-                product.Quantity-=item.Quantity;
+                product.Quantity -= item.Quantity;
             }
 
             await repo.AddAsync(tempSale);
             await repo.SaveChangesAsync();
         }
 
-        public async Task<List<MySalesViewModel>> GetUserSales(string userId,string userName)
+        public async Task<List<MySalesViewModel>> GetUserSales(string userId, string userName)
         {
-            var userSales = repo.All<SalesProducts>().Where(s=>s.Sale.UserId == userId)
+            var userSales = repo.All<SalesProducts>().Where(s => s.Sale.UserId == userId)
                 .ToList();
 
             var result = new List<MySalesViewModel>();
-            
+
             foreach (var item in userSales)
             {
                 var product = repo.All<Products>().Where(p => p.Id == item.ProductId).FirstOrDefault();
-                var sale = repo.All<Sales>().Where(s=>s.Id==item.SaleId).FirstOrDefault();
+                var sale = repo.All<Sales>().Where(s => s.Id == item.SaleId).FirstOrDefault();
                 result.Add(new MySalesViewModel
                 {
                     DateTime = sale.DateTime,
                     ProductName = product.Name,
                     Quantity = (int)item.Quantity,
-                    AtPrice= item.AtPrice,
+                    AtPrice = item.AtPrice,
                     TotalPrice = decimal.Round((item.Quantity * item.AtPrice), 2, MidpointRounding.AwayFromZero),
                     Seller = userName
                 });
@@ -98,7 +98,7 @@ namespace VSMS.Core.Services
                     Seller = sale.UserId
                 });
             }
-            return  result;
+            return result;
         }
     }
 }
