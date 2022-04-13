@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
@@ -23,6 +24,7 @@ namespace VSMS.Test
                 .AddSingleton(sp => dbContext.CreateContext())
                 .AddSingleton<Repository, Repository>()
                 .AddSingleton<ProductsService, ProductsService>()
+                .AddSingleton<CategoriesService, CategoriesService>()
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<Repository>();
@@ -30,11 +32,95 @@ namespace VSMS.Test
         }
 
         [Test]
-        public void ShoudlCreateRequestIfUserExistsAndItsHisFirstTime()
+        public void ShouldThrowOnCreateIfModelIsInvalid()
         {
-            var service = serviceProvider.GetService<HelpService>();
-            Assert.DoesNotThrowAsync(async () => await service.CreateResetRequest("admin@virtus.bg"));
+            var service = serviceProvider.GetService<ProductsService>();
+            Assert.ThrowsAsync<ArgumentException>(async () => 
+            await service.Create(new Core.ViewModels.ProductsViewModel 
+            {Name=null, Category=null, ImageUrl=null, Description=null, Kilograms=null, Price=null }));
         }
+
+        [Test]
+        public async Task ShouldNotThrowOnCreateIfModelIsValid()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+
+            await categoriesService.Create("Test");
+            Assert.DoesNotThrowAsync(async () =>
+            await service.Create(new Core.ViewModels.ProductsViewModel
+            { 
+                Name = "Пробен", 
+                Category = repo.All<Categories>().FirstOrDefault().Name, 
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png", 
+                Description = "Just a simple tester object",
+                Kilograms = "10", 
+                Price = "12.50" }));;
+        }
+
+        [Test]
+        public async Task ShouldThrowOnDeleteIfIdIsInvalid()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            Assert.False(await service.DeleteById(-1));
+        }
+
+        [Test]
+        public async Task ShouldGetAllProducts()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+
+            await categoriesService.Create("Test");
+
+            await service.Create(new Core.ViewModels.ProductsViewModel
+            {
+                Name = "Пробен",
+                Category = repo.All<Categories>().FirstOrDefault().Name,
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png",
+                Description = "Just a simple tester object",
+                Kilograms = "10",
+                Price = "12.50"
+            });
+
+            var result = await service.GetAllProducts();
+
+            Assert.True(result.Count>=1);
+        }
+
+        [Test]
+        public async Task ShouldDeleteIfValid()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+
+            await categoriesService.Create("Test");
+
+            await service.Create(new Core.ViewModels.ProductsViewModel
+            {
+                Name = "Пробен",
+                Category = repo.All<Categories>().FirstOrDefault().Name,
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png",
+                Description = "Just a simple tester object",
+                Kilograms = "10",
+                Price = "12.50"
+            });
+
+            var productID = (await service.GetAllProducts()).FirstOrDefault().Id;
+            Assert.DoesNotThrowAsync(async () => await service.DeleteById(productID));
+        }
+
+        [Test]
+        public async Task ShouldReturnNotFoundIfIdIsInvalid()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            var result = await service.GetCategoryById(-234);
+            Assert.AreEqual("Category was not found in DB!",result);
+        }
+
 
         [TearDown]
         public void TearDown()

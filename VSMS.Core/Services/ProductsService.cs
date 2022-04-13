@@ -21,22 +21,30 @@ namespace VSMS.Core.Services
 
         public async Task Create(ProductsViewModel model)
         {
-            int categoryId = 0;
-            if (repo.All<Categories>().Where(c => c.Name == model.Category) != null)
-            { categoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id; }
+            if (!isModelValid(model)) { throw new ArgumentException("The provided model is not valid!"); }
 
-            var newProduct = new Products
+            try
             {
-                Name = model.Name,
-                CategoryId = categoryId,
-                Kilograms = int.Parse(model.Kilograms),
-                Description = model.Description ?? " ",
-                ImageUrl = model.ImageUrl,
-                Price = decimal.Parse(model.Price),
-                Id = model.Id
-            };
-            await repo.AddAsync(newProduct);
-            await repo.SaveChangesAsync();
+                int categoryId = 0;
+                if (repo.All<Categories>().Where(c => c.Name == model.Category) != null)
+                { categoryId = repo.All<Categories>().Where(c => c.Name == model.Category).FirstOrDefault().Id; }
+
+                var newProduct = new Products
+                {
+                    Name = model.Name,
+                    CategoryId = categoryId,
+                    Kilograms = int.Parse(model.Kilograms),
+                    Description = model.Description ?? " ",
+                    ImageUrl = model.ImageUrl,
+                    Price = decimal.Parse(model.Price),
+                    Id = model.Id
+                };
+                await repo.AddAsync(newProduct);
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            { throw new ArgumentException("The provided model is not valid!"); }
+            
         }
 
         public async Task<bool> DeleteById(int id)
@@ -44,7 +52,7 @@ namespace VSMS.Core.Services
             try
             {
                 var p = repo.All<Products>().Where(p => p.Id == id).FirstOrDefault();
-                if (p == null) { return true; }
+                if (p == null) { return false; }
 
                 await repo.DeleteAsync<Products>(p.Id);
                 await repo.SaveChangesAsync();
@@ -72,7 +80,11 @@ namespace VSMS.Core.Services
         { return repo.All<Products>().ToList(); }
 
         public async Task<string> GetCategoryById(int id)
-        { return repo.All<Categories>().Where(c => c.Id == id).FirstOrDefault().Name ?? "Category was not found in DB!"; }
+        {
+            var result = repo.All<Categories>().Where(c => c.Id == id).FirstOrDefault();
+            if (result == null) { return "Category was not found in DB!"; }
+            else { return result.Name; }
+        }
 
         public async Task RegisterDelivery(string JSONinput)
         {
@@ -83,6 +95,34 @@ namespace VSMS.Core.Services
                 product.Quantity += decimal.Parse(item.AddedAmount);
             }
             await repo.SaveChangesAsync();
+        }
+
+        private bool isModelValid(ProductsViewModel model)
+        {
+            if (model.Name == null
+            || model.Name.Length > 35
+            || model.Name.Length < 5)
+            { return false; }
+
+            if (model.Category == null)
+            { return false; }
+
+            if (model.Kilograms == null
+            || int.Parse(model.Kilograms)<0)
+            { return false; }
+
+            if (model.Description == null)
+            { return false; }
+
+            if (model.ImageUrl == null
+            || model.ImageUrl.Length>250)
+            { return false; }
+
+            if (model.Price == null
+            || decimal.Parse(model.Price)<0)
+            { return false; }
+
+            return true;
         }
     }
 }
