@@ -8,7 +8,7 @@ using VSMS.Core.Services;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
 
-namespace VSMS.Test
+namespace VSMS.Test.ServiceTests
 {
     public class SalesServiceTest
     {

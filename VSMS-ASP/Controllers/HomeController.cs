@@ -7,8 +7,7 @@ namespace VSMS_ASP.Controllers
     {
         private UserManager<IdentityUser> userManager;
 
-        public HomeController(ILogger<HomeController> logger,
-               UserManager<IdentityUser> usermgr)
+        public HomeController(UserManager<IdentityUser> usermgr)
         { userManager = usermgr; }
 
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VSMS.Infrastructure.Data;
 
-namespace VSMS.Test
+namespace VSMS.Test.ServiceTests
 {
     public class InMemoryDbContext
     {
