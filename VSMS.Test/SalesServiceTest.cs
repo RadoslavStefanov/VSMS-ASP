@@ -16,7 +16,7 @@ namespace VSMS.Test
         private InMemoryDbContext dbContext;
 
         [SetUp]
-        public async Task Setup()
+        public void Setup()
         {
             dbContext = new InMemoryDbContext();
             var serviceCollection = new ServiceCollection();
@@ -27,7 +27,6 @@ namespace VSMS.Test
                 .AddSingleton<SalesService, SalesService>()
                 .AddSingleton<CategoriesService, CategoriesService>()
                 .AddSingleton<ProductsService, ProductsService>()
-                //.AddSingleton<UserManager<IdentityUser>, UserManager<IdentityUser>>()
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<Repository>();
@@ -94,7 +93,7 @@ namespace VSMS.Test
             await service.RegisterSale("[{\"soldProductName\":\"Пробен\",\"soldProductAmout\":1,\"soldProductTotalPrice\":10.5,\"AtPrice\":-1}]", ""));
         }
 
-        /*[Test]
+        [Test]
         public async Task RegisterSaleShouldWorkIfAllIsInvalid()
         {
             var service = serviceProvider.GetService<SalesService>();
@@ -115,13 +114,60 @@ namespace VSMS.Test
                 Price = "12.50"
             });
 
-            var user = new IdentityUser();
-            await userManager.CreateAsync(user);
+            var user = new IdentityUser() { Email="test@virtus.bg",Id= "fe4153fa-e9eb-4d8c-97b9-23c22b2f1f93" };
+            await repo.AddAsync(user); await repo.SaveChangesAsync();
 
             Assert.DoesNotThrowAsync(async () =>
             await service.RegisterSale("[{\"soldProductName\":\"Пробен\",\"soldProductAmout\":1,\"soldProductTotalPrice\":10.5,\"AtPrice\":10}]", user.Id));
-        }*/
+        }
 
+        [Test]
+        public void GetUserSalesShouldThrowIfUserIsNotValid()
+        {
+            var service = serviceProvider.GetService<SalesService>();
+
+            Assert.ThrowsAsync<ArgumentException>(async () =>
+            await service.GetUserSales("", ""));
+        }
+
+        [Test]
+        public async Task GetUserSalesShouldNotThrowIfAllIsValid()
+        {
+            var service = serviceProvider.GetService<SalesService>();
+            var pService = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+            var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+
+            await categoriesService.Create("Test");
+
+            await pService.Create(new Core.ViewModels.ProductsViewModel
+            {
+                Name = "Пробен",
+                Category = repo.All<Categories>().FirstOrDefault().Name,
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png",
+                Description = "Just a simple tester object",
+                Kilograms = "10",
+                Price = "12.50"
+            });
+
+            var user = new IdentityUser() { Email = "test@virtus.bg", Id = "fe4153fa-e9eb-4d8c-97b9-23c22b2f1f93" };
+            await repo.AddAsync(user); await repo.SaveChangesAsync();
+
+            await service.RegisterSale("[{\"soldProductName\":\"Пробен\",\"soldProductAmout\":1,\"soldProductTotalPrice\":10.5,\"AtPrice\":10}]", user.Id);
+
+            Assert.DoesNotThrowAsync(async () =>
+            await service.GetUserSales(user.Id, "test@virtus.bg"));
+        }
+
+        [Test]
+        public async Task GetSAllSalesShouldNotThrow()
+        {
+            var service = serviceProvider.GetService<SalesService>();
+            
+            Assert.DoesNotThrowAsync(async () =>
+            await service.GetSales());
+        }
 
         [TearDown]
         public void TearDown()

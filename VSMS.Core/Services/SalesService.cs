@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Text.Json;
 using VSMS.Core.ViewModels;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
@@ -72,8 +73,10 @@ namespace VSMS.Core.Services
             var userSales = repo.All<SalesProducts>().Where(s => s.Sale.UserId == userId)
                 .ToList();
 
-            var result = new List<MySalesViewModel>();
+            var user = repo.All<IdentityUser>().Where(u => u.Id == userId).FirstOrDefault();
+            if (user == null) { throw new ArgumentException("User not found in Database!"); }
 
+            var result = new List<MySalesViewModel>();
             foreach (var item in userSales)
             {
                 var product = repo.All<Products>().Where(p => p.Id == item.ProductId).FirstOrDefault();
