@@ -88,13 +88,23 @@ namespace VSMS.Core.Services
 
         public async Task RegisterDelivery(string JSONinput)
         {
-            var result = JsonSerializer.Deserialize<List<QuantityAdder>>(JSONinput);
+            var result = new List<QuantityAdder>();
+            try
+            {result = JsonSerializer.Deserialize<List<QuantityAdder>>(JSONinput);}
+            catch (Exception)
+            { throw new ArgumentException("Json input was invalid!"); }
+
+            
             foreach (var item in result)
             {
                 var product = repo.All<Products>().Where(p => p.Name == item.ProductName).FirstOrDefault();
+
+                if (product == null) { throw new ArgumentException($"Product {item.ProductName} does not exist in the Database!");}
+
                 product.Quantity += decimal.Parse(item.AddedAmount);
             }
             await repo.SaveChangesAsync();
+
         }
 
         private bool isModelValid(ProductsViewModel model)

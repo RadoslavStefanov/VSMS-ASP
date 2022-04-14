@@ -56,7 +56,8 @@ namespace VSMS.Test
                 ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png", 
                 Description = "Just a simple tester object",
                 Kilograms = "10", 
-                Price = "12.50" }));;
+                Price = "12.50" 
+            }));
         }
 
         [Test]
@@ -121,6 +122,41 @@ namespace VSMS.Test
             Assert.AreEqual("Category was not found in DB!",result);
         }
 
+        [Test]
+        public async Task ShouldThrowOnRegisterIfJsonIsNotValid()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.RegisterDelivery(""));
+        }
+
+        [Test]
+        public async Task ShouldThrowOnRegisterIfProductIsNull()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            Assert.ThrowsAsync<ArgumentException>(async () => await service.RegisterDelivery("[{\"ProductName\":\"Бройлери Стартер 10кг.\",\"AddedAmount\":\"2\"}]"));
+        }
+
+        [Test]
+        public async Task ShouldRegisterIfAllIsValid()
+        {
+            var service = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+
+            await categoriesService.Create("Test");
+
+            await service.Create(new Core.ViewModels.ProductsViewModel
+            {
+                Name = "Пробен",
+                Category = repo.All<Categories>().FirstOrDefault().Name,
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png",
+                Description = "Just a simple tester object",
+                Kilograms = "10",
+                Price = "12.50"
+            });
+
+            Assert.DoesNotThrowAsync(async () => await service.RegisterDelivery("[{\"ProductName\":\"Пробен\",\"AddedAmount\":\"2\"}]"));
+        }
 
         [TearDown]
         public void TearDown()

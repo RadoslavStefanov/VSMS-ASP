@@ -19,8 +19,12 @@ namespace VSMS.Core.Services
         }
         public async Task RegisterSale(string JSONinput, string userId)
         {
-
-            var result = JsonSerializer.Deserialize<List<PrimitiveSale>>(JSONinput);
+            var result = new List<PrimitiveSale>();
+            try
+            { result = JsonSerializer.Deserialize<List<PrimitiveSale>>(JSONinput); }
+            catch (Exception)
+            { throw new ArgumentException("JSON input is not valid!"); }
+            
 
             var tempSale = new Sales
             {
@@ -33,10 +37,14 @@ namespace VSMS.Core.Services
 
             foreach (var entry in result)
             {
+                var product = repo.All<Products>().Where(p => p.Name == entry.soldProductName).FirstOrDefault();
+                if (product == null)
+                { throw new ArgumentException($"The product: {entry.soldProductName} does not exist in the Database!");}
+
                 tempSale.SalesProducts.Add(new SalesProducts
                 {
                     SaleId = tempSale.Id,
-                    ProductId = repo.All<Products>().Where(p => p.Name == entry.soldProductName).FirstOrDefault().Id,
+                    ProductId = product.Id,
                     Quantity = entry.soldProductAmout,
                     AtPrice = entry.AtPrice
                 });
