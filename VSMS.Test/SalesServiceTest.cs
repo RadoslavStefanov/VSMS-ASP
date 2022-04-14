@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 using VSMS.Core.Services;
@@ -25,6 +25,9 @@ namespace VSMS.Test
                 .AddSingleton(sp => dbContext.CreateContext())
                 .AddSingleton<Repository, Repository>()
                 .AddSingleton<SalesService, SalesService>()
+                .AddSingleton<CategoriesService, CategoriesService>()
+                .AddSingleton<ProductsService, ProductsService>()
+                //.AddSingleton<UserManager<IdentityUser>, UserManager<IdentityUser>>()
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<Repository>();
@@ -36,6 +39,88 @@ namespace VSMS.Test
             var service = serviceProvider.GetService<SalesService>();
             Assert.ThrowsAsync<ArgumentException>(async () => await service.RegisterSale("",""));
         }
+
+        [Test]
+        public void RegisterSaleShouldThrowIfAnyProductNameIsInvalid()
+        {
+            var service = serviceProvider.GetService<SalesService>();
+            Assert.ThrowsAsync<ArgumentException>(async () => 
+            await service.RegisterSale("[{\"soldProductName\":\"Unknown\",\"soldProductAmout\":1,\"soldProductTotalPrice\":10.5,\"AtPrice\":10.5}]", ""));
+        }
+
+        [Test]
+        public async Task RegisterSaleShouldThrowIfAnyProductAmountIsInvalid()
+        {
+            var service = serviceProvider.GetService<SalesService>();
+            var pService = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+
+            await categoriesService.Create("Test");
+
+            await pService.Create(new Core.ViewModels.ProductsViewModel
+            {
+                Name = "Пробен",
+                Category = repo.All<Categories>().FirstOrDefault().Name,
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png",
+                Description = "Just a simple tester object",
+                Kilograms = "10",
+                Price = "12.50"
+            });
+            Assert.ThrowsAsync<ArgumentException>(async () =>
+            await service.RegisterSale("[{\"soldProductName\":\"Пробен\",\"soldProductAmout\":0,\"soldProductTotalPrice\":10.5,\"AtPrice\":10.5}]", ""));
+        }
+
+        [Test]
+        public async Task RegisterSaleShouldThrowIfAnyProductAtPriceIsInvalid()
+        {
+            var service = serviceProvider.GetService<SalesService>();
+            var pService = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+
+            await categoriesService.Create("Test");
+
+            await pService.Create(new Core.ViewModels.ProductsViewModel
+            {
+                Name = "Пробен",
+                Category = repo.All<Categories>().FirstOrDefault().Name,
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png",
+                Description = "Just a simple tester object",
+                Kilograms = "10",
+                Price = "12.50"
+            });
+            Assert.ThrowsAsync<ArgumentException>(async () =>
+            await service.RegisterSale("[{\"soldProductName\":\"Пробен\",\"soldProductAmout\":1,\"soldProductTotalPrice\":10.5,\"AtPrice\":-1}]", ""));
+        }
+
+        /*[Test]
+        public async Task RegisterSaleShouldWorkIfAllIsInvalid()
+        {
+            var service = serviceProvider.GetService<SalesService>();
+            var pService = serviceProvider.GetService<ProductsService>();
+            var categoriesService = serviceProvider.GetService<CategoriesService>();
+            var repo = serviceProvider.GetService<Repository>();
+            var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+
+            await categoriesService.Create("Test");
+
+            await pService.Create(new Core.ViewModels.ProductsViewModel
+            {
+                Name = "Пробен",
+                Category = repo.All<Categories>().FirstOrDefault().Name,
+                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/783px-Test-Logo.svg.png",
+                Description = "Just a simple tester object",
+                Kilograms = "10",
+                Price = "12.50"
+            });
+
+            var user = new IdentityUser();
+            await userManager.CreateAsync(user);
+
+            Assert.DoesNotThrowAsync(async () =>
+            await service.RegisterSale("[{\"soldProductName\":\"Пробен\",\"soldProductAmout\":1,\"soldProductTotalPrice\":10.5,\"AtPrice\":10}]", user.Id));
+        }*/
 
 
         [TearDown]

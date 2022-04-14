@@ -25,7 +25,7 @@ namespace VSMS.Core.Services
             catch (Exception)
             { throw new ArgumentException("JSON input is not valid!"); }
             
-
+            
             var tempSale = new Sales
             {
                 DateTime = DateTime.UtcNow.ToString("M/dd/yyyy h:mm:ss") + " UTC",
@@ -38,8 +38,13 @@ namespace VSMS.Core.Services
             foreach (var entry in result)
             {
                 var product = repo.All<Products>().Where(p => p.Name == entry.soldProductName).FirstOrDefault();
+
                 if (product == null)
                 { throw new ArgumentException($"The product: {entry.soldProductName} does not exist in the Database!");}
+                if (entry.soldProductAmout <= 0)
+                { throw new ArgumentException($"Cannot make sale with a quantity of 0 or less!"); }
+                if (entry.AtPrice <0)
+                { throw new ArgumentException($"Cannot make sale with a price less than 0!"); }
 
                 tempSale.SalesProducts.Add(new SalesProducts
                 {

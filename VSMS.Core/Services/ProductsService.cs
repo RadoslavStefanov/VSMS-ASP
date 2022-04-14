@@ -36,7 +36,7 @@ namespace VSMS.Core.Services
                     Kilograms = int.Parse(model.Kilograms),
                     Description = model.Description ?? " ",
                     ImageUrl = model.ImageUrl,
-                    Price = decimal.Parse(model.Price),
+                    Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture),
                     Id = model.Id
                 };
                 await repo.AddAsync(newProduct);
@@ -101,7 +101,7 @@ namespace VSMS.Core.Services
 
                 if (product == null) { throw new ArgumentException($"Product {item.ProductName} does not exist in the Database!");}
 
-                product.Quantity += decimal.Parse(item.AddedAmount);
+                product.Quantity += decimal.Parse(item.AddedAmount, CultureInfo.InvariantCulture);
             }
             await repo.SaveChangesAsync();
 
@@ -129,7 +129,7 @@ namespace VSMS.Core.Services
             { return false; }
 
             if (model.Price == null
-            || decimal.Parse(model.Price)<0)
+            || decimal.Parse(model.Price, CultureInfo.InvariantCulture) < 0)
             { return false; }
 
             return true;
