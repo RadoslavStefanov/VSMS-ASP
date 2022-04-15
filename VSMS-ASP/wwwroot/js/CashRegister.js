@@ -116,7 +116,9 @@ function sendToReceipt(e) {
             value = value + "бр."
             curProducts[i].querySelector(".Amount").innerText = value
 
-            price = parseFloat(price) + parseFloat(parseInt(outputProduct.Amout) * parseFloat(outputProduct.PricePP))
+            let curPricePP = parseFloat(outputProduct.PricePP.split("л")[0].replace(',', '.'))
+
+            price = parseFloat(price) + parseFloat(parseInt(outputProduct.Amout) * curPricePP)
             curProducts[i].querySelector(".Price").innerText = price + "лв"
             combine = true;
         }
