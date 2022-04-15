@@ -1,4 +1,7 @@
 # VSMS-ASP
+
+!TO SOFTUNI OFFICIALS! -> VSMS Is hosted here https://vsms-asp.azurewebsites.net/Identity/Account/Login but due to it being used by the company I cannot provide the user credentials. I will be displaying the workflow at the Discord call!
+
 VSMS(Virtus Store Management Software) is a working web based store management app. Design for the needs Virtus4.LTD. VSMS takes care of product creation and quantity distribution, sales and stock reports.
 Its used by the company in their animal food store.
 
