@@ -1,5 +1,6 @@
-﻿window.onload = (event) => applyFilter();
-window.onload = (event) => TurnLocalTimeZone();
+﻿window.onload = (event) => TurnLocalTimeZone();
+window.onload = (event) => applyFilter();
+
 
 let tableRows = document.querySelector(".table").querySelectorAll("tr");
 let dateInput = document.getElementById("start");
@@ -21,7 +22,8 @@ function showAll() {
     tempTotal = 0;
     for (let i = 1; i < tableRows.length; i++) {
         tableRows[i].style.display = "table-row";
-        tempTotal = parseFloat(tempTotal) + parseFloat(tableRows[i].querySelector(".total").innerText);
+        let input = (tableRows[i].querySelector(".total").innerText.split(" ")[0]).replace(',', '.')
+        tempTotal = tempTotal + parseFloat(input);
     }
     TotalDisplay.innerText = "Оборот: " + tempTotal.toFixed(2) + " лв.";
 }
@@ -34,14 +36,25 @@ function applyFilter() {
     let month = split[1];
     let day = split[2];
 
-    let argument = day + "." + month + "." + year;
 
     for (let i = 1; i < tableRows.length; i++) {
-        let date = tableRows[i].querySelector(".date").innerText.split(" ")[0];
-        if (date != argument) {
+        let date = tableRows[i].querySelector(".utc-date").innerText;
+        console.log(tableRows[i]);
+        date = date.split(" ")[0];
+
+        let dmonth = addLeadingZero(date.split("/")[0]);
+        let dday = date.split("/")[1];
+        let dyear = date.split("/")[2];
+
+        console.log(date);
+        if (dday != day || dmonth != month || dyear != year) {
             tableRows[i].style.display = "none";
             tempTotal = parseFloat(tempTotal) - parseFloat(tableRows[i].querySelector(".total").innerText);
         }
     }
-    TotalDisplay.innerText = "Оборот: " + tempTotal + " лв.";
+    TotalDisplay.innerText = "Оборот: " + tempTotal.toFixed(2) + " лв.";
+}
+
+function addLeadingZero(input) {
+    if (input.length < 2) { return "0" + input }
 }

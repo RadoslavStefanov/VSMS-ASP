@@ -41,6 +41,7 @@
                                 <th>Брой</th>
                                 <th>Ед цена</th>
                                 <th>Обща цена</th>
+                                <ths style="display:none">UTC-Date</ths>
                             </tr>
                             @foreach (var sale in Model)
                             {
@@ -51,6 +52,7 @@
                                     <td>@sale.Quantity .бр</td>
                                     <td>@sale.AtPrice .лв</td>
                                     <td class="total">@sale.TotalPrice .лв</td>
+                                    <td style="display:none" class="utc-date">@sale.DateTime</td>
                                 </tr>
                             }
                         </thead>
