@@ -1,4 +1,5 @@
 ﻿using VSMS.Core.Contracts;
+using VSMS.Core.ViewModels;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
 
@@ -11,8 +12,21 @@ namespace VSMS.Core.Services
         { repo = _repo; }
 
 
-        public async Task<List<Categories>> GetAllCategories()
-        {return repo.All<Categories>().ToList();}
+        public async Task<List<CategoryViewModel>> GetAllCategories()
+        {
+            var categories = repo.All<Categories>().ToList();
+            var list = new List<CategoryViewModel>();
+            foreach (var item in categories)
+            {
+                list.Add(new CategoryViewModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                });
+            }
+            list.Remove(list[0]);
+            return list;
+        }
 
         public async Task Create(string name)
         {

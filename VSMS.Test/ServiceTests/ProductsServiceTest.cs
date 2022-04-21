@@ -28,7 +28,8 @@ namespace VSMS.Test.ServiceTests
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<Repository>();
-            await repo.SaveChangesAsync();
+            await repo.SaveChangesAsync();.
+            //Write the testes for the newly created methods in ProductsService!!
         }
 
         [Test]

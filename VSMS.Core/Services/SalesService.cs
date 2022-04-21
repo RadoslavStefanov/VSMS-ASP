@@ -18,6 +18,7 @@ namespace VSMS.Core.Services
             public decimal soldProductTotalPrice { get; set; }
             public decimal AtPrice { get; set; }
         }
+
         public async Task RegisterSale(string JSONinput, string userId)
         {
             var result = new List<PrimitiveSale>();

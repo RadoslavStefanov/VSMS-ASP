@@ -16,5 +16,9 @@ namespace VSMS.Core.Contracts
         public Task RegisterDelivery(string JSONinput);
 
         public Task UpdateProduct(ProductsViewModel model);
+
+        public Task<List<AllProductsListViewModel>> GetAllAsModelList();
+
+        public Task<ProductsViewModel> GetProductByIdAsModel(int id);
     }
 }

@@ -22,22 +22,9 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin,Employee,Guest")]
         public async Task<IActionResult> ListProducts()
         {
-            dynamic myModel = new ExpandoObject();
             ViewData["View"] = "Products";
             var products = await productsService.GetAllProducts();
-            var list = new List<AllProductsListViewModel>();
-            foreach (var item in products)
-            {
-                list.Add(new AllProductsListViewModel
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                    Category = await productsService.GetCategoryById(item.CategoryId),
-                    ImageUrl = item.ImageUrl,
-                    Description = item.Description,
-                    Kilograms = item.Kilograms
-                });
-            }
+            var list = await productsService.GetAllAsModelList();
             return await Task.Run(() => View(list.OrderBy(x => x.Category)));
         }
 
@@ -72,23 +59,13 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditProduct(int id)
         {
-            var product = (await productsService.GetAllProducts()).Where(p => p.Id == id).FirstOrDefault();
+            var product = await productsService.GetProductByIdAsModel(id);
             if (product == null)
             { return await Task.Run(() => Redirect("/Error/CustomError?errorCode=500")); }
 
-            var model = new ProductsViewModel()
-            {
-                Name = product.Name,
-                Category = (await categoriesService.GetAllCategories()).Where(c => c.Id == product.CategoryId).FirstOrDefault().Name ?? "Unknown",
-                ImageUrl = product.ImageUrl,
-                Description = product.Description,
-                Kilograms = $"{product.Kilograms}",
-                Price = $"{product.Price}",
-                Id = product.Id,
-            };
             ViewBag.Categories = (await categoriesService.GetAllCategories()).ToList();
             ViewBag.KilosList = new List<int>() { 1,2,3,4,5, 10, 15, 20, 25, 30, 35, 40, 45 };
-            return await Task.Run(() => View(model));
+            return await Task.Run(() => View(product));
         }
 
         [HttpPost]
@@ -125,14 +102,10 @@ namespace VSMS_ASP.Controllers
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;
             try
-            {
-                client.Send(message);
-            }
+            {client.Send(message);}
 
-            catch (Exception ex)
-            {
-                return await Task.Run(() => Redirect("/Products/CreateOrder"));
-            }
+            catch (Exception)
+            {return await Task.Run(() => Redirect("/Products/CreateOrder"));}
             return await Task.Run(() => Redirect("/Products/CreateOrder"));
         }
 
@@ -149,37 +122,19 @@ namespace VSMS_ASP.Controllers
         public async Task<IActionResult> Delivery()
         {
             var categoriesList = await categoriesService.GetAllCategories();
-            var productsList = await productsService.GetAllProducts();
-            var model = new List<AllProductsListViewModel>();
-
-            foreach (var p in productsList)
-            {
-                model.Add(new AllProductsListViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Category = categoriesList.Where(c => c.Id == p.CategoryId).FirstOrDefault().Name ?? "Unknown",
-                    ImageUrl = p.ImageUrl,
-                    Description = p.Description,
-                    Kilograms = p.Kilograms,
-                    Price = p.Price,
-                    Quantity = p.Quantity
-                });
-            }
             ViewBag.Categories = categoriesList;
-            return await Task.Run(() => View(model));
+            var result = await productsService.GetAllAsModelList();
+            return await Task.Run(() => View(result));
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delivery(string deliveryJSON)
         {
-            if (deliveryJSON == null)
-            { return await Task.Run(() => Redirect("/Products/Delivery")); }
-            if (deliveryJSON.Length <= 0)
+            if (deliveryJSON == null || deliveryJSON.Length <= 0)
             { return await Task.Run(() => Redirect("/Products/Delivery")); }
 
-            productsService.RegisterDelivery(deliveryJSON);
+            await productsService.RegisterDelivery(deliveryJSON);
             return await Task.Run(() => Redirect("/Products/Delivery"));
         }
     }

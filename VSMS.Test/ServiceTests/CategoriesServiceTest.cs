@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VSMS.Core.Services;
+using VSMS.Core.ViewModels;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
 
@@ -28,8 +29,10 @@ namespace VSMS.Test.ServiceTests
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<Repository>();
+            var seededCategory = new Categories() { Name = "Unknown" };
             var category = new Categories() { Name = "Прасета" };
 
+            await repo.AddAsync(seededCategory);
             await repo.AddAsync(category);
             await repo.SaveChangesAsync();
         }
@@ -62,7 +65,7 @@ namespace VSMS.Test.ServiceTests
             var service = serviceProvider.GetService<CategoriesService>();
             await service.Delete("Прасета");
             var result = await service.GetAllCategories();
-            var expected = new List<Categories>();
+            var expected = new List<CategoryViewModel>();
             Assert.AreEqual(expected, result);
         }
 

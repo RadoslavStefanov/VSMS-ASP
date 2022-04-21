@@ -42,9 +42,11 @@ function applyFilter() {
         console.log(tableRows[i]);
         date = date.split(" ")[0];
 
-        let dmonth = addLeadingZero(date.split("/")[0]);
-        let dday = date.split("/")[1];
-        let dyear = date.split("/")[2];
+        let separator = getSeparator(date);
+
+        let dmonth = addLeadingZero(date.split(separator)[0]);
+        let dday = addLeadingZero(date.split(separator)[1]);
+        let dyear = date.split(separator)[2];
 
         console.log(date);
         if (dday != day || dmonth != month || dyear != year) {
@@ -56,5 +58,14 @@ function applyFilter() {
 }
 
 function addLeadingZero(input) {
-    if (input.length < 2) { return "0" + input }
+    if (input.length < 2) { return ("0" + input) }
+    return input;
+}
+
+function getSeparator(input)
+{
+    for (let i = 1; i < input.length; i++)
+    {
+        if (isNaN(input[i])) { return input[i];}
+    }
 }

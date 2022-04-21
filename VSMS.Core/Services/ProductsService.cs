@@ -10,8 +10,9 @@ namespace VSMS.Core.Services
     public class ProductsService : IProductsService
     {
         private readonly Repository repo;
-        public ProductsService(Repository _repo)
-        { repo = _repo; }
+        private readonly CategoriesService categoriesService;
+        public ProductsService(Repository _repo, CategoriesService _categoriesService)
+        { repo = _repo; categoriesService = _categoriesService; }
 
         private class QuantityAdder
         {
@@ -78,6 +79,49 @@ namespace VSMS.Core.Services
 
         public async Task<List<Products>> GetAllProducts()
         { return repo.All<Products>().ToList(); }
+
+        public async Task<List<AllProductsListViewModel>> GetAllAsModelList()
+        {
+            var categoriesList = await categoriesService.GetAllCategories();
+            var productsList = await GetAllProducts();
+            var model = new List<AllProductsListViewModel>();
+
+            foreach (var p in productsList)
+            {
+                model.Add(new AllProductsListViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Category = categoriesList.Where(c => c.Id == p.CategoryId).FirstOrDefault().Name ?? "Unknown",
+                    ImageUrl = p.ImageUrl,
+                    Description = p.Description,
+                    Kilograms = p.Kilograms,
+                    Price = p.Price,
+                    Quantity = p.Quantity
+                });
+            }
+            return model; 
+        }
+
+        public async Task<ProductsViewModel> GetProductByIdAsModel(int id)
+        {
+            var product = repo.All<Products>().Where(p=>p.Id==id).FirstOrDefault();
+            if (product == null) { return null; }
+
+            var model = new ProductsViewModel()
+            {
+                Name = product.Name,
+                Category = (await categoriesService.GetAllCategories()).Where(c => c.Id == product.CategoryId).FirstOrDefault().Name ?? "Unknown",
+                ImageUrl = product.ImageUrl,
+                Description = product.Description,
+                Kilograms = $"{product.Kilograms}",
+                Price = $"{product.Price}",
+                Id = product.Id,
+            };
+
+            return model;
+        }
+
 
         public async Task<string> GetCategoryById(int id)
         {

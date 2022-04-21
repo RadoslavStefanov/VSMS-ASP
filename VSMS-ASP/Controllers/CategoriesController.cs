@@ -16,18 +16,7 @@ namespace VSMS_ASP.Controllers
         public async Task<IActionResult> ListCategories()
         {
             ViewData["View"] = "Categories";
-            var categories = await categoriesService.GetAllCategories();
-            var list = new List<CategoryViewModel>();
-            foreach (var item in categories)
-            {
-                list.Add(new CategoryViewModel
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                });
-            }
-            list.Remove(list[0]);
-            return View(list);
+            return View(await categoriesService.GetAllCategories());
         }
 
         [Authorize(Roles = "Admin")]
