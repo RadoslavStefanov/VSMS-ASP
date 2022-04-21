@@ -1,6 +1,5 @@
 ﻿window.onload = (event) => TurnLocalTimeZone();
-window.onload = (event) => applyFilter();
-
+setTimeout(() => { applyFilter() }, 500);
 
 let tableRows = document.querySelector(".table").querySelectorAll("tr");
 let dateInput = document.getElementById("start");

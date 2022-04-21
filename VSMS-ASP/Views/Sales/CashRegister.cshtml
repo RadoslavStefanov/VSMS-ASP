@@ -8,6 +8,7 @@
     <article class="products-container">
         <nav class="navbar-Products">
             <a href="#filterModal" class="trigger-btn btn btn-default" data-toggle="modal" style="background-color: #d3d3d3; border-color: #007bff;"><i class="fas fa-filter"></i></a>
+            <a href="#totalModal" class="trigger-btn btn btn-default" data-toggle="modal" style="background-color: #d3d3d3; border-color: #007bff; margin-left:1%;"><i class="fas fa-hand-holding-usd"></i></i></a>
             <p id="title">Продукти</p>
         </nav>
         <div style="display:block;" class="productsLister" id="productsLister">
@@ -22,7 +23,7 @@
                     <div class="card-body">
                         <h3 class="card-title" style="text-align:center;font-weight: bold;">@p.Name</h3>
                         <p class="card-text" style="text-align:left;">@p.Price лв</p>
-                        <a href="#saleModal" class="trigger-btn btn btn-primary saleBtn" data-toggle="modal">Продай</a>
+                        <a href="#saleModal" style="width:80px;"class="trigger-btn btn btn-primary saleBtn" data-toggle="modal"><i class="fas fa-shopping-basket fa-xl"></i></a>
                         <p class="categoryName" style="display:none">@p.Category</p>
                         <p class="Kilograms" style="display:none">@p.Kilograms</p>
                     </div>
@@ -98,13 +99,13 @@
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
-                <button type="button" id="sell" data-dismiss="modal" class="btn btn-success"><a style="color:white;">Продай</a></button>
+                <button type="button" id="sell" data-dismiss="modal" class="btn btn-success"><a style="color:white;">Добави в Сметка</a></button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Clear Sales Ask Modal -->
+<!-- Filter Modal -->
 <div id="filterModal" class="modal fade">
     <div class="modal-dialog modal-confirm">
         <div class="modal-content">
@@ -136,6 +137,24 @@
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
                 <button type="button" id="filterApply" class="btn btn-danger" data-dismiss="modal"><a style="color:white;">Прилагане</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Тотал Modal -->
+<div id="totalModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column" style="text-align: center;align-items: center;">
+                <h4 class="modal-title w-100">Моментен оборот</h4>
+                <h1>@ViewBag.Total лв</h1>
+            </div>
+            <div class="modal-body">
+                <p style="text-align:center;">Тук виждате<br />оборота генериран до момента.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
             </div>
         </div>
     </div>

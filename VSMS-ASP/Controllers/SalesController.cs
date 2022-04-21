@@ -46,6 +46,7 @@ namespace VSMS_ASP.Controllers
                 });
             }
             ViewBag.Categories = categoriesList;
+            ViewBag.Total = salesService.GetTodayIncomeForUser(userManager.GetUserId(User));
             return View(model.OrderByDescending(p => p.Category));
         }
 

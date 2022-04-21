@@ -117,5 +117,25 @@ namespace VSMS.Core.Services
             }
             return result;
         }
+
+        public string GetTodayIncomeForUser(string userId)
+        {
+            var userSales = repo.All<SalesProducts>().Where(s => s.Sale.UserId == userId)
+                .ToList();
+
+            var user = repo.All<IdentityUser>().Where(u => u.Id == userId).FirstOrDefault();
+            if (user == null) { throw new ArgumentException("User not found in Database!"); }
+
+            var total = 0.0m;
+
+            foreach (var item in userSales)
+            {
+                var sale = repo.All<Sales>().Where(s => s.Id == item.SaleId).FirstOrDefault();
+                if (sale.DateTime.Split(".")[1] == $"{DateTime.Today.Day}")
+                { total += sale.Total; }
+            }
+
+            return String.Format("{0:0.00}", total); ;
+        }
     }
 }
