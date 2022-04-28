@@ -45,7 +45,7 @@ namespace VSMS.Core.Services
             }
             catch (Exception)
             { throw new ArgumentException("The provided model is not valid!"); }
-            
+
         }
 
         public async Task<bool> DeleteById(int id)
@@ -100,12 +100,12 @@ namespace VSMS.Core.Services
                     Quantity = p.Quantity
                 });
             }
-            return model; 
+            return model;
         }
 
         public async Task<ProductsViewModel> GetProductByIdAsModel(int id)
         {
-            var product = repo.All<Products>().Where(p=>p.Id==id).FirstOrDefault();
+            var product = repo.All<Products>().Where(p => p.Id == id).FirstOrDefault();
             if (product == null) { return null; }
 
             var model = new ProductsViewModel()
@@ -134,16 +134,16 @@ namespace VSMS.Core.Services
         {
             var result = new List<QuantityAdder>();
             try
-            {result = JsonSerializer.Deserialize<List<QuantityAdder>>(JSONinput);}
+            { result = JsonSerializer.Deserialize<List<QuantityAdder>>(JSONinput); }
             catch (Exception)
             { throw new ArgumentException("Json input was invalid!"); }
 
-            
+
             foreach (var item in result)
             {
                 var product = repo.All<Products>().Where(p => p.Name == item.ProductName).FirstOrDefault();
 
-                if (product == null) { throw new ArgumentException($"Product {item.ProductName} does not exist in the Database!");}
+                if (product == null) { throw new ArgumentException($"Product {item.ProductName} does not exist in the Database!"); }
 
                 product.Quantity += decimal.Parse(item.AddedAmount, CultureInfo.InvariantCulture);
             }
@@ -162,14 +162,14 @@ namespace VSMS.Core.Services
             { return false; }
 
             if (model.Kilograms == null
-            || int.Parse(model.Kilograms)<0)
+            || int.Parse(model.Kilograms) < 0)
             { return false; }
 
             if (model.Description == null)
             { return false; }
 
             if (model.ImageUrl == null
-            || model.ImageUrl.Length>250)
+            || model.ImageUrl.Length > 250)
             { return false; }
 
             if (model.Price == null

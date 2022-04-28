@@ -1,9 +1,6 @@
 ﻿@model IEnumerable<MySalesViewModel>
 
-<style>
-    tr:hover
-    {background-color:#f4f6f9;}
-</style>
+<link rel="stylesheet" href="~/css/SalesList.css">
 
 <section class="content-header">
     <div class="container-fluid">
@@ -20,19 +17,42 @@
         </div>
     </div>
 </section>
+@if (ViewBag.RestrictedView == true)
+{
+    <div style="display: flex; margin-bottom: 10px; justify-content: center;">
+        <input style="align-items: center;height: fit-content;align-self: center;margin-left: 10px;margin-right: 10px;" type="date" id="start" name="trip-start" disabled value="@ViewBag.Date">
+    </div>
+}
+else
+{
+    <div style="display: flex; margin-bottom: 10px; justify-content: center;">
+        <i id="minusDay" class="fas fa-angle-left fa-3x" style="cursor:pointer;"></i>
+        <input style="align-items: center;height: fit-content;align-self: center;margin-left: 10px;margin-right: 10px;" type="date" id="start" name="trip-start" value="@ViewBag.Date">
+        <i id="plusDay" class="fas fa-angle-right fa-3x" style="cursor:pointer;"></i>
+    </div>
+}
 
-<div style="display: flex; margin-bottom: 10px;">
-    <input style="margin:auto;" type="date" id="start" name="trip-start"
-           value="@ViewBag.Date">
+<div id="radioButtons" class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label id="salesSwitch" style="margin-right: 1%; border-radius: 5px;" class="btn btn-secondary active">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Продажби
+    </label>
+    <label id="quantitySwitch" style="margin-left: 1%; border-radius: 5px;" class="btn btn-secondary">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Количества
+    </label>
 </div>
 
 <section class="content">
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body table-responsive p-0">
-                    <p style="margin:5px;" id="TotalDisplay">Оборот: 0 лв.</p>
-                    <table class="table table-hover text-nowrap">
+                <div style="text-align:center;" class="card-body table-responsive p-0">
+                    <form method="post">
+                        <input name="quantityJSON" id="quantityJSON" value="" style="display:none"/>
+                        <button id="sendButton"style="float:left; margin:5px;" type="submit" class="btn btn-info"><i class="far fa-paper-plane"></i> Изпрати</button>
+                    </form>
+                    <p id="TotalDisplay" style="float:right; margin:5px;" class="btn btn-info">Оборот: 0 лв.</p>
+
+                    <table id="salesTable" class="table table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th>Дата</th>
@@ -41,30 +61,48 @@
                                 <th>Брой</th>
                                 <th>Ед цена</th>
                                 <th>Обща цена</th>
-                                <ths style="display:none">UTC-Date</ths>
+                                <th style="display:none">UTC-Date</th>
                             </tr>
+
+                        </thead>
+                        <tbody>
                             @foreach (var sale in Model)
                             {
                                 <tr>
                                     <td class="date">@sale.DateTime</td>
                                     <td>@sale.Seller</td>
-                                    <td>@sale.ProductName</td>
-                                    <td>@sale.Quantity .бр</td>
-                                    <td>@sale.AtPrice .лв</td>
+                                    <td class="productName">@sale.ProductName</td>
+                                    <td class="quantity">@sale.Quantity .бр</td>
+                                    <td class="atPrice">@sale.AtPrice .лв</td>
                                     <td class="total">@sale.TotalPrice .лв</td>
                                     <td style="display:none" class="utc-date">@sale.DateTime</td>
+                                    <td style="display:none" class="kgPP">@sale.kgPerPiece</td>
                                 </tr>
                             }
+                        </tbody>
+                    </table>
+                    <table style="display: none;" id="quantitiesTable" class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Артикул</th>
+                                <th>Брой</th>
+                                <th>Ед кол</th>
+                                <th>Обща цена</th>
+                                <th>Общо кол.</th>
+                                <th style="display:none">UTC-Date</th>
+                            </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
                 </div>
-
             </div>
-
         </div>
     </div>
 </section>
 
-<script src = "~/js/SalesList.js"></script>
+
+<script src="~/js/SalesList.js"></script>
+<script src="~/js/SalesListQuantityView.js"></script>
+<script src="~/js/SalesViewSwitcher.js"></script>

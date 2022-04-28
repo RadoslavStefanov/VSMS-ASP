@@ -8,5 +8,6 @@
         public decimal AtPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public string Seller { get; set; }
+        public int kgPerPiece { get; set; }
     }
 }

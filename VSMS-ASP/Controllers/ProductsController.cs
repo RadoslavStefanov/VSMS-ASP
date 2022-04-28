@@ -64,7 +64,7 @@ namespace VSMS_ASP.Controllers
             { return await Task.Run(() => Redirect("/Error/CustomError?errorCode=500")); }
 
             ViewBag.Categories = (await categoriesService.GetAllCategories()).ToList();
-            ViewBag.KilosList = new List<int>() { 1,2,3,4,5, 10, 15, 20, 25, 30, 35, 40, 45 };
+            ViewBag.KilosList = new List<int>() { 1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45 };
             return await Task.Run(() => View(product));
         }
 
@@ -102,10 +102,10 @@ namespace VSMS_ASP.Controllers
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;
             try
-            {client.Send(message);}
+            { client.Send(message); }
 
             catch (Exception)
-            {return await Task.Run(() => Redirect("/Products/CreateOrder"));}
+            { return await Task.Run(() => Redirect("/Products/CreateOrder")); }
             return await Task.Run(() => Redirect("/Products/CreateOrder"));
         }
 

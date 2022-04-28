@@ -7,8 +7,9 @@ namespace VSMS_ASP.Controllers
     {
         private UserManager<IdentityUser> userManager;
 
-        public HomeController(UserManager<IdentityUser> usermgr)
-        { userManager = usermgr; }
+        public HomeController(ILogger<HomeController> logger,
+               UserManager<IdentityUser> usermgr)
+        {userManager = usermgr;}
 
 
         public async Task<IActionResult> Index()
@@ -35,7 +36,7 @@ namespace VSMS_ASP.Controllers
 
                 return await Task.Run(() => View());
             }
-
+            
             return await Task.Run(() => Redirect("/Identity/Account/Login"));
         }
 

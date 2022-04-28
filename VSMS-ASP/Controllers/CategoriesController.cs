@@ -9,7 +9,7 @@ namespace VSMS_ASP.Controllers
     {
         private readonly CategoriesService categoriesService;
         public CategoriesController(CategoriesService _categoriesService)
-        {categoriesService = _categoriesService;}
+        { categoriesService = _categoriesService; }
 
 
         [Authorize(Roles = "Admin")]
@@ -21,7 +21,7 @@ namespace VSMS_ASP.Controllers
 
         [Authorize(Roles = "Admin")]
         public async Task Create(string arg)
-        { 
+        {
             await categoriesService.Create(arg);
             Response.Redirect("/Categories/ListCategories");
         }

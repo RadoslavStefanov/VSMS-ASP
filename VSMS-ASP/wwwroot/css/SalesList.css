@@ -1,0 +1,33 @@
+﻿tr:hover {
+    background-color: #f4f6f9;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active {
+    background-color: #0e5eaf !important;
+    border-color: #035ead !important;
+}
+
+#radioButtons {
+    text-align: center;
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom: 10px;
+}
+
+#TotalDisplay 
+{
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+#TotalDisplay :hover{
+    background-color: #6c757d;
+    border-color: #6c757d;
+    cursor: default;
+}
+
+#sendButton {
+    background-color: #0e5eaf;
+    border-color: #035ead;
+}

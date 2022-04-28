@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <h3 class="card-title" style="text-align:center;font-weight: bold;">@p.Name</h3>
                         <p class="card-text" style="text-align:left;">@p.Price лв</p>
-                        <a href="#saleModal" style="width:80px;"class="trigger-btn btn btn-primary saleBtn" data-toggle="modal"><i class="fas fa-shopping-basket fa-xl"></i></a>
+                        <a style="width:80px;"class="trigger-btn btn btn-primary saleBtn"><i class="fas fa-shopping-basket fa-xl"></i></a>
                         <p class="categoryName" style="display:none">@p.Category</p>
                         <p class="Kilograms" style="display:none">@p.Kilograms</p>
                     </div>
@@ -161,3 +161,15 @@
 </div>
 
 <script src="~/js/CashRegister.js"></script>
+<script src="~/adminLTE/plugins/jquery/jquery.min.js"></script>
+<script src="~/adminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    $( ".saleBtn" ).each(function(index) 
+    {
+        $(this).on("click", function(е)
+        {
+            if(loadProduct2Modal(е) == true)
+            {$('#saleModal').modal('show');}
+        });
+    });
+</script>

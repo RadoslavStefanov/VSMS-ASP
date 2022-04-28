@@ -11,17 +11,20 @@ namespace VSMS_ASP.Controllers
         private readonly ProductsService productsService;
         private readonly CategoriesService categoriesService;
         private readonly SalesService salesService;
+        private readonly MailService mailService;
         private UserManager<IdentityUser> userManager;
 
         public SalesController(ProductsService _productsService,
                CategoriesService _categoriesService,
                SalesService _salesService,
+               MailService _mailService,
                UserManager<IdentityUser> usermgr)
         {
             productsService = _productsService;
             categoriesService = _categoriesService;
             salesService = _salesService;
             userManager = usermgr;
+            mailService = _mailService;
         }
 
 
@@ -71,10 +74,18 @@ namespace VSMS_ASP.Controllers
             var mySales = (await salesService.GetUserSales(userId, User.Identity.Name)).OrderBy(p => p.DateTime);
             ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
 
+            ViewBag.RestrictedView = true;
             ViewBag.Total = 0;
             foreach (var item in mySales)
             { ViewBag.Total += item.TotalPrice; }
             return View(mySales);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MySales(string quantityJSON)
+        {
+            mailService.SendSalesReport(quantityJSON);
+            return Redirect("/Sales/MySales");
         }
 
         [Authorize(Roles = "Admin")]
@@ -87,8 +98,16 @@ namespace VSMS_ASP.Controllers
                 var user = await userManager.FindByIdAsync(curUserId);
                 item.Seller = user.Email;
             }
+            ViewBag.RestrictedView = false;
             ViewBag.Date = $"{DateTime.Now.ToString("yyyy-MM-dd")}";
             return View("MySales", sales);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AllSales(string quantityJSON)
+        {
+            mailService.SendSalesReport(quantityJSON);
+            return Redirect("/Sales/AllSales");
         }
     }
 }

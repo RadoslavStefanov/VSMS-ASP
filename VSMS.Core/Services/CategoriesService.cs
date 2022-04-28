@@ -34,7 +34,7 @@ namespace VSMS.Core.Services
 
             try { catg = new Categories { Name = name }; await repo.AddAsync(catg); }
             catch (Exception) { throw new ArgumentException("The category has not been created"); }
-            
+
             await repo.SaveChangesAsync();
         }
 
@@ -42,7 +42,7 @@ namespace VSMS.Core.Services
         {
             Categories? catg = null;
 
-            try 
+            try
             {
                 catg = repo.All<Categories>().Where(c => c.Name == name).FirstOrDefault();
                 if (catg == null) { throw new Exception(); }
@@ -51,7 +51,7 @@ namespace VSMS.Core.Services
             }
             catch (Exception) { throw new ArgumentException("The category has not been deleted"); }
 
-           
+
         }
     }
 }

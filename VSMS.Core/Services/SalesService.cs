@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using VSMS.Core.ViewModels;
+using VSMS.Infrastructure.Data;
 using VSMS.Infrastructure.Data.Common;
 using VSMS.Infrastructure.Data.Models;
 
@@ -8,9 +10,13 @@ namespace VSMS.Core.Services
 {
     public class SalesService
     {
+
+        private readonly DbContext context;
+
         private readonly Repository repo;
-        public SalesService(Repository _repo)
-        { repo = _repo; }
+        public SalesService(Repository _repo, VSMSDbContext _context)
+        { repo = _repo; context = _context; }
+
         private class PrimitiveSale
         {
             public string? soldProductName { get; set; }
@@ -26,8 +32,8 @@ namespace VSMS.Core.Services
             { result = JsonSerializer.Deserialize<List<PrimitiveSale>>(JSONinput); }
             catch (Exception)
             { throw new ArgumentException("JSON input is not valid!"); }
-            
-            
+
+
             var tempSale = new Sales
             {
                 DateTime = DateTime.UtcNow.ToString("M/dd/yyyy h:mm:ss") + " UTC",
@@ -42,10 +48,10 @@ namespace VSMS.Core.Services
                 var product = repo.All<Products>().Where(p => p.Name == entry.soldProductName).FirstOrDefault();
 
                 if (product == null)
-                { throw new ArgumentException($"The product: {entry.soldProductName} does not exist in the Database!");}
+                { throw new ArgumentException($"The product: {entry.soldProductName} does not exist in the Database!"); }
                 if (entry.soldProductAmout <= 0)
                 { throw new ArgumentException($"Cannot make sale with a quantity of 0 or less!"); }
-                if (entry.AtPrice <0)
+                if (entry.AtPrice < 0)
                 { throw new ArgumentException($"Cannot make sale with a price less than 0!"); }
 
                 tempSale.SalesProducts.Add(new SalesProducts
@@ -71,11 +77,13 @@ namespace VSMS.Core.Services
 
         public async Task<List<MySalesViewModel>> GetUserSales(string userId, string userName)
         {
-            var userSales = repo.All<SalesProducts>().Where(s => s.Sale.UserId == userId)
-                .ToList();
-
             var user = repo.All<IdentityUser>().Where(u => u.Id == userId).FirstOrDefault();
             if (user == null) { throw new ArgumentException("User not found in Database!"); }
+
+            var utcToday = changeSeparator(DateTime.UtcNow.ToString("M/dd/yyyy"));
+            var query = @$"Select * FROM SalesProducts LEFT JOIN Sales AS s ON SalesProducts.SaleId = s.Id Where SUBSTRING(s.DateTime,1,CHARINDEX(' ',s.DateTime)) = '{utcToday}' AND s.UserId = '{user.Id}'";
+            var userSales = context.Set<SalesProducts>().FromSqlRaw(query).ToList();
+
 
             var result = new List<MySalesViewModel>();
             foreach (var item in userSales)
@@ -89,7 +97,8 @@ namespace VSMS.Core.Services
                     Quantity = (int)item.Quantity,
                     AtPrice = item.AtPrice,
                     TotalPrice = decimal.Round((item.Quantity * item.AtPrice), 2, MidpointRounding.AwayFromZero),
-                    Seller = userName
+                    Seller = userName,
+                    kgPerPiece = product.Kilograms
                 });
             }
             return result;
@@ -112,7 +121,8 @@ namespace VSMS.Core.Services
                     Quantity = (int)item.Quantity,
                     AtPrice = item.AtPrice,
                     TotalPrice = decimal.Round((item.Quantity * product.Price), 2, MidpointRounding.AwayFromZero),
-                    Seller = sale.UserId
+                    Seller = sale.UserId,
+                    kgPerPiece = product.Kilograms
                 });
             }
             return result;
@@ -120,22 +130,49 @@ namespace VSMS.Core.Services
 
         public string GetTodayIncomeForUser(string userId)
         {
-            var userSales = repo.All<SalesProducts>().Where(s => s.Sale.UserId == userId)
-                .ToList();
-
             var user = repo.All<IdentityUser>().Where(u => u.Id == userId).FirstOrDefault();
             if (user == null) { throw new ArgumentException("User not found in Database!"); }
+
+            var utcToday = changeSeparator(DateTime.UtcNow.ToString("M/dd/yyyy"));
+
+            var userSales = repo.All<Sales>()
+                .Where(s => s.UserId == user.Id)
+                .ToList()
+                .Where(s => s.DateTime.Substring(0, s.DateTime.IndexOf(" ")) == utcToday)
+                .ToList();
 
             var total = 0.0m;
 
             foreach (var item in userSales)
-            {
-                var sale = repo.All<Sales>().Where(s => s.Id == item.SaleId).FirstOrDefault();
-                if (sale.DateTime.Split(".")[1] == $"{DateTime.Today.Day}")
-                { total += sale.Total; }
-            }
+            {total += item.Total;}
 
             return String.Format("{0:0.00}", total); ;
+        }
+
+        private char getSeparator(string input)
+        {
+            var result = 'n';
+
+            foreach (var entry in input.ToCharArray())
+            {
+                if(!Char.IsDigit(entry))
+                { return entry; }
+            }
+
+            return result;
+        }
+
+
+        private string changeSeparator(string input)
+        {
+            var separator = getSeparator(input);
+            if (separator != '/')
+            {
+                var result = input.Split(separator);
+                return $"{result[0]}/{result[1]}/{result[2]}";
+            }
+            
+            return input;
         }
     }
 }

@@ -1,12 +1,16 @@
 ﻿window.onload = (event) => TurnLocalTimeZone();
 setTimeout(() => { applyFilter() }, 500);
 
-let tableRows = document.querySelector(".table").querySelectorAll("tr");
+let tableRows = document.querySelector("#salesTable").querySelectorAll("tr");
 let dateInput = document.getElementById("start");
 let TotalDisplay = document.getElementById("TotalDisplay");
+let addDayBTN = document.getElementById("plusDay");
+let removeDayBTN = document.getElementById("minusDay");
 let tempTotal = 0;
 
 dateInput.addEventListener("change", applyFilter);
+if (addDayBTN != undefined) { addDayBTN.addEventListener("click", addDayToDate); }
+if (removeDayBTN != undefined) { removeDayBTN.addEventListener("click", removeDayFromDate); }
 
 function TurnLocalTimeZone() {
     for (let i = 1; i < tableRows.length; i++) {
@@ -38,7 +42,6 @@ function applyFilter() {
 
     for (let i = 1; i < tableRows.length; i++) {
         let date = tableRows[i].querySelector(".utc-date").innerText;
-        console.log(tableRows[i]);
         date = date.split(" ")[0];
 
         let separator = getSeparator(date);
@@ -47,13 +50,13 @@ function applyFilter() {
         let dday = addLeadingZero(date.split(separator)[1]);
         let dyear = date.split(separator)[2];
 
-        console.log(date);
         if (dday != day || dmonth != month || dyear != year) {
             tableRows[i].style.display = "none";
             tempTotal = parseFloat(tempTotal) - parseFloat(tableRows[i].querySelector(".total").innerText);
         }
     }
     TotalDisplay.innerText = "Оборот: " + tempTotal.toFixed(2) + " лв.";
+    populateQuantities();
 }
 
 function addLeadingZero(input) {
@@ -61,10 +64,34 @@ function addLeadingZero(input) {
     return input;
 }
 
-function getSeparator(input)
-{
-    for (let i = 1; i < input.length; i++)
-    {
-        if (isNaN(input[i])) { return input[i];}
+function getSeparator(input) {
+    for (let i = 1; i < input.length; i++) {
+        if (isNaN(input[i])) { return input[i]; }
     }
 }
+
+function addDayToDate()
+{
+    let split = dateInput.value.split("-");
+    let day = String(parseInt(split[2])+1);
+    applyDateChange(day, split);
+}
+
+function removeDayFromDate()
+{
+    let split = dateInput.value.split("-");
+    let day = String(parseInt(split[2]) - 1);
+    applyDateChange(day,split);
+}
+
+function applyDateChange(day,split)
+{
+    if (day != "0")
+    {
+        let tempVal = dateInput.value;
+        dateInput.value = split[0] + "-" + split[1] + "-" + addLeadingZero(day);
+        if (dateInput.value == "") { dateInput.value = tempVal; }
+        else { applyFilter(); }
+    }
+}
+

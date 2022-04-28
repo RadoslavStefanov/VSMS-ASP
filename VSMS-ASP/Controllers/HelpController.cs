@@ -11,9 +11,7 @@ namespace VSMS_ASP.Controllers
         public HelpController(UserManager<IdentityUser> usermgr, HelpService _helpService)
         { userManager = usermgr; helpService = _helpService; }
         public IActionResult ForgottenLogin()
-        {
-            return View();
-        }
+        {return View();}
 
         [HttpPost]
         public async Task<IActionResult> ForgottenLogin(string userName)

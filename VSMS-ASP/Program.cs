@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connection = "Server =.; Database = VSMS; Trusted_Connection = True; Integrated Security = True;";
+var connection = "";
 var connectionString = builder.Configuration.GetConnectionString(connection);
 builder.Services.AddDbContext<VSMS_ASPContext>(options =>
-    options.UseSqlServer(connection));builder.Services.AddDbContext<VSMSDbContext>(options =>
-    options.UseSqlServer(connection));
+    options.UseSqlServer(connection)); builder.Services.AddDbContext<VSMSDbContext>(options =>
+     options.UseSqlServer(connection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -26,13 +26,15 @@ builder.Services.AddTransient<ProductsService>();
 builder.Services.AddTransient<CategoriesService>();
 builder.Services.AddTransient<SalesService>();
 builder.Services.AddTransient<HelpService>();
+builder.Services.AddTransient<MailService>();
+builder.Services.AddTransient<ResetRequestsService>();
 builder.Services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{ app.UseMigrationsEndPoint();}
+{ app.UseMigrationsEndPoint(); }
 else
 {
     app.UseExceptionHandler("/Home/Error");
