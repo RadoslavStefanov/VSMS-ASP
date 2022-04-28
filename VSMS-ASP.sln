@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSMS.Core", "VSMS.Core\VSMS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSMS.Infrastructure", "VSMS.Infrastructure\VSMS.Infrastructure.csproj", "{5CD31E52-0077-4BF1-AD7C-278F5DCAAC60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSMS.Test", "VSMS.Test\VSMS.Test.csproj", "{743F9BB6-6E3B-49B4-813A-D81D521AE853}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSMS.Test", "VSMS.Test\VSMS.Test.csproj", "{743F9BB6-6E3B-49B4-813A-D81D521AE853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSMS.API", "VSMS.API\VSMS.API.csproj", "{40CAB60C-72DC-4A9D-AA01-756C867F33F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{743F9BB6-6E3B-49B4-813A-D81D521AE853}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{743F9BB6-6E3B-49B4-813A-D81D521AE853}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{743F9BB6-6E3B-49B4-813A-D81D521AE853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40CAB60C-72DC-4A9D-AA01-756C867F33F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40CAB60C-72DC-4A9D-AA01-756C867F33F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40CAB60C-72DC-4A9D-AA01-756C867F33F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40CAB60C-72DC-4A9D-AA01-756C867F33F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
