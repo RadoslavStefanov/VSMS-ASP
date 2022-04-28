@@ -4,15 +4,25 @@ VSMS(Virtus Store Management Software) is a working web based store management a
 This project is in operation by "Virtus 4" in their animal food store. 
 
 Used materials:
+
 Main templating: AdminLTE
+
 Front-End Library: BootStrap
+
 Icons: FontAwesome
 
+
+
 Tech:
+
 User management: ASP Identity
+
 Database: MSSQL
+
 Deployment: Azure
+
 Entity Framework: EF Core
+
 .NET version: 6.0
 
 
