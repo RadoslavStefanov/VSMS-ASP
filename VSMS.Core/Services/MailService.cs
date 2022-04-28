@@ -10,11 +10,9 @@ namespace VSMS.Core.Services
         public bool SendSalesReport(string JSON)
         {
             MailMessage message = new MailMessage();
-            message.To.Add("danielastefanova81@abv.bg");
-            message.To.Add("gri6ka@abv.bg");
-            message.To.Add("radoslav.g.stefanov@gmail.com");
+            message.To.Add("");
 
-            message.From= new MailAddress("vsms.alerts @gmail.com");
+            message.From= new MailAddress("");
 
             var textResult = JSONSerializeToText(JSON.Split("*_*")[0]);
             var mailbody = new StringBuilder();
@@ -28,7 +26,7 @@ namespace VSMS.Core.Services
             message.IsBodyHtml = false;
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
             System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("vsms.alerts@gmail.com", "Rado-2505");
+            System.Net.NetworkCredential("", "");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;

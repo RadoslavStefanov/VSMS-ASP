@@ -86,26 +86,7 @@ namespace VSMS_ASP.Controllers
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CreateOrder(string? whatever)
         {
-            string to = "*"; //To address    
-            string from = "*"; //From address    
-            MailMessage message = new MailMessage(from, to);
-
-            string mailbody = "Здравейте това е автоматизирано съобщение от Virtus-4 (VSMS). Тук ще бъдат получавани и изпращани бъдещи заявки.\n Приятен ден!";
-            message.Subject = "Пробна връзка от VSMS";
-            message.Body = mailbody;
-            message.BodyEncoding = Encoding.UTF8;
-            message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
-            System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("*", "*");
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.Credentials = basicCredential1;
-            try
-            { client.Send(message); }
-
-            catch (Exception)
-            { return await Task.Run(() => Redirect("/Products/CreateOrder")); }
+            //Does nothing for now
             return await Task.Run(() => Redirect("/Products/CreateOrder"));
         }
 
