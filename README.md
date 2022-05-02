@@ -28,7 +28,7 @@ This project is in operation by "Virtus 4" in their animal food store.
 * [Visual Studio 2022](https://github.com/github/VisualStudio)
 * [Entity Framework Core 6.0](https://github.com/dotnet/efcore)
 * [Sql Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-* [Bootstrap](https://github.com/twbs/bootstrap)
+* [BootStrap](https://github.com/twbs/bootstrap)
 * [Font Awesome](https://fontawesome.com/)
 * [AdminLTE](https://adminlte.io/)
 <br/><br/>
